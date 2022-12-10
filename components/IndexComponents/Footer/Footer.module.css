@@ -1,0 +1,16 @@
+.container {
+  width: 100%;
+  min-height: 21.5625rem;
+  background: var(--white);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.container > div,
+.container > div > ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+}

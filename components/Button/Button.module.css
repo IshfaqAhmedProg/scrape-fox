@@ -1,0 +1,199 @@
+.buttonContainer {
+  font-family: "Montserrat";
+  font-style: normal;
+  line-height: 113.7%;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  flex-wrap: nowrap;
+}
+
+/* Disabled Button styles */
+.buttonContainer:disabled,
+.buttonContainer[disabled] {
+  pointer-events: none;
+  color: var(--gray--dark);
+  background-color: var(--light--gray);
+}
+
+/* Plain button styles */
+.plain {
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1em;
+  background: var(--white);
+  color: var(--primary);
+  transition: all 300ms ease;
+  box-shadow: 0px 0.0625rem 0.25rem rgba(0, 0, 0, 0.25);
+  border-radius: 0.625rem;
+  width: fit-content;
+}
+.plain:hover {
+  background: var(--light--gray);
+  scale: 0.99;
+  box-shadow: 0px 0rem 0rem rgba(0, 0, 0, 0.25);
+}
+
+/* Primary button styles */
+.primary {
+  --text: var(--white);
+  --hover-text: var(--accentdark);
+  --active-text: var(--white);
+  --bg-color-before: var(--accent);
+  --bg-color-after: var(--accentlight);
+  --hover-bg-before: var(--accentdark);
+  --active-bg-before: var(--accentdark);
+  position: relative;
+  padding: 0.875rem;
+  background: none;
+  border: none;
+  border-radius: 0.625rem;
+  font-size: var(--h3);
+  font-weight: 700;
+  color: var(--text);
+  transition: all 0.2s ease-in-out;
+  overflow: hidden;
+  width: fit-content;
+}
+.primary:hover {
+  transform: scale(1.05) translate(-0.1rem, -0.1rem);
+  color: var(--hover-text);
+}
+.primary:active {
+  transform: scale(0.95, 0.95);
+  color: var(--active-text);
+}
+.primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  transition: background-color 0.3s ease-out;
+  border-radius: 0.625rem;
+  background-color: var(--bg-color-before);
+}
+.primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 0.63rem;
+  z-index: -1;
+  translate: -100% 0;
+  scale: 0.99 0.95;
+  transform-origin: top left;
+  transition: translate 0.3s ease;
+  background-color: var(--bg-color-after);
+}
+.primary:hover::before {
+  background-color: var(--hover-bg-before);
+}
+.primary:hover::after {
+  translate: 0;
+}
+.primary:active::before {
+  background-color: var(--active-bg-before);
+}
+
+/* Secondary button styles */
+.secondary {
+  padding: 1rem;
+  border-radius: 300px;
+  border: 1px solid#5bfc4d;
+  font-weight: 400;
+  font-size: 16px;
+  background: var(--primary--dark);
+  line-height: 113.7%;
+  color: var(--white);
+  transition: all 0.3s ease-in-out;
+}
+.secondary:hover,
+.secondary:focus {
+  scale: 0.9;
+  color: var(--primary);
+  border-color: var(--white);
+  background: var(--accent);
+}
+
+/* arrow styles */
+.arrow {
+  background: none;
+  border: none;
+  padding: 0;
+  width: 100%;
+  max-width: 25px;
+}
+.arrow > svg {
+  width: 98%;
+  transition: filter 0.3s ease-in-out;
+}
+.arrow:hover > svg {
+  scale: 0.95;
+  filter: brightness(150%);
+}
+.arrow:active > svg {
+  scale: 0.8;
+  filter: brightness(80%);
+}
+.rightarrow {
+  rotate: 180deg;
+}
+
+/* large button styles */
+.large {
+  padding: 1rem 2rem;
+  font-size: var(--h2);
+  font-weight: 700;
+  color: var(--accent);
+  border: none;
+  background: var(--primary);
+  border-radius: 10px;
+  position: relative;
+  isolation: isolate;
+  transition: all 0.3s ease-in-out;
+}
+.large::before {
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  top: 120%;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background: var(--accent);
+  transform: perspective(5em) rotateX(65deg) scale(1, 0.8);
+  filter: blur(1em);
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0;
+}
+.large::after {
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  bottom: 140%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--accent);
+  transform: perspective(8em) rotateX(-65deg) translateZ(1em) scale(1, 0.8);
+  filter: blur(1.5em);
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0;
+}
+.large:hover,
+.large:active {
+  background: var(--accent);
+  scale: 1.05;
+  color: var(--white);
+  text-shadow: 0px 0px 3px #ffffff, 0px 0px 13px #ffffff55;
+  box-shadow: 0px 0px 3px var(--accent), 0px 0px 30px #5cfc4e55;
+}
+.large:hover.large::after,
+.large:active.large::after {
+  opacity: 0.8;
+}
+.large:hover.large::before,
+.large:active.large::before {
+  opacity: 0.8;
+}

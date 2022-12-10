@@ -1,0 +1,91 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  --gradient:var(--accent);
+  font-weight: 700;
+}
+/* Text Color */
+.light {
+  color: var(--accent);
+  --gradient:var(--accent);
+}
+.dark {
+    --gradient:var(--white);
+  color: var(--white);
+}
+.gray {
+  --gradient:var(--gray);
+color: var(--gray);
+}
+/* Direction of divider */
+.horizontal {
+  width: 100%;
+  height: min-content;
+  flex-direction: row;
+}
+.vertical {
+  height: 100%;
+  flex-direction: column;
+}
+.container>p{
+  text-align: center;
+  width: 100%;
+}
+/* Color for dual divider */
+.container.horizontal > .divider {
+  height: 2px;
+  background: linear-gradient(
+    270deg,
+    rgba(255, 255, 255, 0) 0%,
+    var(--gradient) 14.06%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  width: 100%;
+  margin-inline: 0.5rem;
+}
+.container.horizontal > .divider:nth-child(2) {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    var(--gradient) 14.06%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+.container.vertical > .divider {
+  width: 3px;
+  background: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0) 0%,
+    var(--gradient) 14.06%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  margin-block: 1rem;
+  min-height: 50px;
+}
+.container.vertical > .divider:nth-child(2) {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    var(--gradient) 14.06%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+/* Color for single divider */
+.container.horizontal > .single.divider {
+  background: linear-gradient(
+    90deg,
+    rgba(92, 252, 78, 0) 6.6%,
+    var(--gradient) 52.5%,
+    rgba(92, 252, 78, 0) 98.2%
+  );
+}
+.container.vertical > .single.divider{
+    background: linear-gradient(
+        0deg,
+        rgba(92, 252, 78, 0) 6.6%,
+        var(--gradient) 52.5%,
+        rgba(92, 252, 78, 0) 98.2%
+      );
+}

@@ -1,0 +1,22 @@
+.loaderwrapper {
+  display: flex;
+  justify-content: center;
+  max-width: 130px;
+  max-height: 130px;
+}
+.loader path:nth-child(2) {
+  stroke-dasharray: 170;
+  stroke-dashoffset: 170;
+  animation: rotate 1s ease-in-out infinite;
+  transform: rotate(45deg);
+  transform-origin: center;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
