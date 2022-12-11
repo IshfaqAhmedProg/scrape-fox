@@ -35,7 +35,7 @@ const FAQ = () => {
       activeanswer.scrollIntoView({ behavior: "smooth", block: "center" });
   });
   return (
-    <div className={styles.container}>
+    <section id="FAQ" className={styles.container}>
       <div className={styles.title}>
         <h1 data-color="white">Frequently Asked</h1>
         <h1 data-color="white">
@@ -78,7 +78,7 @@ const FAQ = () => {
           );
         })}
       </div>
-    </div>
+    </section>
   );
 };
 

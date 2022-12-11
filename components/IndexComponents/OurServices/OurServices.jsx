@@ -37,7 +37,7 @@ const OurServices = () => {
     },
   ];
   return (
-    <div className={styles.container}>
+    <section id="Services" className={styles.container}>
       <div className={styles.title}>
         <h1>
           Our
@@ -56,7 +56,7 @@ const OurServices = () => {
           );
         })}
       </div>
-    </div>
+    </section>
   );
 };
 

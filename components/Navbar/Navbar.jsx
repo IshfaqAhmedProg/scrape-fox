@@ -36,14 +36,14 @@ export default function Navbar() {
 
       <ul className={toggled ? styles.menu + " " + styles.open : styles.menu}>
         <li className={styles.menuItem} onClick={() => setToggled(!toggled)}>
-          <Link href="/interface/services">Services</Link>
+          <Link href="#Services">Services</Link>
         </li>
 
         <li className={styles.menuItem} onClick={() => setToggled(!toggled)}>
-          <Link href="/">Contact Us</Link>
+          <Link href="#ContactUs">Contact Us</Link>
         </li>
         <li className={styles.menuItem} onClick={() => setToggled(!toggled)}>
-          <Link href="/interface/FAQ">FAQ</Link>
+          <Link href="#FAQ">FAQ</Link>
         </li>
         {user && router.pathname != "/dashboard" ? (
           <li className={styles.menuItem} onClick={() => setToggled(!toggled)}>

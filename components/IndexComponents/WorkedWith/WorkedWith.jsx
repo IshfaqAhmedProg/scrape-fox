@@ -2,10 +2,10 @@ import Image from "next/image";
 import React, { useState } from "react";
 import styles from "./WorkedWith.module.css";
 import Person from "./Person";
-import GoogleLogo from "../../../public/Logos/GoogleLogo.svg";
-import FigmaLogo from "../../../public/Logos/FigmaLogo.svg";
-import MicrosoftLogo from "../../../public/Logos/MicrosoftLogo.svg";
-import SlackLogo from "../../../public/Logos/SlackLogo.svg";
+import GoogleLogo from "../../../public/Logos/Companies/GoogleLogo.svg";
+import FigmaLogo from "../../../public/Logos/Companies/FigmaLogo.svg";
+import MicrosoftLogo from "../../../public/Logos/Companies/MicrosoftLogo.svg";
+import SlackLogo from "../../../public/Logos/Companies/SlackLogo.svg";
 const WorkedWith = () => {
   const [activePerson, setActivePerson] = useState(1);
   //TODO Bring Company logos and People from firebase

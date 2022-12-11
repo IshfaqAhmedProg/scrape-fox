@@ -13,4 +13,14 @@
   justify-content: center;
   align-items: center;
   list-style: none;
+  gap: 1.5rem;
+}
+.container h2{
+  color: var(--primary);
+}
+.contact{
+  text-align: center;
+}.socials{
+  display: flex;
+  gap: 0.8em;
 }

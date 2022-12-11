@@ -3,7 +3,7 @@ import Button from "../../Button/Button";
 import styles from "./SendMessage.module.css";
 export const SendMessage = () => {
   return (
-    <div className={styles.container}>
+    <section id="ContactUs" className={styles.container}>
       <div className={styles.title}>
         <h1 data-color="white">Get in</h1>
         <h1 data-color="white">
@@ -33,10 +33,12 @@ export const SendMessage = () => {
             />
           </fieldset>
           <fieldset>
-            <Button variant="primary" alternate>Send</Button>
+            <Button variant="primary" alternate>
+              Send
+            </Button>
           </fieldset>
         </form>
       </div>
-    </div>
+    </section>
   );
 };
