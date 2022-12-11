@@ -17,7 +17,7 @@ export default function Home() {
           name="description"
           content="ScrapeFox is a Web Scraping website and Credential Validator"
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="/ScrapeFoxFavicon.ico" />
       </Head>
 
       <main className={styles.main}>

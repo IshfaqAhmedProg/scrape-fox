@@ -24,7 +24,7 @@ const Hero = () => {
             or
             <span> Email ID</span>? Then visit:
           </p>
-          <Button variant="plain">
+          <Button variant="plain" >
             <Image
               src={VerifyFoxLogo}
               alt="Visit VerifyFox"

@@ -8,6 +8,8 @@
   --primarylight: rgba(200, 128, 255, 1);
   --primarylighter: rgb(224, 184, 255);
   --white: rgba(255, 255, 255, 1);
+  --graylight: rgba(220, 220, 220, 1);
+  --graydark: rgba(180, 180, 180, 1);
 
   /* Text-size styles */
   /* base size: p (16px) */
@@ -20,6 +22,7 @@
   /* Utitlity variables */
   --border-radius-small: 0.75em;
   --border-radius: 0.75em;
+  --border-radius-large: 1.0875em;
 }
 html,
 body {
@@ -31,6 +34,7 @@ body {
 }
 * {
   box-sizing: border-box;
+  scrollbar-width: thin;
 }
 a {
   cursor: pointer;
@@ -88,6 +92,29 @@ div[data-shadow="outer"] {
 div[data-shadow="inner"] {
   box-shadow: inset 0px 0px 20px -5px rgba(34, 22, 43, 0.25);
 }
+/* Scroll Bar Styles(not mozilla) */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(255, 255, 255, 0.3);
+}
+
 /* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

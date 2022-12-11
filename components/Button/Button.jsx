@@ -4,7 +4,7 @@ export default function Button({ children, variant, alternate, ...others }) {
   const altPrimary = useRef();
   const variantBlue = [
     ["--text", "var(--white)"],
-    ["--hover-text", "var(--white)"],
+    ["--hover-text", "var(--primary)"],
     ["--active-text", "var(--primary)"],
     ["--bg-color-before", "var(--primary)"],
     ["--bg-color-after", "var(--primarylighter)"],

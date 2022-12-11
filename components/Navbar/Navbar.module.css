@@ -18,7 +18,7 @@
   position: absolute;
   inset: 0;
   background-color: var(--white);
-  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  border-radius: 0 0 var(--border-radius-large) var(--border-radius-large);
 }
 .logo {
   width: 250px;
