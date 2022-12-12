@@ -3,12 +3,12 @@
   --accentdark: rgba(0, 43, 172, 1);
   --accent: rgba(28, 85, 255, 1);
   --accentlight: rgba(87, 129, 255, 1);
-  --primarydark: rgba(62, 37, 80, 1);
+  --primarydark: rgb(84, 34, 120);
   --primary: rgba(157, 26, 255, 1);
   --primarylight: rgba(200, 128, 255, 1);
   --primarylighter: rgb(224, 184, 255);
   --white: rgba(255, 255, 255, 1);
-  --graylight: rgba(220, 220, 220, 1);
+  --graylight: rgb(233, 233, 233);
   --graydark: rgba(180, 180, 180, 1);
 
   /* Text-size styles */
@@ -30,7 +30,6 @@ body {
   margin: 0;
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  background: linear-gradient(180deg, #9d19ff 0%, #7d9eff 100%);
 }
 * {
   box-sizing: border-box;
@@ -114,7 +113,32 @@ div[data-shadow="inner"] {
 ::-webkit-scrollbar-thumb:window-inactive {
   background: rgba(255, 255, 255, 0.3);
 }
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+}
 
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+}
+fieldset input[type="text"],
+fieldset input[type="email"],
+fieldset input[type="password"],
+fieldset textarea {
+  box-shadow: inset 0px 0px 20px -5px rgba(34, 22, 43, 0.25);
+  min-height: 2.75rem;
+  border: none;
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: flex-start;
+  padding: 1rem;
+  font-family: "Montserrat";
+  font-size: var(--p);
+}
 /* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

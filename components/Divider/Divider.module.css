@@ -2,13 +2,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  --gradient:var(--accent);
+  --gradient:var(--accentlight);
   font-weight: 700;
 }
 /* Text Color */
 .light {
   color: var(--accent);
-  --gradient:var(--accent);
+  --gradient:var(--accentlight);
 }
 .dark {
     --gradient:var(--white);

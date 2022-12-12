@@ -93,7 +93,7 @@
     content: "";
     background: linear-gradient(
       to left,
-      var(--accent) 0%,
+      var(--accentlight) 0%,
       var(--primarylight) 100%
     );
     position: absolute;

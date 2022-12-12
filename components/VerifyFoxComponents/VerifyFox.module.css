@@ -1,0 +1,37 @@
+
+.element {
+  width: 80%;
+  min-height: 10.1875rem;
+  border-radius: var(--border-radius);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1.5em 2em;
+  background-color: var(--white);
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+.element .title {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+.element img {
+  width: 20%;
+  height: auto;
+}
+.element p {
+  width: 80%;
+  color: var(--accentdark);
+}
+.element path {
+  stroke: var(--accent);
+}
+.element h2 {
+  color: var(--accent);
+}
+.element:hover {
+  background-color: var(--graylight);
+  scale: 0.98;
+}

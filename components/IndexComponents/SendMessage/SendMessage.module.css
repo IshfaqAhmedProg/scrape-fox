@@ -40,15 +40,6 @@
 }
 .content fieldset input,
 .content textarea {
-  box-shadow: inset 0px 0px 20px -5px rgba(34, 22, 43, 0.25);
-  min-height: 3.75rem;
-  border: none;
-  border-radius: var(--border-radius);
-  display: flex;
-  align-items: flex-start;
-  padding: 1rem;
-  font-family: "Montserrat";
-  font-size: var(--p);
   width: 50%;
 }
 

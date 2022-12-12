@@ -4,7 +4,10 @@ import styles from "./Hero.module.css";
 import LandingPageImage from "../../../public/Images/LandingPage.png";
 import Button from "../../Button/Button";
 import VerifyFoxLogo from "../../../public/Logos/VerifyFoxLogo.svg";
+import { useRouter } from "next/router";
+import Link from "next/link";
 const Hero = () => {
+  const router = useRouter();
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -24,14 +27,16 @@ const Hero = () => {
             or
             <span> Email ID</span>? Then visit:
           </p>
-          <Button variant="plain" >
-            <Image
-              src={VerifyFoxLogo}
-              alt="Visit VerifyFox"
-              width={142}
-              height={38}
-            />
-          </Button>
+          <Link href="/verifyfox">
+            <Button variant="plain">
+              <Image
+                src={VerifyFoxLogo}
+                alt="Visit VerifyFox"
+                width={142}
+                height={38}
+              />
+            </Button>
+          </Link>
         </div>
       </div>
       <div className={styles.image}>
