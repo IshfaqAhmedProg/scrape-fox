@@ -31,7 +31,8 @@ const FAQ = () => {
   const ActiveFaq = useRef(null);
   useEffect(() => {
     const activeanswer = ActiveFaq.current;
-    if (activeanswer != null) activeanswer.scrollIntoView({ block: "center" });
+    if (activeanswer != null)
+      activeanswer.scrollIntoView({ behavior: "smooth", block: "center" });
   });
   return (
     <section id="FAQ" className={styles.container}>
