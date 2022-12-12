@@ -77,7 +77,9 @@ export default function Navbar() {
           ) : router.pathname != "/auth/login" ? ( //to show log in button
             <Link href="/auth/login" passHref>
               {router.pathname != "/" ? (
-                <Button variant="primary">Log In</Button>
+                <Button alternate variant="primary">
+                  Log In
+                </Button>
               ) : (
                 "Log In"
               )}
@@ -85,7 +87,9 @@ export default function Navbar() {
           ) : (
             //to show sign up button
             <Link href="/auth/signup" passHref>
-              <Button variant="primary">Sign Up</Button>
+              <Button alternate variant="primary">
+                Sign Up
+              </Button>
             </Link>
           )}
         </li>

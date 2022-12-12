@@ -34,14 +34,15 @@ body {
 * {
   box-sizing: border-box;
   scrollbar-width: thin;
+  accent-color: var(--primary);
 }
 a {
   cursor: pointer;
-  color: var(--accent);
+  color: var(--primary);
   text-decoration: none;
 }
 a:hover {
-  color: var(--primary);
+  color: var(--accent);
 }
 h1,
 h2,
