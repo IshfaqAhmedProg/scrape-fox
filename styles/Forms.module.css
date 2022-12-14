@@ -1,17 +1,17 @@
 .content {
+  padding-top: 10rem;
+  position: absolute;
   height: 100vh;
-  background: var(--white);
+  width: 45vw;
+  min-width: 375px;
+  left: 0;
+  top: 0;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 45vw;
-  min-width: 375px;
   gap: 5vh;
-  position: absolute;
-  left: 0;
-  top: 0;
-  padding-top:10rem;
-  isolation: isolate;
+  background: var(--white);
   overflow: scroll;
 }
 .content > h2 {

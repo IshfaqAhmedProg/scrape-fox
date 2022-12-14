@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import styles from "./FAQ.module.css";
-import Plusicon from "../../../public/Icons/Plusicon.svg";
-import Minusicon from "../../../public/Icons/Minusicon.svg";
+import PlusSign from "../../../public/Icons/PlusSign.svg";
+import MinusSign from "../../../public/Icons/MinusSign.svg";
 import Image from "next/image";
 const FAQ = () => {
   const faqContent = [
@@ -31,8 +31,7 @@ const FAQ = () => {
   const ActiveFaq = useRef(null);
   useEffect(() => {
     const activeanswer = ActiveFaq.current;
-    if (activeanswer != null)
-      activeanswer.scrollIntoView({ behavior: "smooth", block: "center" });
+    if (activeanswer != null) activeanswer.scrollIntoView({ block: "center" });
   });
   return (
     <section id="FAQ" className={styles.container}>
@@ -57,7 +56,7 @@ const FAQ = () => {
               >
                 <p>{element.question}</p>
                 <Image
-                  src={isActive && serial == index ? Minusicon : Plusicon}
+                  src={isActive && serial == index ? MinusSign : PlusSign}
                   alt="open"
                   width={20}
                   height={20}

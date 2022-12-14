@@ -1,0 +1,212 @@
+.container {
+  padding-block: 7rem 1.5rem;
+  padding-inline: 2.5rem 0;
+  position: relative;
+  display: flex;
+  gap: 1.875rem;
+  height: 100vh;
+}
+.overlay {
+  display: none;
+  position: absolute;
+  inset: 0;
+  height: 100vh;
+  background: var(--graylight);
+  mix-blend-mode: multiply;
+}
+.sidebar {
+  min-width: 342px;
+  width: 30%;
+  padding: 1.125rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2em;
+  background: linear-gradient(180deg, #9d19ff 0%, #7d9eff 100%);
+  background-repeat: no-repeat;
+  border-radius: var(--border-radius);
+  color: var(--white);
+  overflow-y: scroll;
+}
+.sidebartoggle {
+  display: none;
+}
+.main {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5em;
+  overflow-y: scroll;
+  border-radius: var(--border-radius);
+  padding-right: 2.5rem;
+}
+.main h2 {
+  color: var(--primarydark);
+  font-weight: 700;
+  padding-left: 1vw;
+}
+
+/* Tasks Card type style */
+.cards {
+  min-height: 18.9375rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+}
+.cards .content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 2.25rem;
+  overflow-x: scroll;
+  border-radius: var(--border-radius);
+}
+.cards .item {
+  min-height: 14.4rem;
+  aspect-ratio: 1 / 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--primary);
+  font-size: 1.875rem;
+  color: var(--white);
+  padding: 2rem 1.8125rem;
+  text-align: center;
+}
+.cards .id {
+  font-weight: 700;
+  position: relative;
+}
+.cards .id::before {
+  content: "#";
+  font-size: 35px;
+  position: absolute;
+  top: -5%;
+  left: -18%;
+  opacity: 0.5;
+}
+.cards .date {
+  font-size: 0.4em;
+  position: absolute;
+  top: 30%;
+  left: 10%;
+  opacity: 0.8;
+}
+.cards .service {
+  opacity: 0.8;
+  font-size: 0.5em;
+}
+.cards .queries,
+.cards .status {
+  display: none;
+}
+
+/* Tasks List type style */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+}
+.list .content {
+  padding: 1.4375em 1.125em;
+  height: 100%;
+  max-height: 42vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1.0625em;
+  border-radius: var(--border-radius);
+  overflow-y: scroll;
+}
+.list .item {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding-block: 1.5625rem;
+  padding-inline: 1em;
+  font-size: 1.25rem;
+  color: var(--primarydark);
+}
+.list .id {
+  font-weight: 700;
+  position: relative;
+}
+.list .id::before {
+  content: "#";
+}
+.list .date,
+.list .service,
+.list .queries {
+  color: var(--primary);
+  font-size: 0.7em;
+}
+.list .status {
+  font-size: 0.8em;
+}
+.list .status::before {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+}
+.list .status[data-taskstatus="Complete"] {
+  color: var(--primary);
+}
+.list .status[data-taskstatus="Complete"]::before {
+  content: url("/Icons/SmallTick.svg");
+  margin-right: 0.2em;
+}
+.list .status[data-taskstatus="Running"] {
+  color: var(--accent);
+}
+.list .status[data-taskstatus="Running"]::before {
+  content: url("/Icons/RunningCog.svg");
+  margin-right: 0.2em;
+  margin-block: auto;
+}
+.item {
+  border-radius: var(--border-radius);
+}
+
+@media screen and (max-width: 1290px) {
+  .sidebartoggle {
+    width: 35px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    translate: 0 -100%;
+    background: var(--white);
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    cursor: pointer;
+  }
+  .sidebartoggle path {
+    stroke: var(--primary);
+  }
+  .sidebar {
+    z-index: 3;
+    overflow: visible;
+    padding-top: 7rem;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 100%;
+    border-radius: 0;
+    transition: right 0.3s ease-in;
+  }
+  .open .sidebar {
+    right: 70%;
+  }
+  .open .overlay {
+    display: block;
+  }
+  .main {
+    width: 100%;
+  }
+}

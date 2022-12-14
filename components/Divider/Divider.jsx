@@ -9,13 +9,15 @@ export default function Divider({ children, direction, colorMode = null }) {
       }
     >
       <span className={styles.divider}></span>
-      <p>{children}</p>
-      <span className={styles.divider} style={{rotate:"180deg",scale:"1 0.9"}}></span>
+      {children}
+      <span className={styles.divider}></span>
     </div>
   ) : (
     <div
       id="divider"
-      className={styles.container + " " + styles[direction]}
+      className={
+        styles.container + " " + styles[direction] + " " + styles[colorMode]
+      }
     >
       <span className={styles["single"] + " " + styles.divider}></span>
     </div>

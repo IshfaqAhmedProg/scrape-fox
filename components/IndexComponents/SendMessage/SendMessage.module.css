@@ -1,11 +1,10 @@
 .container {
   margin-block: 5em 1.5em;
-  margin-inline: 3.5em;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 1.5em;
+  gap: min(10vw, 100px);
 }
 .title {
   display: flex;

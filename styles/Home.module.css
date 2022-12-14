@@ -1,4 +1,5 @@
-.container{
+
+.gradientbg{
   background: linear-gradient(180deg, #9d19ff 0%, #7d9eff 100%);
   background-repeat: no-repeat;
 }
