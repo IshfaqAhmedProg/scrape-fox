@@ -10,7 +10,7 @@ const dashboard = () => {
       QueryCount: 250,
       Service: "Google Maps Scraper",
       CreatedAt: "Nov 25, 2022 10:35am",
-      Status: 0,
+      Status: 1,
     },
     {
       Id: "saw2d31d",
@@ -31,7 +31,7 @@ const dashboard = () => {
       QueryCount: 250,
       Service: "Phone Number Validator",
       CreatedAt: "Nov 25, 2022 10:35am",
-      Status: 0,
+      Status: 1,
     },
     {
       Id: "31dw2sad",
@@ -45,7 +45,7 @@ const dashboard = () => {
       QueryCount: 250,
       Service: "Phone Number Validator",
       CreatedAt: "Nov 25, 2022 10:35am",
-      Status: 0,
+      Status: 1,
     },
     {
       Id: "sadw231d",
@@ -61,7 +61,9 @@ const dashboard = () => {
     <div className={styles.container + " " + (sbToggle ? styles["open"] : "")}>
       <div className={styles.overlay}></div>
       <div className={styles.sidebar}>
-        <SidebarContent />
+        <div className={styles.content}>
+          <SidebarContent />
+        </div>
         <div
           className={styles.sidebartoggle}
           onClick={() => setSbToggle(!sbToggle)}
