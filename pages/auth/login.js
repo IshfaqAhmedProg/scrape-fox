@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 
-import { getRefinedFirebaseError } from "../../shared/functions/errorHandler";
+import { GetRefinedFirebaseError } from "../../shared/functions/errorHandler";
 import { useAuth } from "../../contexts/AuthContext";
 
 import styles from "../../styles/Forms.module.css";
@@ -26,7 +26,7 @@ const Login = () => {
   function handleError(err) {
     if (err == null) return;
     console.log(err);
-    setErrorMsg(getRefinedFirebaseError(err));
+    setErrorMsg(GetRefinedFirebaseError(err));
   }
 
   const handleLogin = async (e) => {

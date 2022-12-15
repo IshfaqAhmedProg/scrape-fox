@@ -1,4 +1,4 @@
-export const getRefinedFirebaseError = (errorMesssage) => {
+export const GetRefinedFirebaseError = (errorMesssage) => {
   let finalformat;
   if (errorMesssage != null) {
     const stringified = errorMesssage.toString();
