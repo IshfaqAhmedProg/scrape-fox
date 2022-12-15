@@ -33,9 +33,7 @@ export const SendMessage = () => {
             />
           </fieldset>
           <fieldset>
-            <Button variant="primary" alternate>
-              Send
-            </Button>
+            <Button variant="primary">Send</Button>
           </fieldset>
         </form>
       </div>

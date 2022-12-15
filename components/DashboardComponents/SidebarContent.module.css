@@ -48,3 +48,8 @@
   text-align: center;
   border-radius: var(--border-radius);
 }
+.contact > button {
+  font-weight: 700;
+  color: var(--accentlight);
+  gap: 0.5rem;
+}

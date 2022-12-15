@@ -26,7 +26,7 @@
   background-repeat: no-repeat;
   border-radius: var(--border-radius);
   color: var(--white);
-  overflow-y: scroll;
+  overflow: hidden;
 }
 .sidebartoggle {
   display: none;
@@ -100,7 +100,6 @@
   }
   100% {
     background-position: 28.8rem 28.8rem;
-
   }
 }
 .cards .id {
@@ -167,6 +166,14 @@
 }
 .list .date,
 .list .service,
+.list .queries,
+.list .id,
+.list .status {
+  width: 20%;
+  text-align: center;
+}
+.list .date,
+.list .service,
 .list .queries {
   color: var(--primary);
   font-size: 0.6em;
@@ -201,7 +208,7 @@
   border-radius: var(--border-radius);
   transition: scale 0.15s ease;
 }
-.item:hover{
+.item:hover {
   scale: 0.98;
 }
 @media screen and (max-width: 1158px) {
@@ -249,6 +256,7 @@
   }
 }
 @media screen and (max-width: 378px) {
-  .sidebar{min-width: 280px;}
-  
+  .sidebar {
+    min-width: 280px;
+  }
 }

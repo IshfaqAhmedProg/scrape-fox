@@ -39,12 +39,12 @@
 /* Primary button styles */
 .primary {
   --text: var(--white);
-  --hover-text: var(--accent);
-  --active-text: var(--white);
-  --bg-color-before: var(--accent);
-  --bg-color-after: var(--accentlight);
-  --hover-bg-before: var(--accentdark);
-  --active-bg-before: var(--accentdark);
+  --hover-text: var(--primary);
+  --active-text: var(--primary);
+  --bg-color-before: var(--primary);
+  --bg-color-after: var(--primarylighter);
+  --hover-bg-before: var(--primarylight);
+  --active-bg-before: var(--primary);
   position: relative;
   padding: 0.875rem;
   background: none;

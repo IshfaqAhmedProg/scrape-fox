@@ -14,16 +14,14 @@ Modal.setAppElement("#__next");
 const VerifyFox = () => {
   const customStyles = {
     content: {
-      top: "50%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      marginRight: "-50%",
-      paddingTop: "2rem",
-      paddingInline: "5%",
-      transform: "translate(-50%, -50%)",
+      marginTop: "10vh",
+      paddingBlock: "1.5rem",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
       borderRadius: "var(--border-radius)",
       border: "none",
+      isolation: "isolate",
       boxShadow: "0px 0px 20px -5px rgba(34, 22, 43, 0.25)",
     },
   };

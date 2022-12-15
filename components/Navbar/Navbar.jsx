@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-//import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import styles from "./Navbar.module.css";
@@ -9,8 +9,7 @@ import HamburgerIcon from "./HamburgerIcon/hamburgerIcon";
 
 export default function Navbar() {
   const [toggled, setToggled] = useState(false);
-  const user = null;
-  //const { user, logout } = useAuth();
+  const { user, logout } = useAuth();
   const router = useRouter();
   return (
     <div className={styles.container}>
@@ -70,16 +69,13 @@ export default function Navbar() {
                 logout();
               }}
               variant="primary"
-              alternate
             >
               Logout
             </Button>
           ) : router.pathname != "/auth/login" ? ( //to show log in button
             <Link href="/auth/login" passHref>
               {router.pathname != "/" ? (
-                <Button alternate variant="primary">
-                  Log In
-                </Button>
+                <Button variant="primary">Log In</Button>
               ) : (
                 "Log In"
               )}
@@ -87,18 +83,14 @@ export default function Navbar() {
           ) : (
             //to show sign up button
             <Link href="/auth/signup" passHref>
-              <Button alternate variant="primary">
-                Sign Up
-              </Button>
+              <Button variant="primary">Sign Up</Button>
             </Link>
           )}
         </li>
         {router.pathname == "/" && user == null ? (
           <li className={styles.menuItem} onClick={() => setToggled(!toggled)}>
             <Link href="/auth/signup">
-              <Button alternate variant="primary">
-                Sign Up
-              </Button>
+              <Button variant="primary">Sign Up</Button>
             </Link>
           </li>
         ) : (

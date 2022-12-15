@@ -38,7 +38,7 @@ const signup = () => {
             </span>
           </fieldset>
           <fieldset>
-            <Button variant="primary" alternate type="submit">
+            <Button variant="primary"  type="submit">
               Sign Up
             </Button>
           </fieldset>

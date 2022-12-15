@@ -12,7 +12,9 @@ const WhatsAppValidator = () => {
           <textarea />
         </fieldset>
         <fieldset className={styles.divider}>
-          <Divider direction="horizontal">or</Divider>
+          <Divider direction="horizontal" colorMode="light">
+            or
+          </Divider>
         </fieldset>
         <fieldset className={styles.upload}>
           <label className={styles.label}>
@@ -35,8 +37,8 @@ const WhatsAppValidator = () => {
           </label>
           <input id="uploadfile" type="file" hidden />
         </fieldset>
-        <fieldset className={styles.submit} style={{ marginTop: "5rem" }}>
-          <Button type="submit" variant="primary">
+        <fieldset className={styles.submit}>
+          <Button type="submit" variant="primary" alternate>
             Verify
           </Button>
         </fieldset>

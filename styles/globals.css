@@ -132,6 +132,7 @@ fieldset input[type="password"],
 fieldset textarea {
   box-shadow: inset 0px 0px 20px -5px rgba(34, 22, 43, 0.25);
   min-height: 2.75rem;
+  width: 100%;
   border: none;
   border-radius: var(--border-radius);
   display: flex;
