@@ -3,7 +3,7 @@ import SidebarContent from "../components/DashboardComponents/SidebarContent";
 import styles from "../components/DashboardComponents/Dashboard.module.css";
 import Button from "../components/Button/Button";
 
-const dashboard = () => {
+const Dashboard = () => {
   const tasks = [
     {
       Id: "dsaw231d",
@@ -127,4 +127,4 @@ const dashboard = () => {
   );
 };
 
-export default dashboard;
+export default Dashboard;

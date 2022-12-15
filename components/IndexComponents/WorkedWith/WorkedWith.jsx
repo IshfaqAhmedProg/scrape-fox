@@ -33,7 +33,7 @@ const WorkedWith = () => {
   return (
     <div className={styles.container}>
       <div className={styles.title}>
-        <h1>People & Companies we've</h1>
+        <h1>People & Companies we&apos;ve</h1>
         <h1>
           <span>
             Worked
