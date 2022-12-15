@@ -7,7 +7,7 @@ import AuthBg from "../../public/Images/AuthBg.png";
 import google from "../../public/Icons/Google.svg";
 import styles from "../../styles/Forms.module.css";
 
-const signup = () => {
+const Signup = () => {
   return (
     <>
       <div className={styles.content} data-shadow="outer">
@@ -38,7 +38,7 @@ const signup = () => {
             </span>
           </fieldset>
           <fieldset>
-            <Button variant="primary"  type="submit">
+            <Button variant="primary" type="submit">
               Sign Up
             </Button>
           </fieldset>
@@ -53,7 +53,7 @@ const signup = () => {
           </fieldset>
           <fieldset>
             <p className={styles.label}>
-              Don't have an account?&nbsp;
+              Don&apos;t have an account?&nbsp;
               <Link href="/signup" passHref>
                 <b>Register Now</b>
               </Link>
@@ -68,4 +68,4 @@ const signup = () => {
   );
 };
 
-export default signup;
+export default Signup;

@@ -14,7 +14,7 @@ import Divider from "../../components/Divider/Divider";
 import AuthBg from "../../public/Images/AuthBg.png";
 import google from "../../public/Icons/Google.svg";
 import loader from "../../public/Icons/Loader.svg";
-const login = () => {
+const Login = () => {
   const router = useRouter();
   const { user, login, googleLogin } = useAuth();
   const [loading, setLoading] = useState(false);
@@ -92,7 +92,7 @@ const login = () => {
 
           <fieldset>
             <p className={styles.label}>
-              Don't have an account?&nbsp;
+              Don&apos;t have an account?&nbsp;
               <Link href="/signup" passHref>
                 <b>Register Now</b>
               </Link>
@@ -107,4 +107,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Login;
