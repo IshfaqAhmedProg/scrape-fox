@@ -14,7 +14,7 @@ import AuthBg from "../../public/Images/AuthBg.png";
 import google from "../../public/Icons/Google.svg";
 import loader from "../../public/Icons/Loader.svg";
 const Login = () => {
-  const GetRefinedFirebaseError = import("../../shared/Functions/ErrorHandler");
+  const GetRefinedFirebaseError = import("../../shared/Functions/errorHandler");
   const router = useRouter();
   const { user, login, googleLogin } = useAuth();
   const [loading, setLoading] = useState(false);
