@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 
-import { GetRefinedFirebaseError } from "../../shared/functions/errorHandler";
 import { useAuth } from "../../contexts/AuthContext";
 
 import styles from "../../styles/Forms.module.css";
@@ -15,6 +14,7 @@ import AuthBg from "../../public/Images/AuthBg.png";
 import google from "../../public/Icons/Google.svg";
 import loader from "../../public/Icons/Loader.svg";
 const Login = () => {
+  const GetRefinedFirebaseError = import("../../shared/Functions/ErrorHandler");
   const router = useRouter();
   const { user, login, googleLogin } = useAuth();
   const [loading, setLoading] = useState(false);
