@@ -33,8 +33,8 @@ const WorkedWith = () => {
   return (
     <div className={styles.container}>
       <div className={styles.title}>
-        <h1>People & Companies we&apos;ve</h1>
-        <h1>
+        <h1 data-aos="fade-right">People & Companies we&apos;ve</h1>
+        <h1 data-aos="fade-right" data-aos-delay="300">
           <span>
             Worked
             <br />
@@ -42,7 +42,11 @@ const WorkedWith = () => {
           </span>
         </h1>
       </div>
-      <div className={styles.people}>
+      <div
+        className={styles.people}
+        data-aos="zoom-in-down"
+        data-aos-delay="300"
+      >
         <div className={styles.buttons}>
           <svg
             width="5%"
@@ -99,7 +103,13 @@ const WorkedWith = () => {
       <div className={styles.companies}>
         {CompanyLogos.map((company, index) => {
           return (
-            <Image key={index} src={company} alt="companies worked with" />
+            <Image
+              data-aos="zoom-in"
+              data-aos-delay={(index + 1) * 100}
+              key={index}
+              src={company}
+              alt="companies worked with"
+            />
           );
         })}
       </div>

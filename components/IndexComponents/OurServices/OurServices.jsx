@@ -39,16 +39,17 @@ const OurServices = () => {
   return (
     <section id="Services" className={styles.container}>
       <div className={styles.title}>
-        <h1>
+        <h1 data-aos="fade-down">
           Our
           <span> Services</span>
         </h1>
       </div>
       <div className={styles.content}>
-        {Services.map((service) => {
+        {Services.map((service, index) => {
           return (
             <ServiceCard
               key={service.ServiceId}
+              serviceIndex={index}
               serviceImage={service.ServiceImage}
               serviceName={service.ServiceName}
               serviceDesc={service.ServiceDesc}

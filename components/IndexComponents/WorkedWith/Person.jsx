@@ -16,6 +16,7 @@ const Person = ({
         " " +
         (personId == "COMM" + active ? styles["active"] : "")
       }
+
     >
       <div className={styles.personimage}>
         <Image src={avatar} alt="person avatar" />

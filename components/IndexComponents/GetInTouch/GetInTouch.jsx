@@ -1,16 +1,21 @@
 import React from "react";
 import Button from "../../Button/Button";
-import styles from "./SendMessage.module.css";
-export const SendMessage = () => {
+import styles from "./GetInTouch.module.css";
+export const GetInTouch = () => {
   return (
     <section id="ContactUs" className={styles.container}>
-      <div className={styles.title}>
+      <div className={styles.title} data-aos="fade-right">
         <h1 data-color="white">Get in</h1>
         <h1 data-color="white">
           <span>Touch</span>
         </h1>
       </div>
-      <div className={styles.content} data-shadow="outer">
+      <div
+        className={styles.content}
+        data-shadow="outer"
+        data-aos="zoom-in"
+        data-aos-delay="600"
+      >
         <h1>Contact Us</h1>
         <form>
           <fieldset>

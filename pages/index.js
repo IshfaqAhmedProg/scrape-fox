@@ -4,13 +4,12 @@ import FAQ from "../components/IndexComponents/FAQ/FAQ";
 import Footer from "../components/IndexComponents/Footer/Footer";
 import Hero from "../components/IndexComponents/Hero/Hero";
 import OurServices from "../components/IndexComponents/OurServices/OurServices";
-import { SendMessage } from "../components/IndexComponents/SendMessage/SendMessage";
+import { GetInTouch } from "../components/IndexComponents/GetInTouch/GetInTouch";
 import WorkedWith from "../components/IndexComponents/WorkedWith/WorkedWith";
-import styles from "../styles/Home.module.css";
 
 export default function Home() {
   return (
-    <div className={styles.gradientbg}>
+    <div className="mainBody">
       <Head>
         <title>ScrapeFox</title>
         <meta
@@ -20,15 +19,15 @@ export default function Home() {
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
+      <main>
         <Hero />
         <OurServices />
         <WorkedWith />
         <FAQ />
-        <SendMessage />
+        <GetInTouch />
       </main>
 
-      <footer className={styles.footer}>
+      <footer>
         <Footer />
       </footer>
     </div>

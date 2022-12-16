@@ -1,6 +1,6 @@
 .container {
   padding-block: 7rem 1.5rem;
-  padding-inline: 2.5rem 0;
+  padding-inline: 3vw 0;
   position: relative;
   display: flex;
   gap: 1.875rem;
@@ -33,7 +33,7 @@
 }
 .sidebar .content {
   padding: 1.125rem;
-  overflow-y: scroll;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -41,13 +41,13 @@
   height: 100%;
 }
 .main {
+  padding-right: 3vw;
   width: 70%;
   display: flex;
   flex-direction: column;
   gap: 3.5em;
-  overflow-y: scroll;
+  overflow-y: auto;
   border-radius: var(--border-radius);
-  padding-right: 2.5rem;
 }
 .main h2 {
   color: var(--primarydark);
@@ -56,161 +56,7 @@
 }
 
 /* Tasks Card type style */
-.cards {
-  min-height: 18.9375rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2.25rem;
-}
-.cards .content {
-  width: 100%;
-  display: flex;
-  gap: 2.25rem;
-  overflow-x: scroll;
-  border-radius: var(--border-radius);
-}
-.cards .item {
-  min-height: 14.4rem;
-  aspect-ratio: 1 / 1;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(
-    to right,
-    var(--primary),
-    var(--primarylight),
-    var(--primary)
-  );
-  background-repeat: repeat;
-  background-size: 200% 200%;
-  font-size: 1.875rem;
-  color: var(--white);
-  padding: 2rem 1.8125rem;
-  text-align: center;
-  animation: taskrunning 5s ease infinite forwards;
-}
-@keyframes taskrunning {
-  0% {
-    background-position: 0 0;
-  }
-  50% {
-    background-position: 14.4rem 14.4rem;
-  }
-  100% {
-    background-position: 28.8rem 28.8rem;
-  }
-}
-.cards .id {
-  font-weight: 700;
-  position: relative;
-}
-.cards .id::before {
-  content: "#";
-  font-size: 35px;
-  position: absolute;
-  top: -5%;
-  left: -18%;
-  opacity: 0.5;
-}
-.cards .date {
-  font-size: 0.4em;
-  position: absolute;
-  top: 30%;
-  left: 10%;
-  opacity: 0.8;
-}
-.cards .service {
-  opacity: 0.8;
-  font-size: 0.5em;
-}
-.cards .queries,
-.cards .status {
-  display: none;
-}
 
-/* Tasks List type style */
-.list {
-  display: flex;
-  flex-direction: column;
-  gap: 2.25rem;
-}
-.list .content {
-  padding: 1.4375em 1.125em;
-  height: 100%;
-  max-height: 42vh;
-  display: flex;
-  flex-direction: column;
-  gap: 1.0625em;
-  border-radius: var(--border-radius);
-  overflow-y: scroll;
-}
-.list .item {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  padding-block: 1.5625rem;
-  padding-inline: 1em;
-  font-size: 1.25rem;
-  color: var(--primarydark);
-}
-.list .id {
-  font-weight: 700;
-  position: relative;
-}
-.list .id::before {
-  content: "#";
-}
-.list .date,
-.list .service,
-.list .queries,
-.list .id,
-.list .status {
-  width: 20%;
-  text-align: center;
-}
-.list .date,
-.list .service,
-.list .queries {
-  color: var(--primary);
-  font-size: 0.6em;
-}
-.list .service {
-  font-weight: 700;
-}
-.list .status {
-  font-size: 0.7em;
-  line-height: 1.875em;
-}
-.list .status::before {
-  display: inline-block;
-  vertical-align: middle;
-  line-height: normal;
-}
-.list .status[data-taskstatus="Complete"] {
-  color: var(--primary);
-}
-.list .status[data-taskstatus="Complete"]::before {
-  content: url("/Icons/SmallTick.svg");
-  margin-right: 0.2em;
-}
-.list .status[data-taskstatus="Running"] {
-  color: var(--accent);
-}
-.list .status[data-taskstatus="Running"]::before {
-  content: url("/Icons/RunningCog.svg");
-  margin-right: 0.2em;
-}
-.item {
-  border-radius: var(--border-radius);
-  transition: scale 0.15s ease;
-}
-.item:hover {
-  scale: 0.98;
-}
 @media screen and (max-width: 1158px) {
   .sidebartoggle {
     width: 35px;
@@ -255,8 +101,8 @@
     width: 100%;
   }
 }
-@media screen and (max-width: 378px) {
+/* @media screen and (max-width: 378px) {
   .sidebar {
     min-width: 280px;
   }
-}
+} */

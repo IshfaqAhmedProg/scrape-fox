@@ -11,7 +11,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
-  padding: 3.5rem 10vw 3.5rem 0;
+  padding: 3.5rem 7vw 3.5rem 0;
   flex-grow: 1;
 }
 .people {
@@ -49,6 +49,9 @@
 }
 .personimage img {
   border-radius: 50%;
+  max-width: 153px;
+  width: 100%;
+  height: auto;
 }
 .personname {
   display: flex;
@@ -58,10 +61,12 @@
 }
 .personcomment {
   grid-area: 2 / 2 / 3 / 3;
-  white-space: wrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-height: 5ch;
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* number of lines to show */
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
 }
 .companies {
   width: 100%;

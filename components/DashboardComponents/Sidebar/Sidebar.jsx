@@ -1,16 +1,19 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Divider from "../Divider/Divider";
-import styles from "./SidebarContent.module.css";
+
+import Divider from "../../Divider/Divider";
+import Button from "../../Button/Button";
+
+import styles from "./Sidebar.module.css";
 // Icons
-import PointsIcon from "../../public/Icons/Points.svg";
-import GoogleServicesIcon from "../../public/Icons/GoogleServices.svg";
-import ValidatorServicesIcon from "../../public/Icons/ValidatorServices.svg";
-import AccountIcon from "../../public/Icons/Account.svg";
-import ShopIcon from "../../public/Icons/Shop.svg";
-import Button from "../Button/Button";
-const SidebarContent = () => {
+import PointsIcon from "../../../public/Icons/Points.svg";
+import GoogleServicesIcon from "../../../public/Icons/GoogleServices.svg";
+import ValidatorServicesIcon from "../../../public/Icons/ValidatorServices.svg";
+import HomeIcon from "../../../public/Icons/Home.svg";
+import AccountIcon from "../../../public/Icons/Account.svg";
+import ShopIcon from "../../../public/Icons/Shop.svg";
+const Sidebar = ({ setActivePage }) => {
   return (
     <>
       <div className={styles.mainmenu}>
@@ -24,9 +27,7 @@ const SidebarContent = () => {
             Google Services
           </div>
           <ul className={styles.items}>
-            <li>
-              <Link href="/">Google Maps Scraper</Link>
-            </li>
+            <li>Google Maps Scraper</li>
           </ul>
         </div>
         <div className={styles.menu}>
@@ -35,26 +36,32 @@ const SidebarContent = () => {
             Validator Services
           </div>
           <ul className={styles.items}>
-            <li>
-              <Link href="/">Email Validator</Link>
-            </li>
-            <li>
-              <Link href="/">Phone Number Validator</Link>
-            </li>
-            <li>
-              <Link href="/">WhatsApp Validator</Link>
-            </li>
+            <li>Email Validator</li>
+            <li>Phone Number Validator</li>
+            <li>WhatsApp Validator</li>
           </ul>
         </div>
         <Divider direction="horizontal" colorMode="dark" />
         <div className={styles.menu}>
-          <div className={styles.menutitle}>
+          <div className={styles.menutitle} onClick={() => setActivePage("")}>
+            <Image src={HomeIcon} alt="Home icon" />
+            Home
+          </div>
+        </div>
+        <div className={styles.menu}>
+          <div
+            className={styles.menutitle}
+            onClick={() => setActivePage("accountPage")}
+          >
             <Image src={AccountIcon} alt="Account icon" />
             Account
           </div>
         </div>
         <div className={styles.menu}>
-          <div className={styles.menutitle}>
+          <div
+            className={styles.menutitle}
+            onClick={() => setActivePage("shopPage")}
+          >
             <Image src={ShopIcon} alt="Shop icon" />
             Buy More Points
           </div>
@@ -101,4 +108,4 @@ const SidebarContent = () => {
   );
 };
 
-export default SidebarContent;
+export default Sidebar;

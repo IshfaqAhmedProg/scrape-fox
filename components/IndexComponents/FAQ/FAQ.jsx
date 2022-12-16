@@ -36,16 +36,20 @@ const FAQ = () => {
   return (
     <section id="FAQ" className={styles.container}>
       <div className={styles.title}>
-        <h1 data-color="white">Frequently Asked</h1>
-        <h1 data-color="white">
+        <h1 data-color="white" data-aos="zoom-in-down">Frequently Asked</h1>
+        <h1 data-color="white" data-aos="zoom-in" data-aos-delay="300">
           <span>Questions!</span>
         </h1>
       </div>
       <div className={styles.accordion}>
-        {faqContent.map((element) => {
-          const index = faqContent.indexOf(element).toString();
+        {faqContent.map((element, index) => {
           return (
-            <div className={styles.element} key={index}>
+            <div
+              className={styles.element}
+              key={index}
+              data-aos="zoom-in-down"
+              data-aos-delay={(index + 1) * 100}
+            >
               <div
                 data-shadow="outer"
                 className={styles.question}

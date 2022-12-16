@@ -12,22 +12,22 @@ const Hero = () => {
     <div className={styles.container}>
       <div className={styles.content}>
         <div className={styles.title}>
-          <h1>
+          <h1 data-aos="fade-right" data-aos-delay="300">
             Latest and Best
             <br />
             Technologies for
           </h1>
-          <h1>
+          <h1 data-aos="fade-right" data-aos-delay="600">
             <span>Lead Generation</span> & <span>Data Scraping</span>
           </h1>
         </div>
         <div className={styles.desc}>
-          <p>
+          <p data-aos="fade-in" data-aos-delay="900">
             Are you here to validate <span>Phone Numbers </span>
             or
             <span> Email ID</span>? Then visit:
           </p>
-          <Link href="/verifyfox">
+          <Link href="/verifyfox" data-aos="zoom-in" data-aos-delay="1200">
             <Button variant="plain">
               <Image
                 src={VerifyFoxLogo}
@@ -39,7 +39,7 @@ const Hero = () => {
           </Link>
         </div>
       </div>
-      <div className={styles.image}>
+      <div className={styles.image} data-aos="fade-left">
         <Image src={LandingPageImage} alt="ScrapeFox Landing page image" />
       </div>
     </div>

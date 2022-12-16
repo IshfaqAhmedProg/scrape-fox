@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 export const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
@@ -11,5 +11,5 @@ export const ProtectedRoute = ({ children }) => {
     }
   }, [router, user]);
 
-  return <>{user ? children : null}</>;
+  return <>{user ? children : <h1>Loading...</h1>}</>;
 };

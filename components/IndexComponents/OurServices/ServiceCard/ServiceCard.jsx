@@ -3,9 +3,19 @@ import Link from "next/link";
 import React from "react";
 import Button from "../../../Button/Button";
 import styles from "./ServiceCard.module.css";
-export const ServiceCard = ({ serviceImage, serviceName, serviceDesc }) => {
+export const ServiceCard = ({
+  serviceIndex,
+  serviceImage,
+  serviceName,
+  serviceDesc,
+}) => {
   return (
-    <div className={styles.container}>
+    <div
+      className={styles.container}
+      data-aos="zoom-in"
+      data-aos-delay={serviceIndex * 100}
+      data-aos-anchor-placement="bottom-bottom"
+    >
       <div className={styles.bg}></div>
       <div className={styles.image}>
         <Image src={serviceImage} alt={serviceName + "Icon"} />
