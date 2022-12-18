@@ -43,7 +43,7 @@ const YourAccount = () => {
           </div>
           <fieldset>
             {data.displayName ? (
-              <h2>{data.displayName}</h2>
+              <h3>{data.displayName}</h3>
             ) : (
               <input
                 type="text"
@@ -56,7 +56,7 @@ const YourAccount = () => {
             )}
           </fieldset>
         </div>
-        <div className={styles.details}>
+        <div className={styles.details} data-shadow="inner">
           <fieldset>
             <label>Email Address</label>
             <p>{user.email}</p>
