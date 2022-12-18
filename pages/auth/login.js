@@ -5,6 +5,7 @@ import Image from "next/image";
 import Head from "next/head";
 
 import { useAuth } from "../../contexts/AuthContext";
+import { GetRefinedFirebaseError } from "../../shared/Functions/errorHandler";
 
 import styles from "../../styles/Forms.module.css";
 
@@ -16,19 +17,15 @@ import google from "../../public/Icons/Google.svg";
 import loader from "../../public/Icons/Loader.svg";
 
 const Login = () => {
-  const GetRefinedFirebaseError = import("../../shared/Functions/errorHandler");
   const router = useRouter();
-  const { user, login, googleLogin } = useAuth();
+  const { login, googleLogin } = useAuth();
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [data, setData] = useState({
     email: "",
     password: "",
   });
-  if (user) {
-    router.replace("/dashboard");
-    return <h1>Loading..</h1>;
-  }
+
   function handleError(err) {
     if (err == null) return;
     console.log(err);
@@ -108,11 +105,12 @@ const Login = () => {
                 id="password"
                 required
               />
+              <div className={styles.showpassword}></div>
             </fieldset>
             <fieldset>
               <p className={styles.label}>
                 Forgot your password?&nbsp;
-                <Link href="/" tabIndex="4">
+                <Link href="/auth/resetPass" tabIndex="4">
                   Reset Password
                 </Link>
               </p>

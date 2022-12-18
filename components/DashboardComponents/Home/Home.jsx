@@ -55,32 +55,52 @@ const Home = () => {
   return (
     <>
       <div className={styles.cards}>
-        <h2>Ongoing Tasks</h2>
+        <h2 data-aos="fade" data-aos-easing="ease-in-out">
+          Ongoing Tasks
+        </h2>
         <div className={styles.content}>
-          {tasks.map((task) => {
-            if (task.Status == 0)
-              return (
-                <div key={task.Id} className={styles.item} data-aos="zoom-in">
-                  <div className={styles.id}>{task.Id}</div>
-                  <div className={styles.date}>{task.CreatedAt}</div>
-                  <div className={styles.service}>{task.Service}</div>
-                  <div className={styles.queries}>
-                    {task.QueryCount} queries
-                  </div>
+          {tasks ? (
+            tasks.map((task) => {
+              if (task.Status == 0)
+                return (
                   <div
-                    className={styles.status}
-                    data-taskstatus={task.Status == 0 ? "Running" : "Complete"}
+                    key={task.Id}
+                    className={styles.item}
+                    data-aos="zoom-in"
+                    data-aos-delay="100"
                   >
-                    {task.Status == 0 ? "Running" : "Complete"}
+                    <div className={styles.id}>{task.Id}</div>
+                    <div className={styles.date}>{task.CreatedAt}</div>
+                    <div className={styles.service}>{task.Service}</div>
+                    <div className={styles.queries}>
+                      {task.QueryCount} queries
+                    </div>
+                    <div
+                      className={styles.status}
+                      data-taskstatus={
+                        task.Status == 0 ? "Running" : "Complete"
+                      }
+                    >
+                      {task.Status == 0 ? "Running" : "Complete"}
+                    </div>
                   </div>
-                </div>
-              );
-          })}
+                );
+            })
+          ) : (
+            <p>No tasks</p>
+          )}
         </div>
       </div>
       <div className={styles.list}>
-        <h2>Task History</h2>
-        <div className={styles.content} data-shadow="inner" data-aos="fade-down">
+        <h2 data-aos="fade" data-aos-delay="200" data-aos-easing="ease-in-out">
+          Task History
+        </h2>
+        <div
+          className={styles.content}
+          data-shadow="inner"
+          data-aos="fade-down"
+          data-aos-delay="300"
+        >
           {tasks.map((task) => {
             return (
               <div key={task.Id} className={styles.item} data-shadow="outer">

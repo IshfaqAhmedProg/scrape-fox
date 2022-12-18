@@ -17,7 +17,7 @@
 .people {
   position: relative;
   width: 50%;
-  min-width: 32.5rem;
+  min-width: 16.5rem;
   min-height: 20.8125rem;
   box-shadow: inset 0px 0px 20px -5px rgba(34, 22, 43, 0.25);
   border-radius: var(--border-radius);

@@ -5,11 +5,16 @@ import styles from "./DashboardPages.module.css";
 import UserAccountDefaultIcon from "../../../public/Icons/UserAccountDefault.svg";
 import Button from "../../Button/Button";
 import { addDate, convertToYMD } from "../../../shared/Functions/dateHandler";
-
 const YourAccount = () => {
-  const { user } = useAuth();
+  const { user, addUserInfo } = useAuth();
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState(user);
   const [defaults, setDefaults] = useState({});
+  const changeUserInfo = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    addUserInfo(data).then(setLoading(false));
+  };
   useEffect(() => {
     let maxdate = new Date();
     maxdate = addDate(maxdate, -18, "years");
@@ -19,11 +24,13 @@ const YourAccount = () => {
       dobMax: convertToYMD(maxdate).toString(),
       dobMin: convertToYMD(mindate).toString(),
     });
-  }, []);
+    console.log("user", user);
+    console.log("data", data);
+  }, [user, data]);
   return (
     <section id="accountPage" className={styles.container}>
       <h2>Your Account</h2>
-      <form className={styles.content}>
+      <form className={styles.content} onSubmit={changeUserInfo}>
         <div className={styles.display}>
           <div className={styles.avatar}>
             <Image
@@ -39,16 +46,30 @@ const YourAccount = () => {
               <br />
               image
             </label>
-            <input type="file" hidden id="uploadImage" name="uploadImage" />
+            <input
+              type="file"
+              hidden
+              id="uploadImage"
+              name="uploadImage"
+              onChange={(e) => {
+                if (e.target.files[0]) {
+                  setData({
+                    ...data,
+                    photoURL: URL.createObjectURL(e.target.files[0]),
+                  });
+                }
+              }}
+            />
           </div>
           <fieldset>
-            {data.displayName ? (
-              <h3>{data.displayName}</h3>
+            {user.displayName ? (
+              <h3>{user.displayName}</h3>
             ) : (
               <input
                 type="text"
                 maxLength="12"
                 placeholder="Enter your display name"
+                value={data.displayName}
                 onChange={(e) => {
                   setData({ ...data, displayName: e.target.value });
                 }}
@@ -99,9 +120,9 @@ const YourAccount = () => {
               }}
             >
               <option>--Your Country--</option>
-              <option value="male">Gondor</option>
-              <option value="female">Lothric</option>
-              <option value="other">Firelink Shrine</option>
+              <option value="Gondor">Gondor</option>
+              <option value="Lothric">Lothric</option>
+              <option value="Firelink Shrine">Firelink Shrine</option>
             </select>
           </fieldset>
         </div>

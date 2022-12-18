@@ -36,7 +36,9 @@ const Sidebar = ({ setActivePage }) => {
             Validator Services
           </div>
           <ul className={styles.items}>
-            <li>Email Validator</li>
+            <li>
+              <Link href="#emailValidator">Email Validator</Link>
+            </li>
             <li>Phone Number Validator</li>
             <li>WhatsApp Validator</li>
           </ul>

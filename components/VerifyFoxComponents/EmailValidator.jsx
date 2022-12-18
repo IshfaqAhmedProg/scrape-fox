@@ -4,7 +4,7 @@ import Button from "../Button/Button";
 import Divider from "../Divider/Divider";
 const EmailValidator = () => {
   return (
-    <div className={styles.formcontainer}>
+    <section className={styles.formcontainer} id="emailValidator">
       <h2>Email Address Validator</h2>
       <form className={styles.form}>
         <fieldset>
@@ -12,7 +12,9 @@ const EmailValidator = () => {
           <textarea />
         </fieldset>
         <fieldset className={styles.divider}>
-          <Divider direction="horizontal" colorMode="light">or</Divider>
+          <Divider direction="horizontal" colorMode="light">
+            or
+          </Divider>
         </fieldset>
         <fieldset className={styles.upload}>
           <label className={styles.label}>
@@ -41,7 +43,7 @@ const EmailValidator = () => {
           </Button>
         </fieldset>
       </form>
-    </div>
+    </section>
   );
 };
 

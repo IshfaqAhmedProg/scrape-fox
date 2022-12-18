@@ -12,7 +12,13 @@ import Navbar from "../components/Navbar/Navbar";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-const noAuthRequired = ["/", "/auth/login", "/auth/signup", "/verifyfox"];
+const noAuthRequired = [
+  "/",
+  "/auth/login",
+  "/auth/signup",
+  "/auth/resetPass",
+  "/verifyfox",
+];
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();

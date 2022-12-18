@@ -68,8 +68,7 @@ export default function Navbar() {
                 router.replace("/");
                 logout();
               }}
-              variant="primary"
-              alternate
+              variant="secondary"
             >
               Logout
             </Button>

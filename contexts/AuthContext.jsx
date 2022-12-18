@@ -10,35 +10,25 @@ import {
   sendEmailVerification,
 } from "firebase/auth";
 
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { auth, db } from "../firebase/config";
 
 const AuthContext = createContext({});
 export const useAuth = () => useContext(AuthContext);
 export const AuthContextProvider = ({ children }) => {
-  const [user, setUser] = useState({
-    uid: null,
-    email: null,
-    displayName: null,
-    photoURL: null,
-    emailVerified: null,
-    dob: null,
-    gender: null,
-    countryOrigin: null,
-  });
+  const [user, setUser] = useState({});
   const [loading, setLoading] = useState();
 
   //AuthState Change Use Effect
   useEffect(() => {
     setLoading(true);
     const unsubscribe = onAuthStateChanged(auth, (user) => {
+      //TODOAdd db here and setUser(db values)
       if (user) {
         setUser({
           uid: user.uid,
           email: user.email,
-          displayName: user.displayName,
-          photoURL: user.photoURL,
-          emailverified: user.emailVerified,
+          emailVerified: user.emailVerified,
         });
       } else {
         setUser(null);
@@ -54,9 +44,11 @@ export const AuthContextProvider = ({ children }) => {
   const signup = async (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password).then(
       async (cred) => {
+        console.log(cred);
         await setDoc(doc(db, "users", cred.user.uid), {
           uid: cred.user.uid,
           email: cred.user.email,
+          emailVerified: cred.user.emailVerified,
         });
       }
     );
@@ -70,7 +62,20 @@ export const AuthContextProvider = ({ children }) => {
     const provider = new GoogleAuthProvider();
     return signInWithPopup(auth, provider);
   };
-  //TODO database entry when authenticating with google
+  //Google signup Auth function
+  const googleSignup = async () => {
+    const provider = new GoogleAuthProvider();
+    return signInWithPopup(auth, provider).then(async (result) => {
+      const docRef = doc(db, "users", result.user.uid);
+      const docSnap = await getDoc(docRef);
+      if (!docSnap.exists()) {
+        await setDoc(doc(db, "users", result.user.uid), {
+          uid: result.user.uid,
+          email: result.user.email,
+        });
+      }
+    });
+  };
   //logout Auth function
   const logout = async () => {
     setUser(null);
@@ -90,25 +95,27 @@ export const AuthContextProvider = ({ children }) => {
     }
     return sender;
   };
-  const addUserInfo = ({
-    displayName,
-    photoURL,
-    dob,
-    gender,
-    countryOrigin,
-  }) => {
-
+  const addUserInfo = async (data) => {
+    let adder = null;
+    if (auth.currentUser) {
+      adder = await setDoc(doc(db, "users", user.uid), data).then(
+        setUser(data)
+      );
+    }
+    return adder;
   };
   return (
     <AuthContext.Provider
       value={{
         login,
-        googleLogin,
-        user,
         signup,
+        googleLogin,
+        googleSignup,
         sendEV,
         logout,
         resetPass,
+        addUserInfo,
+        user,
       }}
     >
       {loading ? (

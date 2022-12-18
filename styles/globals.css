@@ -131,7 +131,7 @@ fieldset {
   border: none;
 }
 select,
-fieldset input:not(input[type="file"]),
+fieldset input:not(input[type="file"], input[type="checkbox"]),
 fieldset textarea {
   box-shadow: inset 0px 0px 20px -5px rgba(34, 22, 43, 0.25);
   min-height: 2.5rem;
@@ -144,6 +144,7 @@ fieldset textarea {
   font-family: "Montserrat";
   font-size: var(--p);
   color: var(--primary);
+  background-color: var(--white);
 }
 .mainBody {
   background: linear-gradient(180deg, #9d19ff 0%, #7d9eff 100%);

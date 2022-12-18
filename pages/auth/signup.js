@@ -19,16 +19,13 @@ import styles from "../../styles/Forms.module.css";
 const Signup = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const { sendEV, googleLogin, signup, user } = useAuth();
+  const { sendEV, googleSignup, signup } = useAuth();
   const [errorMsg, setErrorMsg] = useState("");
   const [data, setData] = useState({
     email: "",
     password: "",
   });
-  if (user) {
-    router.replace("/dashboard");
-    return <h1>Loading...</h1>;
-  }
+
   function handleError(error) {
     setErrorMsg(GetRefinedFirebaseError(error));
     console.log([error]);
@@ -44,13 +41,19 @@ const Signup = () => {
       .catch((error) => handleError(error))
       .finally(() => setLoading(false));
   };
-  const handleGoogleLogin = (e) => {
+  const handleGoogleSignup = (e) => {
     e.preventDefault();
     setLoading(true);
-    googleLogin()
-      .then(() => router.replace("/dashboard"))
-      .catch((error) => handleError(error))
-      .finally(() => setLoading(false));
+
+    try {
+      googleSignup().then(() => router.replace("/dashboard"));
+    } catch {
+      (error) => handleError(error);
+    } finally {
+      () => {
+        setLoading(false);
+      };
+    }
   };
 
   return (
@@ -61,7 +64,7 @@ const Signup = () => {
       <div className={styles.container}>
         <div className={styles.content} data-shadow="outer">
           <h2>Create a new account</h2>
-          <form className={styles.form} onSubmit={handleGoogleLogin}>
+          <form className={styles.form} onSubmit={handleGoogleSignup}>
             {errorMsg && (
               <fieldset>
                 <div className={styles.error}>{errorMsg}</div>

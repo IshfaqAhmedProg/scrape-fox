@@ -98,22 +98,22 @@
 
 /* Secondary button styles */
 .secondary {
-  padding: 1rem;
-  border-radius: 300px;
-  border: 1px solid#5bfc4d;
+  padding: 0.875em;
+  border-radius: var(--border-radius-small);
+  border: 1px solid var(--accent);
   font-weight: 400;
   font-size: 16px;
-  background: var(--primary--dark);
+  background: none;
   line-height: 113.7%;
-  color: var(--white);
+  color: var(--accent);
   transition: all 0.3s ease-in-out;
 }
 .secondary:hover,
 .secondary:focus {
-  scale: 0.9;
-  color: var(--primary);
+  scale: 0.98;
+  color: var(--white);
   border-color: var(--white);
-  background: var(--accent);
+  background: var(--primarylight);
 }
 
 /* arrow styles */
@@ -197,7 +197,7 @@
 .large:active.large::before {
   opacity: 0.8;
 }
-.close{
+.close {
   position: absolute;
   top: 1.5rem;
   right: 1.5rem;
