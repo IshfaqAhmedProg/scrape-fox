@@ -14,8 +14,8 @@
 .buttonContainer:disabled,
 .buttonContainer[disabled] {
   pointer-events: none;
-  color: var(--gray--dark);
-  background-color: var(--light--gray);
+  color: var(--graydark);
+  background-color: var(--graylight);
 }
 
 /* Plain button styles */

@@ -15,7 +15,7 @@
   /* base size: p (16px) */
   --h1: 2.19rem;
   --h1-impact: 3.12rem;
-  --p: .875rem;
+  --p: 0.875rem;
   --h2: 1.5rem;
   --h2impact: 1.88rem;
 
@@ -127,12 +127,14 @@ div[data-shadow="inner"] {
 .ReactModal__Overlay--before-close {
   opacity: 0;
 }
-fieldset input[type="text"],
-fieldset input[type="email"],
-fieldset input[type="password"],
+fieldset {
+  border: none;
+}
+select,
+fieldset input:not(input[type="file"]),
 fieldset textarea {
   box-shadow: inset 0px 0px 20px -5px rgba(34, 22, 43, 0.25);
-  min-height: 2.75rem;
+  min-height: 2.5rem;
   width: 100%;
   border: none;
   border-radius: var(--border-radius);
@@ -141,6 +143,7 @@ fieldset textarea {
   padding: 1rem;
   font-family: "Montserrat";
   font-size: var(--p);
+  color: var(--primary);
 }
 .mainBody {
   background: linear-gradient(180deg, #9d19ff 0%, #7d9eff 100%);

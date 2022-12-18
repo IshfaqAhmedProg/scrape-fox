@@ -43,28 +43,28 @@ const Sidebar = ({ setActivePage }) => {
         </div>
         <Divider direction="horizontal" colorMode="dark" />
         <div className={styles.menu}>
-          <div className={styles.menutitle} onClick={() => setActivePage("")}>
-            <Image src={HomeIcon} alt="Home icon" />
-            Home
-          </div>
+          <Link href="/dashboard">
+            <div className={styles.menutitle}>
+              <Image src={HomeIcon} alt="Home icon" />
+              Home
+            </div>
+          </Link>
         </div>
         <div className={styles.menu}>
-          <div
-            className={styles.menutitle}
-            onClick={() => setActivePage("accountPage")}
-          >
-            <Image src={AccountIcon} alt="Account icon" />
-            Account
-          </div>
+          <Link href="#accountPage">
+            <div className={styles.menutitle}>
+              <Image src={AccountIcon} alt="Account icon" />
+              Account
+            </div>
+          </Link>
         </div>
         <div className={styles.menu}>
-          <div
-            className={styles.menutitle}
-            onClick={() => setActivePage("shopPage")}
-          >
-            <Image src={ShopIcon} alt="Shop icon" />
-            Buy More Points
-          </div>
+          <Link href="#shopPage">
+            <div className={styles.menutitle}>
+              <Image src={ShopIcon} alt="Shop icon" />
+              Buy More Points
+            </div>
+          </Link>
         </div>
       </div>
       <div className={styles.contact} data-shadow="inner">

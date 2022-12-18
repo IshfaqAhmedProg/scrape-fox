@@ -16,7 +16,16 @@ import { auth, db } from "../firebase/config";
 const AuthContext = createContext({});
 export const useAuth = () => useContext(AuthContext);
 export const AuthContextProvider = ({ children }) => {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState({
+    uid: null,
+    email: null,
+    displayName: null,
+    photoURL: null,
+    emailVerified: null,
+    dob: null,
+    gender: null,
+    countryOrigin: null,
+  });
   const [loading, setLoading] = useState();
 
   //AuthState Change Use Effect
@@ -27,7 +36,9 @@ export const AuthContextProvider = ({ children }) => {
         setUser({
           uid: user.uid,
           email: user.email,
-          verified: user.emailVerified,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+          emailverified: user.emailVerified,
         });
       } else {
         setUser(null);
@@ -44,8 +55,8 @@ export const AuthContextProvider = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password).then(
       async (cred) => {
         await setDoc(doc(db, "users", cred.user.uid), {
-          UID: cred.user.uid,
-          Email: cred.user.email,
+          uid: cred.user.uid,
+          email: cred.user.email,
         });
       }
     );
@@ -79,7 +90,15 @@ export const AuthContextProvider = ({ children }) => {
     }
     return sender;
   };
+  const addUserInfo = ({
+    displayName,
+    photoURL,
+    dob,
+    gender,
+    countryOrigin,
+  }) => {
 
+  };
   return (
     <AuthContext.Provider
       value={{

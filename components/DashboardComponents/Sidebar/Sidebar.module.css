@@ -23,6 +23,9 @@
   flex-direction: column;
   gap: 0.5625em;
 }
+.menu a{
+  color: var(--white);
+}
 .menutitle {
   display: flex;
   align-items: center;
@@ -46,6 +49,14 @@
   flex-direction: column;
   gap: 0.5625em;
   cursor: pointer;
+  font-size: 0.875rem;
+}
+.items li{
+  transition: all 0.15s ease;
+}
+.items li:hover {
+  color: var(--primarylighter);
+  scale: 0.98;
 }
 .contact {
   display: flex;

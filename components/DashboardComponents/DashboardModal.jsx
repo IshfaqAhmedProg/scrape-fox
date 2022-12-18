@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Home from "./Home/Home";
 import Shop from "./Pages/Shop";
@@ -5,19 +6,22 @@ import YourAccount from "./Pages/YourAccount";
 
 const DashboardModal = ({ page }) => {
   const [openPage, setOpenPage] = useState(<Home />);
+  const router = useRouter();
   useEffect(() => {
-    switch (page) {
-      case "accountPage":
+    switch (router.asPath) {
+      case "/dashboard#accountPage":
         setOpenPage(<YourAccount />);
         break;
-      case "shopPage":
+      case "/dashboard#shopPage":
         setOpenPage(<Shop />);
         break;
+      case "/dashboard":
+        setOpenPage(<Home />);
       default:
         setOpenPage(<Home />);
         break;
     }
-  }, [page]);
+  }, [router.asPath]);
   return openPage;
 };
 
