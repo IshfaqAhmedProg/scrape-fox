@@ -3,7 +3,10 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
-import ReCAPTCHA from "react-google-recaptcha";
+import {
+  GoogleReCaptchaProvider,
+  GoogleReCaptcha,
+} from "react-google-recaptcha-v3";
 
 import { useAuth } from "../../contexts/AuthContext";
 import { GetRefinedFirebaseError } from "../../shared/Functions/errorHandler";
@@ -118,10 +121,12 @@ const Signup = () => {
               />
             </fieldset>
             <fieldset>
-              <ReCAPTCHA
-                sitekey={process.env.PRIVATE_RECAPTCHA_SITE_KEY}
-                onChange={handleReCaptcha}
-              />
+              <GoogleReCaptchaProvider
+                reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+              >
+                <GoogleReCaptcha onVerify={handleReCaptcha} />
+              </GoogleReCaptchaProvider>
+              ,
             </fieldset>
             <fieldset>
               <span className={styles.label}>
