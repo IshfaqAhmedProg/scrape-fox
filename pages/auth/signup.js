@@ -51,9 +51,9 @@ const Signup = () => {
   }
 
   const handleSignup = async (e) => {
-    if (!userHuman) {
-      return false;
-    }
+    // if (!userHuman) {
+    //   return false;
+    // }
     e.preventDefault();
     setLoading(true);
     signup(data.email, data.password)
