@@ -19,6 +19,9 @@
   border-radius: 50%;
   overflow: hidden;
   border: 3px solid var(--primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .avataroverlay {
   position: absolute;

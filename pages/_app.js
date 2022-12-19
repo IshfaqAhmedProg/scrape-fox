@@ -11,15 +11,8 @@ import Navbar from "../components/Navbar/Navbar";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
-
-const noAuthRequired = [
-  "/",
-  "/auth/login",
-  "/auth/signup",
-  "/auth/resetPass",
-  "/verifyfox",
-];
-
+import noAuthRequired from "../shared/Data/noAuthRequired.json";
+import { PublicRoute } from "../shared/Hooks/publicRoute";
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   useEffect(() => {
@@ -34,7 +27,9 @@ function MyApp({ Component, pageProps }) {
     <AuthContextProvider>
       <Navbar></Navbar>
       {noAuthRequired.includes(router.pathname) ? (
-        <Component {...pageProps} />
+        <PublicRoute>
+          <Component {...pageProps} />
+        </PublicRoute>
       ) : (
         <ProtectedRoute>
           <Component {...pageProps} />

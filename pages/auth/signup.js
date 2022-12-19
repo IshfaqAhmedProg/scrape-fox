@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,23 +19,41 @@ import styles from "../../styles/Forms.module.css";
 
 const Signup = () => {
   const router = useRouter();
-
   const [loading, setLoading] = useState(false);
   const { sendEV, googleSignup, signup } = useAuth();
   const [errorMsg, setErrorMsg] = useState("");
+  const [userHuman, setUserHuman] = useState(false);
   const [data, setData] = useState({
     email: "",
     password: "",
   });
-  const handleReCaptcha = (value) => {
-    console.log("value", value);
+
+  const handleReCaptcha = async (value) => {
+    const response = await fetch("/api/auth", {
+      method: "POST",
+      body: JSON.stringify({ value }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const responseData = await response.json();
+    if (responseData.errors) {
+      handleError(responseData.errors);
+    } else {
+      console.log("responseData", responseData);
+      setUserHuman(true);
+    }
   };
+
   function handleError(error) {
-    setErrorMsg(GetRefinedFirebaseError(error));
+    setErrorMsg(error);
     console.log([error]);
   }
 
   const handleSignup = async (e) => {
+    if (!userHuman) {
+      return false;
+    }
     e.preventDefault();
     setLoading(true);
     signup(data.email, data.password)
@@ -43,7 +61,7 @@ const Signup = () => {
         router.replace("/dashboard");
         sendEV();
       })
-      .catch((error) => handleError(error))
+      .catch((error) => handleError(GetRefinedFirebaseError(error)))
       .finally(() => setLoading(false));
   };
 
@@ -53,7 +71,7 @@ const Signup = () => {
     try {
       googleSignup().then(() => router.replace("/dashboard"));
     } catch {
-      (error) => handleError(error);
+      (error) => handleError(GetRefinedFirebaseError(error));
     } finally {
       () => {
         setLoading(false);
@@ -118,19 +136,13 @@ const Signup = () => {
                 title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
               />
             </fieldset>
-            <fieldset>
-              <ReCAPTCHA
-                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-                onChange={handleReCaptcha}
-              />
-            </fieldset>
+
             <fieldset>
               <span className={styles.label}>
                 <input
                   type="checkbox"
                   id="terms"
                   name="terms"
-                  value="terms"
                   tabIndex="4"
                   required
                 />
@@ -143,6 +155,12 @@ const Signup = () => {
                   <b>Privacy Policy</b>
                 </Link>
               </span>
+            </fieldset>
+            <fieldset>
+              <ReCAPTCHA
+                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                onChange={handleReCaptcha}
+              />
             </fieldset>
             <fieldset>
               <Button

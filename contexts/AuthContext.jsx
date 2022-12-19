@@ -12,19 +12,21 @@ import {
 
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { auth, db } from "../firebase/config";
+import { useUserDb } from "./UserDatabaseContext";
 
 const AuthContext = createContext({});
 export const useAuth = () => useContext(AuthContext);
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState();
+  const { userDb } = useUserDb();
 
   //AuthState Change Use Effect
   useEffect(() => {
     setLoading(true);
+
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       //TODOAdd db here and setUser(db values)
-      console.log(user);
       if (user) {
         setUser({
           uid: user.uid,
@@ -39,13 +41,12 @@ export const AuthContextProvider = ({ children }) => {
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [userDb]);
 
   //Sign Up Auth function
   const signup = async (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password).then(
       async (cred) => {
-        console.log(cred);
         await setDoc(doc(db, "users", cred.user.uid), {
           uid: cred.user.uid,
           email: cred.user.email,

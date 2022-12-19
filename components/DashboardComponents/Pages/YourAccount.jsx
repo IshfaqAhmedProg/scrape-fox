@@ -5,15 +5,18 @@ import styles from "./DashboardPages.module.css";
 import UserAccountDefaultIcon from "../../../public/Icons/UserAccountDefault.svg";
 import Button from "../../Button/Button";
 import { addDate, convertToYMD } from "../../../shared/Functions/dateHandler";
+import { useUserDb } from "../../../contexts/UserDatabaseContext";
 const YourAccount = () => {
   const { user, addUserInfo } = useAuth();
+  const { setUserInfo, userDb } = useUserDb();
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState(user);
+  const [data, setData] = useState(userDb);
   const [defaults, setDefaults] = useState({});
   const changeUserInfo = (e) => {
     e.preventDefault();
     setLoading(true);
-    addUserInfo(data).then(setLoading(false));
+    setUserInfo(data);
+    // addUserInfo(data).then(setLoading(false));
   };
   useEffect(() => {
     let maxdate = new Date();
@@ -62,32 +65,30 @@ const YourAccount = () => {
             />
           </div>
           <fieldset>
-            {user.displayName ? (
-              <h3>{user.displayName}</h3>
-            ) : (
-              <input
-                type="text"
-                maxLength="12"
-                placeholder="Enter your display name"
-                value={data.displayName}
-                onChange={(e) => {
-                  setData({ ...data, displayName: e.target.value });
-                }}
-              />
-            )}
+            <input
+              type="text"
+              maxLength="12"
+              placeholder="Enter your display name"
+              value={data.displayName}
+              onChange={(e) => {
+                setData({ ...data, displayName: e.target.value });
+              }}
+            />
           </fieldset>
         </div>
         <div className={styles.details} data-shadow="inner">
           <fieldset>
             <label>Email Address</label>
-            <p>{user.email}</p>
+            <p>{data.email}</p>
           </fieldset>
           <fieldset>
             <label htmlFor="dob">Date of birth</label>
+
             <input
               id="dob"
               type="date"
               name="dob"
+              value={data.dob}
               min={defaults.dobMin}
               max={defaults.dobMax}
               onChange={(e) => {
@@ -97,6 +98,7 @@ const YourAccount = () => {
           </fieldset>
           <fieldset>
             <label htmlFor="gender">Gender</label>
+
             <select
               id="gender"
               name="gender"
@@ -105,9 +107,24 @@ const YourAccount = () => {
               }}
             >
               <option>--Your Gender--</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
+              <option
+                value="male"
+                selected={data.gender == "male" ? true : false}
+              >
+                Male
+              </option>
+              <option
+                value="female"
+                selected={data.gender == "female" ? true : false}
+              >
+                Female
+              </option>
+              <option
+                value="other"
+                selected={data.gender == "other" ? true : false}
+              >
+                Other
+              </option>
             </select>
           </fieldset>
           <fieldset>
@@ -120,14 +137,23 @@ const YourAccount = () => {
               }}
             >
               <option>--Your Country--</option>
-              <option value="Gondor">Gondor</option>
-              <option value="Lothric">Lothric</option>
-              <option value="Firelink Shrine">Firelink Shrine</option>
+              <option
+                value="Gondor"
+                selected={data.countryOrigin == "Gondor" ? true : false}
+              >
+                Gondor
+              </option>
+              <option
+                value="Lothric"
+                selected={data.countryOrigin == "Lothric" ? true : false}
+              >
+                Lothric
+              </option>
             </select>
           </fieldset>
         </div>
         <div className={styles.submit}>
-          {data === user ? null : (
+          {data === userDb ? null : (
             <Button variant="primary" type="submit">
               Save
             </Button>
