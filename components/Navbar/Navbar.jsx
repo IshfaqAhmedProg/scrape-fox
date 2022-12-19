@@ -65,8 +65,7 @@ export default function Navbar() {
           {user ? ( //to show logout button
             <Button
               onClick={() => {
-                router.replace("/");
-                logout();
+                logout().then(router.replace("/"));
               }}
               variant="secondary"
             >

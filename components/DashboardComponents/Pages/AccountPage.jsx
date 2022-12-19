@@ -6,8 +6,8 @@ import UserAccountDefaultIcon from "../../../public/Icons/UserAccountDefault.svg
 import Button from "../../Button/Button";
 import { addDate, convertToYMD } from "../../../shared/Functions/dateHandler";
 import { useUserDb } from "../../../contexts/UserDatabaseContext";
-const YourAccount = () => {
-  const { user, addUserInfo } = useAuth();
+const AccountPage = () => {
+  const { logout } = useAuth();
   const { setUserInfo, userDb } = useUserDb();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(userDb);
@@ -16,7 +16,6 @@ const YourAccount = () => {
     e.preventDefault();
     setLoading(true);
     setUserInfo(data);
-    // addUserInfo(data).then(setLoading(false));
   };
   useEffect(() => {
     let maxdate = new Date();
@@ -27,12 +26,12 @@ const YourAccount = () => {
       dobMax: convertToYMD(maxdate).toString(),
       dobMin: convertToYMD(mindate).toString(),
     });
-    console.log("user", user);
-    console.log("data", data);
-  }, [user, data]);
+    // console.log("userDb", userDb);
+    // console.log("data", data);
+  }, []);
   return (
     <section id="accountPage" className={styles.container}>
-      <h2>Your Account</h2>
+      <h2>My Account</h2>
       <form className={styles.content} onSubmit={changeUserInfo}>
         <div className={styles.display}>
           <div className={styles.avatar}>
@@ -65,21 +64,36 @@ const YourAccount = () => {
             />
           </div>
           <fieldset>
-            <input
-              type="text"
-              maxLength="12"
-              placeholder="Enter your display name"
-              value={data.displayName}
-              onChange={(e) => {
-                setData({ ...data, displayName: e.target.value });
-              }}
-            />
+            {data.displayName ? (
+              <h3>{data.displayName}</h3>
+            ) : (
+              <input
+                type="text"
+                maxLength="12"
+                placeholder="Enter your display name"
+                value={data.displayName}
+                onChange={(e) => {
+                  setData({ ...data, displayName: e.target.value });
+                }}
+              />
+            )}
+            <p>{data.email}</p>
           </fieldset>
         </div>
         <div className={styles.details} data-shadow="inner">
           <fieldset>
-            <label>Email Address</label>
-            <p>{data.email}</p>
+            <label htmlFor="phoneNumber">Phone Number</label>
+
+            <input
+              id="phoneNumber"
+              type="tel"
+              name="phoneNumber"
+              pattern="^\+[1-9]\d{1,14}$"
+              value={data.phoneNumber}
+              onChange={(e) => {
+                setData({ ...data, phoneNumber: e.target.value });
+              }}
+            />
           </fieldset>
           <fieldset>
             <label htmlFor="dob">Date of birth</label>
@@ -153,18 +167,23 @@ const YourAccount = () => {
           </fieldset>
         </div>
         <div className={styles.submit}>
-          {data === userDb ? null : (
-            <Button variant="primary" type="submit">
+          {data === userDb ? (
+            ""
+          ) : (
+            <Button
+              variant="primary"
+              type="submit"
+              disabled={data === userDb ? true : false}
+            >
               Save
             </Button>
           )}
-          <Button variant="primary" alternate>
-            Logout
-          </Button>
+
+          <Button variant="secondary">Logout&#xe163;</Button>
         </div>
       </form>
     </section>
   );
 };
 
-export default YourAccount;
+export default AccountPage;

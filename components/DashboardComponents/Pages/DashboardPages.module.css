@@ -50,6 +50,17 @@
 .display h3 {
   color: var(--primary);
 }
+.display fieldset {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.875rem;
+}
+.display fieldset input[type="text"] {
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+}
 .details {
   display: flex;
   flex-direction: column;
@@ -74,7 +85,8 @@
 .details label {
   flex-grow: 1;
   font-weight: 700;
-  color: var(--primarydark);
+  color: var(--primary);
+  opacity: 0.5;
 }
 .submit {
   width: 100%;

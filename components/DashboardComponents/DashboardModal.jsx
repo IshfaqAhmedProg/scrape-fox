@@ -1,10 +1,9 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { UserDatabaseContextProvider } from "../../contexts/UserDatabaseContext";
 import EmailValidator from "../VerifyFoxComponents/EmailValidator";
 import Home from "./Home/Home";
-import Shop from "./Pages/Shop";
-import YourAccount from "./Pages/YourAccount";
+import ShopPage from "./Pages/ShopPage";
+import AccountPage from "./Pages/AccountPage";
 
 const DashboardModal = () => {
   const [openPage, setOpenPage] = useState(<Home />);
@@ -12,10 +11,10 @@ const DashboardModal = () => {
   useEffect(() => {
     switch (router.asPath) {
       case "/dashboard#accountPage":
-        setOpenPage(<YourAccount />);
+        setOpenPage(<AccountPage />);
         break;
       case "/dashboard#shopPage":
-        setOpenPage(<Shop />);
+        setOpenPage(<ShopPage />);
         break;
       case "/dashboard#emailValidator":
         setOpenPage(<EmailValidator />);
@@ -27,7 +26,7 @@ const DashboardModal = () => {
         break;
     }
   }, [router.asPath]);
-  return <UserDatabaseContextProvider>{openPage}</UserDatabaseContextProvider>;
+  return openPage;
 };
 
 export default DashboardModal;

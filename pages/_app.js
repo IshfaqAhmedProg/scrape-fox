@@ -11,8 +11,16 @@ import Navbar from "../components/Navbar/Navbar";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
-import noAuthRequired from "../shared/Data/noAuthRequired.json";
 import { PublicRoute } from "../shared/Hooks/publicRoute";
+
+const noAuthRequired = [
+  "/",
+  "/auth/login",
+  "/auth/signup",
+  "/auth/resetPass",
+  "/verifyfox",
+];
+
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   useEffect(() => {

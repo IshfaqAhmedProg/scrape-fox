@@ -1,7 +1,7 @@
 import React from "react";
 
-const Shop = () => {
+const ShopPage = () => {
   return <section id="shopPage">Shop</section>;
 };
 
-export default Shop;
+export default ShopPage;

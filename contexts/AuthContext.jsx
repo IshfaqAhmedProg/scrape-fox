@@ -12,7 +12,6 @@ import {
 
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { auth, db } from "../firebase/config";
-import { useUserDb } from "./UserDatabaseContext";
 
 const AuthContext = createContext({});
 export const useAuth = () => useContext(AuthContext);
@@ -25,6 +24,7 @@ export const AuthContextProvider = ({ children }) => {
     setLoading(true);
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
+        localStorage.setItem("uid", user.uid);
         setUser({
           uid: user.uid,
           email: user.email,
@@ -33,6 +33,7 @@ export const AuthContextProvider = ({ children }) => {
           emailVerified: user.emailVerified,
         });
       } else {
+        localStorage.removeItem("uid");
         setUser(null);
       }
       setLoading(false);
@@ -75,14 +76,15 @@ export const AuthContextProvider = ({ children }) => {
           email: result.user.email,
           displayName: result.user.displayName,
           photoURL: result.user.photoURL,
+          emailVerified: result.user.emailVerified,
         });
       }
     });
   };
+
   //logout Auth function
   const logout = async () => {
-    setUser(null);
-    await signOut(auth);
+    await signOut(auth).then(setUser(null));
   };
   //Password Reset Auth function
   const resetPass = (email) => {
@@ -98,16 +100,7 @@ export const AuthContextProvider = ({ children }) => {
     }
     return sender;
   };
-  const addUserInfo = async (data) => {
-    //TODO add firebase update profile
-    let adder = null;
-    if (auth.currentUser) {
-      adder = await setDoc(doc(db, "users", user.uid), data).then(
-        setUser(data)
-      );
-    }
-    return adder;
-  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -118,27 +111,10 @@ export const AuthContextProvider = ({ children }) => {
         sendEV,
         logout,
         resetPass,
-        addUserInfo,
         user,
       }}
     >
-      {loading ? (
-        <div
-          style={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            translate: "-50% -50%",
-            fontSize: "20px",
-            fontWeight: "500",
-            color: "var(--primary)",
-          }}
-        >
-          Loading...
-        </div>
-      ) : (
-        children
-      )}
+      {loading ? <div className="loading">Loading...</div> : children}
     </AuthContext.Provider>
   );
 };

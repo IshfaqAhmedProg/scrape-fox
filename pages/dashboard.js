@@ -4,9 +4,9 @@ import styles from "../components/DashboardComponents/Dashboard.module.css";
 import Button from "../components/Button/Button";
 import DashboardModal from "../components/DashboardComponents/DashboardModal";
 import Head from "next/head";
+import { UserDatabaseContextProvider } from "../contexts/UserDatabaseContext";
 
 const Dashboard = () => {
-  const [dataLoading, setDataLoading] = useState();
   const [sbToggle, setSbToggle] = useState(false);
   const [activePage, setActivePage] = useState("");
   return (
@@ -31,7 +31,9 @@ const Dashboard = () => {
           </div>
         </div>
         <div className={styles.main}>
-          <DashboardModal page={activePage} />
+          <UserDatabaseContextProvider>
+            <DashboardModal page={activePage} />
+          </UserDatabaseContextProvider>
         </div>
       </div>
     </>
