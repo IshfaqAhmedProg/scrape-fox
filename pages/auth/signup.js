@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
-import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
+import ReCAPTCHA from "react-google-recaptcha";
 
 import { useAuth } from "../../contexts/AuthContext";
 import { GetRefinedFirebaseError } from "../../shared/Functions/errorHandler";
@@ -16,7 +16,6 @@ import google from "../../public/Icons/Google.svg";
 import loader from "../../public/Icons/Loader.svg";
 
 import styles from "../../styles/Forms.module.css";
-import ReCAPTCHA from "../../components/ReCAPTCHA/ReCAPTCHA";
 
 const Signup = () => {
   const router = useRouter();
@@ -28,7 +27,9 @@ const Signup = () => {
     email: "",
     password: "",
   });
-
+  const handleReCaptcha = (value) => {
+    console.log("value", value);
+  };
   function handleError(error) {
     setErrorMsg(GetRefinedFirebaseError(error));
     console.log([error]);
@@ -118,11 +119,10 @@ const Signup = () => {
               />
             </fieldset>
             <fieldset>
-              <GoogleReCaptchaProvider
-                reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-              >
-                <ReCAPTCHA />
-              </GoogleReCaptchaProvider>
+              <ReCAPTCHA
+                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                onChange={handleReCaptcha}
+              />
             </fieldset>
             <fieldset>
               <span className={styles.label}>
