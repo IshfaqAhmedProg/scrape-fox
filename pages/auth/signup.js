@@ -3,10 +3,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
-import {
-  GoogleReCaptchaProvider,
-  GoogleReCaptcha,
-} from "react-google-recaptcha-v3";
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
 import { useAuth } from "../../contexts/AuthContext";
 import { GetRefinedFirebaseError } from "../../shared/Functions/errorHandler";
@@ -19,9 +16,11 @@ import google from "../../public/Icons/Google.svg";
 import loader from "../../public/Icons/Loader.svg";
 
 import styles from "../../styles/Forms.module.css";
+import ReCAPTCHA from "../../components/ReCAPTCHA/ReCAPTCHA";
 
 const Signup = () => {
   const router = useRouter();
+
   const [loading, setLoading] = useState(false);
   const { sendEV, googleSignup, signup } = useAuth();
   const [errorMsg, setErrorMsg] = useState("");
@@ -29,9 +28,7 @@ const Signup = () => {
     email: "",
     password: "",
   });
-  const handleReCaptcha = (value) => {
-    console.log("value", value);
-  };
+
   function handleError(error) {
     setErrorMsg(GetRefinedFirebaseError(error));
     console.log([error]);
@@ -124,9 +121,8 @@ const Signup = () => {
               <GoogleReCaptchaProvider
                 reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
               >
-                <GoogleReCaptcha onVerify={handleReCaptcha} />
+                <ReCAPTCHA />
               </GoogleReCaptchaProvider>
-              ,
             </fieldset>
             <fieldset>
               <span className={styles.label}>
