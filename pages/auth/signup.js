@@ -119,7 +119,7 @@ const Signup = () => {
             </fieldset>
             <fieldset>
               <ReCAPTCHA
-                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                sitekey={process.env.PRIVATE_RECAPTCHA_SITE_KEY}
                 onChange={handleReCaptcha}
               />
             </fieldset>
