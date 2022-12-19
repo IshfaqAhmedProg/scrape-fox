@@ -8,10 +8,9 @@ export const PublicRoute = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (user != undefined && noAuthRequired.includes(router.pathname)) {
+    if (user != undefined && noAuthRequired.shift().includes(router.pathname)) {
       router.push("/dashboard");
     }
-    console.log("path", noAuthRequired.includes(router.pathname));
   }, [router, user]);
 
   return <>{children}</>;

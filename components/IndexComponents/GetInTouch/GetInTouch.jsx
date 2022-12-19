@@ -1,7 +1,9 @@
+import { useRouter } from "next/router";
 import React from "react";
 import Button from "../../Button/Button";
 import styles from "./GetInTouch.module.css";
 export const GetInTouch = () => {
+  const router = useRouter();
   return (
     <section id="ContactUs" className={styles.container}>
       <div className={styles.title} data-aos="fade-right">
@@ -38,7 +40,12 @@ export const GetInTouch = () => {
             />
           </fieldset>
           <fieldset>
-            <Button variant="primary">Send</Button>
+            <Button
+              variant="primary"
+              onClick={() => router.push("/dashboard#accountPage")}
+            >
+              Send
+            </Button>
           </fieldset>
         </form>
       </div>

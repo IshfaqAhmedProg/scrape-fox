@@ -11,7 +11,6 @@ export const ProtectedRoute = ({ children }) => {
     if (user == null) {
       router.push("/auth/login");
     }
-    console.log("path", noAuthRequired.includes(router.pathname));
   }, [router, user]);
 
   return <>{user ? children : <h1>Loading...</h1>}</>;

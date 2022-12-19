@@ -19,18 +19,17 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState();
-  const { userDb } = useUserDb();
 
   //AuthState Change Use Effect
   useEffect(() => {
     setLoading(true);
-
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      //TODOAdd db here and setUser(db values)
       if (user) {
         setUser({
           uid: user.uid,
           email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
           emailVerified: user.emailVerified,
         });
       } else {
@@ -41,7 +40,7 @@ export const AuthContextProvider = ({ children }) => {
     return () => {
       unsubscribe();
     };
-  }, [userDb]);
+  }, []);
 
   //Sign Up Auth function
   const signup = async (email, password) => {
@@ -74,6 +73,8 @@ export const AuthContextProvider = ({ children }) => {
         await setDoc(doc(db, "users", result.user.uid), {
           uid: result.user.uid,
           email: result.user.email,
+          displayName: result.user.displayName,
+          photoURL: result.user.photoURL,
         });
       }
     });
