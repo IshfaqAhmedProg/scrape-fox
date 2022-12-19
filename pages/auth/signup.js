@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
+import ReCAPTCHA from "react-google-recaptcha";
 
 import { useAuth } from "../../contexts/AuthContext";
 import { GetRefinedFirebaseError } from "../../shared/Functions/errorHandler";
@@ -25,11 +26,14 @@ const Signup = () => {
     email: "",
     password: "",
   });
-
+  const handleReCaptcha = (value) => {
+    console.log("value", value);
+  };
   function handleError(error) {
     setErrorMsg(GetRefinedFirebaseError(error));
     console.log([error]);
   }
+
   const handleSignup = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -41,10 +45,10 @@ const Signup = () => {
       .catch((error) => handleError(error))
       .finally(() => setLoading(false));
   };
+
   const handleGoogleSignup = (e) => {
     e.preventDefault();
     setLoading(true);
-
     try {
       googleSignup().then(() => router.replace("/dashboard"));
     } catch {
@@ -111,6 +115,12 @@ const Signup = () => {
                 maxLength="24"
                 pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                 title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+              />
+            </fieldset>
+            <fieldset>
+              <ReCAPTCHA
+                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                onChange={handleReCaptcha}
               />
             </fieldset>
             <fieldset>

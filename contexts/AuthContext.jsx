@@ -24,6 +24,7 @@ export const AuthContextProvider = ({ children }) => {
     setLoading(true);
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       //TODOAdd db here and setUser(db values)
+      console.log(user);
       if (user) {
         setUser({
           uid: user.uid,
@@ -96,6 +97,7 @@ export const AuthContextProvider = ({ children }) => {
     return sender;
   };
   const addUserInfo = async (data) => {
+    //TODO add firebase update profile
     let adder = null;
     if (auth.currentUser) {
       adder = await setDoc(doc(db, "users", user.uid), data).then(
