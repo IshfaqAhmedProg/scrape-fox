@@ -23,10 +23,7 @@ const Sidebar = () => {
         className={styles.overlay + " " + (sbToggle ? styles["open"] : "")}
       ></div>
 
-      <div
-        className={styles.sidebar + " " + (sbToggle ? styles["open"] : "")}
-        data-aos="fade-right"
-      >
+      <div className={styles.sidebar + " " + (sbToggle ? styles["open"] : "")}>
         <div className={styles.content}>
           <div className={styles.mainmenu}>
             <div className={styles.points}>

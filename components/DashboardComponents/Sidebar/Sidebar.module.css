@@ -138,10 +138,10 @@
     border-radius: 0;
     transition: left 0.3s ease-in;
   }
-  .sidebar .open {
+  .sidebar.open {
     left: 0;
   }
-  .overlay .open {
+  .overlay.open {
     display: block;
   }
   .open .sidebartoggle path {
