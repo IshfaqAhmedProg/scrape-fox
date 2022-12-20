@@ -12,6 +12,7 @@ import Navbar from "../components/Navbar/Navbar";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { PublicRoute } from "../shared/Hooks/publicRoute";
+import { UserDatabaseContextProvider } from "../contexts/UserDatabaseContext";
 
 const noAuthRequired = [
   "/",
@@ -20,7 +21,7 @@ const noAuthRequired = [
   "/auth/resetPass",
   "/verifyfox",
 ];
-
+const dashboardLayout = ["/dashboard", "/dashboard/profile", "/dashboard/shop"];
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   useEffect(() => {
@@ -40,7 +41,13 @@ function MyApp({ Component, pageProps }) {
         </PublicRoute>
       ) : (
         <ProtectedRoute>
-          <Component {...pageProps} />
+          {dashboardLayout.includes(router.pathname) ? (
+            <UserDatabaseContextProvider>
+              <Component {...pageProps} />
+            </UserDatabaseContextProvider>
+          ) : (
+            <Component {...pageProps} />
+          )}
         </ProtectedRoute>
       )}
     </AuthContextProvider>

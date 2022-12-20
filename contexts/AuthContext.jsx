@@ -24,7 +24,6 @@ export const AuthContextProvider = ({ children }) => {
     setLoading(true);
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        localStorage.setItem("uid", user.uid);
         setUser({
           uid: user.uid,
           email: user.email,
@@ -33,7 +32,6 @@ export const AuthContextProvider = ({ children }) => {
           emailVerified: user.emailVerified,
         });
       } else {
-        localStorage.removeItem("uid");
         setUser(null);
       }
       setLoading(false);
@@ -84,7 +82,10 @@ export const AuthContextProvider = ({ children }) => {
 
   //logout Auth function
   const logout = async () => {
-    await signOut(auth).then(setUser(null));
+    await signOut(auth).then(() => {
+      setUser(null);
+      localStorage.clear();
+    });
   };
   //Password Reset Auth function
   const resetPass = (email) => {

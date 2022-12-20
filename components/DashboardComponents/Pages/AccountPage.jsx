@@ -6,18 +6,17 @@ import UserAccountDefaultIcon from "../../../public/Icons/UserAccountDefault.svg
 import Button from "../../Button/Button";
 import { addDate, convertToYMD } from "../../../shared/Functions/dateHandler";
 import { useUserDb } from "../../../contexts/UserDatabaseContext";
+
 const AccountPage = () => {
   const { logout } = useAuth();
-  const { setUserInfo, userDb } = useUserDb();
-  const [loading, setLoading] = useState(false);
+  const { setUserInfo, userDb, getUserInfo } = useUserDb();
   const [data, setData] = useState(userDb);
   const [defaults, setDefaults] = useState({});
   const changeUserInfo = (e) => {
     e.preventDefault();
-    setLoading(true);
     setUserInfo(data);
   };
-  useEffect(() => {
+  const setDOBMinMax = () => {
     let maxdate = new Date();
     maxdate = addDate(maxdate, -18, "years");
     let mindate = new Date();
@@ -26,12 +25,15 @@ const AccountPage = () => {
       dobMax: convertToYMD(maxdate).toString(),
       dobMin: convertToYMD(mindate).toString(),
     });
-    // console.log("userDb", userDb);
-    // console.log("data", data);
-  }, []);
+  };
+  useEffect(() => {
+    setDOBMinMax();
+    setData(userDb);
+  }, [userDb]);
   return (
-    <section id="accountPage" className={styles.container}>
-      <h2>My Account</h2>
+    <section id="accountPage" className={styles.container} onLoad={getUserInfo}>
+      <h2>Profile</h2>
+
       <form className={styles.content} onSubmit={changeUserInfo}>
         <div className={styles.display}>
           <div className={styles.avatar}>
@@ -89,6 +91,7 @@ const AccountPage = () => {
               type="tel"
               name="phoneNumber"
               pattern="^\+[1-9]\d{1,14}$"
+              placeholder="Your Phone Number"
               value={data.phoneNumber}
               onChange={(e) => {
                 setData({ ...data, phoneNumber: e.target.value });
@@ -119,26 +122,14 @@ const AccountPage = () => {
               onChange={(e) => {
                 setData({ ...data, gender: e.target.value });
               }}
+              value={data.gender}
             >
-              <option>--Your Gender--</option>
-              <option
-                value="male"
-                selected={data.gender == "male" ? true : false}
-              >
-                Male
+              <option value="" disabled>
+                --Your Gender--
               </option>
-              <option
-                value="female"
-                selected={data.gender == "female" ? true : false}
-              >
-                Female
-              </option>
-              <option
-                value="other"
-                selected={data.gender == "other" ? true : false}
-              >
-                Other
-              </option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
             </select>
           </fieldset>
           <fieldset>
@@ -149,20 +140,13 @@ const AccountPage = () => {
               onChange={(e) => {
                 setData({ ...data, countryOrigin: e.target.value });
               }}
+              value={data.countryOrigin}
             >
-              <option>--Your Country--</option>
-              <option
-                value="Gondor"
-                selected={data.countryOrigin == "Gondor" ? true : false}
-              >
-                Gondor
+              <option value="" disabled>
+                --Your Country--
               </option>
-              <option
-                value="Lothric"
-                selected={data.countryOrigin == "Lothric" ? true : false}
-              >
-                Lothric
-              </option>
+              <option value="Gondor">Gondor</option>
+              <option value="Lothric">Lothric</option>
             </select>
           </fieldset>
         </div>
