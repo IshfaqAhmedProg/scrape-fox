@@ -1,89 +1,70 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useUserDb } from "../../../contexts/UserDatabaseContext";
 import styles from "./Home.module.css";
+import TaskElement from "./TaskElement";
 const Home = () => {
-  const tasks = [
-    {
-      Id: "dsaw231d",
-      QueryCount: 250,
-      Service: "Google Maps Scraper",
-      CreatedAt: "Nov 25, 2022 10:35am",
-      Status: 1,
-    },
-    {
-      Id: "saw2d31d",
-      QueryCount: 250,
-      Service: "WhatsApp Validator",
-      CreatedAt: "Nov 25, 2022 10:35am",
-      Status: 1,
-    },
-    {
-      Id: "w231dsad",
-      QueryCount: 250,
-      Service: "Phone Number Validator",
-      CreatedAt: "Nov 25, 2022 10:35am",
-      Status: 0,
-    },
-    {
-      Id: "1dsw23ad",
-      QueryCount: 250,
-      Service: "Phone Number Validator",
-      CreatedAt: "Nov 25, 2022 10:35am",
-      Status: 1,
-    },
-    {
-      Id: "31dw2sad",
-      QueryCount: 250,
-      Service: "Phone Number Validator",
-      CreatedAt: "Nov 25, 2022 10:35am",
-      Status: 1,
-    },
-    {
-      Id: "231dwsad",
-      QueryCount: 250,
-      Service: "Phone Number Validator",
-      CreatedAt: "Nov 25, 2022 10:35am",
-      Status: 1,
-    },
-    {
-      Id: "sadw231d",
-      QueryCount: 250,
-      Service: "Phone Number Validator",
-      CreatedAt: "Nov 25, 2022 10:35am",
-      Status: 0,
-    },
-  ];
+  // const tasks = [
+  //   {
+  //     taskIdShort: "dsaw231d",
+  //     queryCount: 250,
+  //     service: "Google Maps Scraper",
+  //     dateCreated: "Nov 25, 2022 10:35am",
+  //     taskRunning: false,
+  //   },
+  //   {
+  //     taskIdShort: "saw2d31d",
+  //     queryCount: 250,
+  //     service: "WhatsApp Validator",
+  //     dateCreated: "Nov 25, 2022 10:35am",
+  //     taskRunning: false,
+  //   },
+  //   {
+  //     taskIdShort: "w231dsad",
+  //     queryCount: 250,
+  //     service: "Phone Number Validator",
+  //     dateCreated: "Nov 25, 2022 10:35am",
+  //     taskRunning: true,
+  //   },
+  //   {
+  //     taskIdShort: "1dsw23ad",
+  //     queryCount: 250,
+  //     service: "Phone Number Validator",
+  //     dateCreated: "Nov 25, 2022 10:35am",
+  //     taskRunning: false,
+  //   },
+  //   {
+  //     taskIdShort: "31dw2sad",
+  //     queryCount: 250,
+  //     service: "Phone Number Validator",
+  //     dateCreated: "Nov 25, 2022 10:35am",
+  //     taskRunning: false,
+  //   },
+  //   {
+  //     taskIdShort: "31ddw2sa",
+  //     queryCount: 250,
+  //     service: "Phone Number Validator",
+  //     dateCreated: "Nov 25, 2022 10:35am",
+  //     taskRunning: true,
+  //   },
+  // ];
+  const { getUserTasks, tasks } = useUserDb();
+  const [data, setData] = useState(tasks);
+
+  useEffect(() => {
+    getUserTasks();
+  }, [getUserTasks]);
   return (
-    <>
+    <section id="homePage">
       <div className={styles.cards}>
         <h2 data-aos="fade" data-aos-easing="ease-in-out">
           Ongoing Tasks
         </h2>
         <div className={styles.content}>
-          {tasks ? (
-            tasks.map((task) => {
-              if (task.Status == 0)
+          {data.length != 0 ? (
+            data.map((task) => {
+              if (task.taskRunning == true)
                 return (
-                  <div
-                    key={task.Id}
-                    className={styles.item}
-                    data-aos="zoom-in"
-                    data-aos-delay="100"
-                  >
-                    <div className={styles.id}>{task.Id}</div>
-                    <div className={styles.date}>{task.CreatedAt}</div>
-                    <div className={styles.service}>{task.Service}</div>
-                    <div className={styles.queries}>
-                      {task.QueryCount} queries
-                    </div>
-                    <div
-                      className={styles.status}
-                      data-taskstatus={
-                        task.Status == 0 ? "Running" : "Complete"
-                      }
-                    >
-                      {task.Status == 0 ? "Running" : "Complete"}
-                    </div>
-                  </div>
+                  <TaskElement key={task.taskIdShort} task={task} type="card" />
                 );
             })
           ) : (
@@ -101,25 +82,18 @@ const Home = () => {
           data-aos="fade-down"
           data-aos-delay="300"
         >
-          {tasks.map((task) => {
-            return (
-              <div key={task.Id} className={styles.item} data-shadow="outer">
-                <div className={styles.id}>{task.Id}</div>
-                <div className={styles.date}>{task.CreatedAt}</div>
-                <div className={styles.service}>{task.Service}</div>
-                <div className={styles.queries}>{task.QueryCount} queries</div>
-                <div
-                  className={styles.status}
-                  data-taskstatus={task.Status == 0 ? "Running" : "Complete"}
-                >
-                  {task.Status == 0 ? "Running" : "Complete"}
-                </div>
-              </div>
-            );
-          })}
+          {data.length != 0 ? (
+            data.map((task) => {
+              return (
+                <TaskElement key={task.taskIdShort} task={task} type="list" />
+              );
+            })
+          ) : (
+            <p>No tasks</p>
+          )}
         </div>
       </div>
-    </>
+    </section>
   );
 };
 

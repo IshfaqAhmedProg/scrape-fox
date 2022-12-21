@@ -1,6 +1,7 @@
 import Home from "../../components/DashboardComponents/Home/Home";
 
-const Dashboard = ({}) => {
+const Dashboard = () => {
+
   return <Home />;
 };
 

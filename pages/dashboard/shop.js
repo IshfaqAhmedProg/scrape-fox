@@ -1,5 +1,5 @@
-import React from "react";
+import ShopPage from "../../components/DashboardComponents/Pages/ShopPage";
 
 export default function Shop() {
-  return <div>shop</div>;
+  return <ShopPage />;
 }

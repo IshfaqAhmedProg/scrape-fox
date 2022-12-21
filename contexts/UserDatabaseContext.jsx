@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { db, auth } from "../firebase/config";
 import {
   doc,
@@ -10,11 +10,12 @@ import {
   where,
   limit,
   orderBy,
-  startAfter,
+  Timestamp,
 } from "firebase/firestore";
 import Sidebar from "../components/DashboardComponents/Sidebar/Sidebar";
 import styles from "../components/DashboardComponents/Dashboard.module.css";
 import { useAuth } from "./AuthContext";
+import { v5 as uuidv5 } from "uuid";
 
 const UserDatabaseContext = createContext({});
 export const useUserDb = () => useContext(UserDatabaseContext);
@@ -29,7 +30,6 @@ export const UserDatabaseContextProvider = ({ children }) => {
     "dob",
     "countryOrigin",
   ];
-  let lastTaskFetched = null;
   const [userDb, setUserDb] = useState({});
   const [loading, setLoading] = useState();
   const { user } = useAuth();
@@ -91,25 +91,75 @@ export const UserDatabaseContextProvider = ({ children }) => {
   };
 
   const getUserTasks = async () => {
-    const q = query(
-      collection(db, "tasks"),
-      where("uid", "==", user.uid),
-      orderBy("DateCreated"),
-      startAfter(lastTaskFetched || 0),
-      limit(5)
-    );
+    //add new task created flag to run if a new task has been created
+    if (tasks.length == 0 && auth.currentUser) {
+      setLoading(true);
+      const q = query(
+        collection(db, "tasks"),
+        where("uid", "==", user.uid),
+        orderBy("dateCreated", "desc"),
+        limit(5)
+      );
+      const querySnapshot = await getDocs(q);
+
+      const docs = querySnapshot.docs.map((doc) => {
+        const data = doc.data();
+        data.id = doc.id;
+        const convData = {
+          dateCreated: data.dateCreated.toDate().toLocaleString(),
+          queryCount: data.queryCount,
+          service: data.service,
+          taskRunning: data.taskRunning,
+          uid: data.uid,
+          taskId: data.taskId,
+          taskIdShort: data.taskIdShort,
+        };
+        // doc.data() is never undefined for query doc snapshots
+        console.log("convData", convData);
+        return convData;
+      });
+      setTasks(docs);
+      console.log(docs);
+      setLoading(false);
+    }
   };
-  // const setUserTasks = () => {};
+
+  const setUserTasks = async () => {
+    let adder = null;
+    const dateId = Date.now();
+    const MY_NAMESPACE = process.env.NEXT_PUBLIC_UUID_NAMESPACE;
+    const taskId = uuidv5(dateId.toString(), MY_NAMESPACE)
+      .replace(/[-]/g, "")
+      .slice(0, 20);
+    const taskIdShort = taskId.slice(0, 8);
+
+    const data = {
+      dateCreated: Timestamp.fromDate(new Date(dateId)),
+      queryCount: 700,
+      service: "Google Maps Scraper",
+      taskRunning: true,
+      uid: user.uid,
+      taskId,
+      taskIdShort,
+    };
+    if (auth.currentUser) {
+      adder = await setDoc(doc(db, "tasks", taskId), data).then(() => {
+        setTasks(data);
+      });
+    }
+    return adder;
+  };
 
   return (
     <UserDatabaseContext.Provider
       value={{
         getUserInfo,
         setUserInfo,
+        getUserTasks,
+        setUserTasks,
         loading,
-        // getUserTasks,
-        // setUserTasks,
         userDb,
+        tasks,
       }}
     >
       <div className={styles.container}>

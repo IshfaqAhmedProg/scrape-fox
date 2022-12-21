@@ -1,8 +1,10 @@
+
 .cards {
   min-height: 18.9375rem;
   display: flex;
   flex-direction: column;
   gap: 2.25rem;
+  margin-bottom: 3.5em;
 }
 .cards .content {
   width: 100%;

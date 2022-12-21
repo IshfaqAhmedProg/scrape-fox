@@ -16,7 +16,7 @@ import ShopIcon from "../../../public/Icons/Shop.svg";
 import { useUserDb } from "../../../contexts/UserDatabaseContext";
 const Sidebar = () => {
   const [sbToggle, setSbToggle] = useState(false);
-  const { getUserInfo } = useUserDb();
+  const { getUserTasks, setUserTasks } = useUserDb();
   return (
     <>
       <div
@@ -24,7 +24,7 @@ const Sidebar = () => {
       ></div>
 
       <div className={styles.sidebar + " " + (sbToggle ? styles["open"] : "")}>
-        <div className={styles.content}>
+        <div data-aos="slide-right" className={styles.content}>
           <div className={styles.mainmenu}>
             <div className={styles.points}>
               <Image src={PointsIcon} alt="points icon" />
@@ -83,7 +83,7 @@ const Sidebar = () => {
           </div>
           <div className={styles.contact} data-shadow="inner">
             If you have any questions or queries please
-            <Button variant="plain">
+            <Button variant="plain" onClick={setUserTasks}>
               <svg
                 width="34"
                 height="33"

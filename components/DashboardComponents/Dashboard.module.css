@@ -10,9 +10,6 @@
 .main {
   padding-right: 3vw;
   width: 70%;
-  display: flex;
-  flex-direction: column;
-  gap: 3.5em;
   overflow-y: auto;
   border-radius: var(--border-radius);
 }

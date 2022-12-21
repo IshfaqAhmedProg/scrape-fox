@@ -14,8 +14,6 @@
   align-items: center;
   justify-content: space-between;
   gap: 2em;
-  background: linear-gradient(180deg, #9d19ff 0%, #7d9eff 100%);
-  background-repeat: no-repeat;
   border-radius: var(--border-radius);
   color: var(--white);
   overflow: hidden;
@@ -23,7 +21,9 @@
 .sidebartoggle {
   display: none;
 }
-.sidebar .content {
+.content {
+  background: linear-gradient(180deg, #9d19ff 0%, #7d9eff 100%);
+  background-repeat: no-repeat;
   padding: 1.125rem;
   overflow-y: auto;
   display: flex;
@@ -137,7 +137,9 @@
     left: -21.6875rem;
     border-radius: 0;
     transition: left 0.3s ease-in;
+    background: linear-gradient(180deg, #9d19ff 0%, #7d9eff 100%);
   }
+
   .sidebar.open {
     left: 0;
   }

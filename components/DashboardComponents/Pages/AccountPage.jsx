@@ -6,7 +6,6 @@ import UserAccountDefaultIcon from "../../../public/Icons/UserAccountDefault.svg
 import Button from "../../Button/Button";
 import { addDate, convertToYMD } from "../../../shared/Functions/dateHandler";
 import { useUserDb } from "../../../contexts/UserDatabaseContext";
-
 const AccountPage = () => {
   const { logout } = useAuth();
   const { setUserInfo, userDb, getUserInfo } = useUserDb();
