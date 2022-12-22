@@ -21,7 +21,6 @@ const UserDatabaseContext = createContext({});
 export const useUserDb = () => useContext(UserDatabaseContext);
 export const UserDatabaseContextProvider = ({ children }) => {
   const UserStruct = [
-    "uid",
     "email",
     "displayName",
     "photoURL",

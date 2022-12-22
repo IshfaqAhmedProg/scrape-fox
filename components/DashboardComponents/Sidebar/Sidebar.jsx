@@ -108,9 +108,9 @@ const Sidebar = () => {
                   fill="#5781FF"
                 />
               </svg>
-              Send us a
+              Create a test
               <br />
-              Message
+              Task
             </Button>
             <Divider direction="horizontal" colorMode="dark">
               or
