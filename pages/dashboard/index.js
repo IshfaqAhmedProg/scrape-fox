@@ -93,7 +93,9 @@ const Dashboard = () => {
               );
             }
           })}
-          {error && <div className={styles.empty}>No ongoing tasks</div>}
+          {data.length == 0 && (
+            <div className={styles.empty}>No ongoing tasks</div>
+          )}
           {lastData != "nomoredata" && (
             <div
               className={styles.loadmore}
@@ -125,7 +127,9 @@ const Dashboard = () => {
               <TaskElement key={task.taskIdShort} task={task} type="list" />
             );
           })}
-          {error && <div className={styles.empty}>No ongoing tasks</div>}
+          {data.length == 0 && (
+            <div className={styles.empty}>No tasks</div>
+          )}
         </div>
       </div>
     </>
