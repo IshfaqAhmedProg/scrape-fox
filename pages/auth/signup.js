@@ -51,6 +51,8 @@ const Signup = () => {
     (e) => {
       e.preventDefault();
       const submitEnquiryForm = (gReCaptchaToken) => {
+        setLoading(true);
+
         fetch("/api/enquiry", {
           method: "POST",
           headers: {
@@ -65,7 +67,6 @@ const Signup = () => {
           .then((res) => {
             console.log(res, "response from backend");
             if (res?.status === "success") {
-              setLoading(true);
               signup(data.email, data.password)
                 .then(() => {
                   router.replace("/dashboard");
