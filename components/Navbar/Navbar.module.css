@@ -38,7 +38,16 @@
   z-index: -2;
   display: none;
 }
-
+.avatar {
+  border-radius: 100vw;
+  cursor: pointer;
+  scale: 1;
+  transition: all 0.15s ease;
+}
+.avatar:hover {
+  scale: 0.95;
+  filter: hue-rotate(-90deg);
+}
 .menu {
   margin: 0;
   padding: 0;

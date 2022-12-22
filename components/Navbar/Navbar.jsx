@@ -6,6 +6,7 @@ import Image from "next/image";
 import styles from "./Navbar.module.css";
 import Button from "../Button/Button";
 import HamburgerIcon from "./HamburgerIcon/hamburgerIcon";
+import UserAccountDefaultIcon from "../../public/Icons/UserAccountDefault.svg";
 
 export default function Navbar() {
   const [toggled, setToggled] = useState(false);
@@ -56,21 +57,23 @@ export default function Navbar() {
         </li>
         {user && router.pathname != "/dashboard" ? (
           <li className={styles.menuItem} onClick={() => setToggled(!toggled)}>
-            <Link href="/dashboard">Dashboard</Link>
+            <Link href="/dashboard">Home</Link>
           </li>
         ) : (
           ""
         )}
         <li className={styles.menuItem} onClick={() => setToggled(!toggled)}>
           {user ? ( //to show logout button
-            <Button
+            <Image
+              src={user.photoURL ? user.photoURL : UserAccountDefaultIcon}
+              alt="profile photo"
+              width={50}
+              height={50}
+              className={styles.avatar}
               onClick={() => {
-                logout().then(router.replace("/"));
+                router.replace("/dashboard/profile");
               }}
-              variant="secondary"
-            >
-              Logout
-            </Button>
+            />
           ) : router.pathname != "/auth/login" ? ( //to show log in button
             <Link href="/auth/login" passHref>
               {router.pathname != "/" ? (

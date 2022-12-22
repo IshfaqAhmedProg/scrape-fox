@@ -6,10 +6,13 @@ import UserAccountDefaultIcon from "../../../public/Icons/UserAccountDefault.svg
 import Button from "../../Button/Button";
 import { addDate, convertToYMD } from "../../../shared/Functions/dateHandler";
 import { useUserDb } from "../../../contexts/UserDatabaseContext";
+import { useRouter } from "next/router";
 const AccountPage = () => {
+  const { logout } = useAuth();
   const { setUserInfo, userDb, getUserInfo } = useUserDb();
   const [data, setData] = useState(userDb);
   const [defaults, setDefaults] = useState({});
+  const router = useRouter();
   const changeUserInfo = (e) => {
     e.preventDefault();
     setUserInfo(data);
@@ -161,7 +164,14 @@ const AccountPage = () => {
             </Button>
           )}
 
-          <Button variant="secondary">Logout&#xe163;</Button>
+          <Button
+            variant="secondary"
+            onClick={() => {
+              logout().then(router.push("/"));
+            }}
+          >
+            Logout 
+          </Button>
         </div>
       </form>
     </section>
