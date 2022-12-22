@@ -5,6 +5,45 @@
   gap: 2.25rem;
   margin-bottom: 3.5em;
 }
+.loader {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  opacity: 0.5;
+}
+.loadmore {
+  background: none;
+  border-radius: 100vw;
+  margin-block: auto;
+  margin-inline: 1.5rem;
+  scale: 1;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+.loadmore:active {
+  filter: brightness(95%);
+}
+.loadmore:hover {
+  scale: 0.95;
+}
+.loadmore::before {
+  color: var(--primarydark);
+  text-align: center;
+  content: "load more";
+  position: absolute;
+  right: 0;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: -1;
+}
+.loadmore:hover::before {
+  right: 120%;
+  opacity: 1;
+}
 .empty {
   width: 100%;
   height: 100%;
@@ -22,6 +61,7 @@
   gap: 2.25rem;
   overflow-x: auto;
   border-radius: var(--border-radius);
+  position: relative;
 }
 .cards .item {
   min-height: 14.4rem;

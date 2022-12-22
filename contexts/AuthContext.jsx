@@ -24,6 +24,7 @@ export const AuthContextProvider = ({ children }) => {
     setLoading(true);
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
+        localStorage.setItem("uid", user.uid);
         setUser({
           uid: user.uid,
           email: user.email,
@@ -32,6 +33,7 @@ export const AuthContextProvider = ({ children }) => {
           emailVerified: user.emailVerified,
         });
       } else {
+        localStorage.removeItem("uid");
         setUser(null);
       }
       setLoading(false);

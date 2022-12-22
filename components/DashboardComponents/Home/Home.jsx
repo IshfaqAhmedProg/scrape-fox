@@ -21,13 +21,14 @@ const Home = () => {
   useEffect(() => {
     (async () => {
       //get tasks from firebase from here fuck my life aaaaaaa/a//
-      if (loading == true) {
+      if (dataLoading == true && (await user.uid) && data.length == 0) {
         const q = query(
           collection(db, "tasks"),
           where("uid", "==", user.uid),
           orderBy("dateCreated", "desc"),
           limit(5)
         );
+        console.log("user.uid 1", user.uid);
         const querySnapshot = await getDocs(q);
         const docs = querySnapshot.docs.map((doc) => {
           const data = doc.data();
@@ -44,10 +45,13 @@ const Home = () => {
           console.log("convData", convData);
           return convData;
         });
+        if (docs.length != 0) {
+          setDataLoading(false);
+        }
         setData(docs);
         console.log("docs", docs);
       }
-      setLoading(false);
+      console.log("dataLoadingend", dataLoading);
     })();
   }, [loading, user]);
   return (

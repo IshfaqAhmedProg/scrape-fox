@@ -4,78 +4,94 @@ import {
   collection,
   query,
   where,
-  getDocs,
   limit,
   orderBy,
-  getCountFromServer,
   startAfter,
-  Timestamp,
 } from "firebase/firestore";
-import { useAuth } from "../../contexts/AuthContext";
+import { useCollectionDataOnce } from "react-firebase-hooks/firestore";
 import styles from "../../components/DashboardComponents/Home/Home.module.css";
 import { db } from "../../firebase/config";
-
+import LoaderIcon from "../../public/Icons/Loader.svg";
+import LoadMoreIcon from "../../public/Icons/LoadMore.svg";
+import Image from "next/image";
 const Dashboard = () => {
-  const { user } = useAuth();
   const [data, setData] = useState([]);
-  const [dataLoading, setDataLoading] = useState(true);
-  const [dataExists, setDataExists] = useState();
-  let lastTask = null;
+  const [lastData, setLastData] = useState(null);
+  const [queryCall, setQueryCall] = useState(null);
+  const [dataReq, setDataReq] = useState(true);
+  const [docs, loading, error] = useCollectionDataOnce(queryCall);
+  const loadMoreTasks = () => {
+    console.log("lastDataloadmore", lastData);
+
+    const q = query(
+      collection(db, "tasks"),
+      where("uid", "==", localStorage.getItem("uid")),
+      orderBy("dateCreated", "desc"),
+      startAfter(lastData.dateCreated),
+      limit(5)
+    );
+    setQueryCall(q);
+  };
+  useEffect(() => {
+    console.log("lastData", lastData);
+    if (!lastData) {
+      const q = query(
+        collection(db, "tasks"),
+        where("uid", "==", localStorage.getItem("uid")),
+        orderBy("dateCreated", "desc"),
+        limit(5)
+      );
+      setQueryCall(q);
+    }
+  }, [lastData]);
 
   useEffect(() => {
-    (async () => {
-      if (dataLoading == true && (await user.uid)) {
-        const q = query(
-          collection(db, "tasks"),
-          where("uid", "==", user.uid),
-          orderBy("dateCreated", "desc"),
-          limit(5)
-        );
-
-        console.log("user.uid 1", user.uid);
-        const querySnapshot = await getDocs(q);
-        const docs = querySnapshot.docs.map((doc) => {
-          const data = doc.data();
-          data.id = doc.id;
-          const convData = {
-            dateCreated: data.dateCreated.toDate().toLocaleString(),
-            queryCount: data.queryCount,
-            service: data.service,
-            taskRunning: data.taskRunning,
-            uid: data.uid,
-            taskId: data.taskId,
-            taskIdShort: data.taskIdShort,
-          };
-          console.log("convData", convData);
-          return convData;
-        });
-        setData(docs);
-        lastTask = docs[docs.length - 1];
-        console.log("docs", docs);
-        console.log("lastTask", lastTask);
-      }
-      setDataLoading(false);
-      console.log("dataLoading", dataLoading);
-    })();
-  }, []);
+    if (docs) {
+      const convDocs = docs.map((doc) => {
+        const data = doc;
+        const convData = {
+          dateCreated: data.dateCreated.toDate().toLocaleString(),
+          queryCount: data.queryCount,
+          service: data.service,
+          taskRunning: data.taskRunning,
+          uid: data.uid,
+          taskId: data.taskId,
+          taskIdShort: data.taskIdShort,
+        };
+        return convData;
+      });
+      setLastData(docs[docs.length - 1]);
+      setData((prev) => [...prev, ...convDocs]);
+    }
+  }, [docs]);
   return (
     <section id="homePage">
+      {console.log("data", data, "=>docs", docs)}
       <div className={styles.cards}>
         <h2 data-aos="fade" data-aos-easing="ease-in-out">
           Ongoing Tasks
         </h2>
         <div className={styles.content}>
-          {data.length != 0 ? (
-            data.map((task) => {
-              if (task.taskRunning == true) {
-                return (
-                  <TaskElement key={task.taskIdShort} task={task} type="card" />
-                );
-              }
-            })
-          ) : (
-            <div className={styles.empty}>No ongoing tasks</div>
+          {loading && (
+            <div className={styles.loader}>
+              <Image src={LoaderIcon} alt="" />
+            </div>
           )}
+          {data?.map((task) => {
+            if (task.taskRunning == true) {
+              return (
+                <TaskElement key={task.taskIdShort} task={task} type="card" />
+              );
+            }
+          })}
+          {error && <div>{error}</div>}
+          <div
+            className={styles.loadmore}
+            data-shadow="outer"
+            onClick={loadMoreTasks}
+          >
+            <Image src={LoadMoreIcon} alt="" />
+          </div>
         </div>
       </div>
       <div className={styles.list}>
@@ -88,15 +104,16 @@ const Dashboard = () => {
           data-aos="fade-down"
           data-aos-delay="300"
         >
-          {data.length != 0 ? (
-            data.map((task) => {
-              return (
-                <TaskElement key={task.taskIdShort} task={task} type="list" />
-              );
-            })
-          ) : (
-            <div className={styles.empty}>No tasks available</div>
+          {loading && (
+            <div className={styles.loader}>
+              <Image src={LoaderIcon} alt="" />
+            </div>
           )}
+          {data?.map((task) => {
+            return (
+              <TaskElement key={task.taskIdShort} task={task} type="list" />
+            );
+          })}
         </div>
       </div>
     </section>
