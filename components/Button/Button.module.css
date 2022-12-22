@@ -8,6 +8,8 @@
   align-items: center;
   flex-shrink: 0;
   flex-wrap: nowrap;
+  height: fit-content;
+  width: fit-content;
 }
 
 /* Disabled Button styles */
@@ -55,7 +57,6 @@
   color: var(--text);
   transition: all 0.2s ease-in-out;
   overflow: hidden;
-  width: fit-content;
 }
 .primary:hover {
   transform: scale(1.05) translate(-0.1rem, -0.1rem);

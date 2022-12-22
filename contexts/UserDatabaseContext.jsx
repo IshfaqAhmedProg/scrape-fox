@@ -30,6 +30,14 @@ export const UserDatabaseContextProvider = ({ children }) => {
     "dob",
     "countryOrigin",
   ];
+  const TaskStruct = [
+    "taskId",
+    "dateCreated",
+    "queryCount",
+    "taskRunning",
+    "uid",
+    "service",
+  ];
   const [userDb, setUserDb] = useState({});
   const [loading, setLoading] = useState();
   const { user } = useAuth();
@@ -39,6 +47,7 @@ export const UserDatabaseContextProvider = ({ children }) => {
     for (var i in obj) return false;
     return true;
   }
+
   function setLocalStorage(obj) {
     for (var i in obj) {
       localStorage.setItem(i, obj[i]);
@@ -90,40 +99,68 @@ export const UserDatabaseContextProvider = ({ children }) => {
     return adder;
   };
 
-  const getUserTasks = async () => {
-    //add new task created flag to run if a new task has been created
-    if (tasks.length == 0 && auth.currentUser) {
-      setLoading(true);
-      const q = query(
-        collection(db, "tasks"),
-        where("uid", "==", user.uid),
-        orderBy("dateCreated", "desc"),
-        limit(5)
-      );
-      const querySnapshot = await getDocs(q);
+  // const localStorageTasks = {
+  //   taskId: [],
+  //   dateCreated: [],
+  //   queryCount: [],
+  //   taskRunning: [],
+  //   uid: [],
+  //   service: [],
+  // };
+  // TaskStruct.forEach((element) => {
+  //   localStorage.getItem(element) != null
+  //     ? (localStorageTasks[element] = localStorage.getItem(element))
+  //     : null;
+  // });
+  // console.log("localStorageTasks 1", localStorageTasks);
+  //add new task created flag to run if a new task has been created
+  // const getUserTasks = async () => {
+  //   if (tasks.length == 0 && auth.currentUser) {
+  //     setLoading(true);
+  //     const q = query(
+  //       collection(db, "tasks"),
+  //       where("uid", "==", user.uid),
+  //       orderBy("dateCreated", "desc"),
+  //       limit(5)
+  //     );
 
-      const docs = querySnapshot.docs.map((doc) => {
-        const data = doc.data();
-        data.id = doc.id;
-        const convData = {
-          dateCreated: data.dateCreated.toDate().toLocaleString(),
-          queryCount: data.queryCount,
-          service: data.service,
-          taskRunning: data.taskRunning,
-          uid: data.uid,
-          taskId: data.taskId,
-          taskIdShort: data.taskIdShort,
-        };
-        // doc.data() is never undefined for query doc snapshots
-        console.log("convData", convData);
-        return convData;
-      });
-      setTasks(docs);
-      console.log(docs);
-      setLoading(false);
-    }
-  };
+  //     const querySnapshot = await getDocs(q);
+  //     const docs = querySnapshot.docs.map((doc) => {
+  //       const data = doc.data();
+  //       data.id = doc.id;
+  //       const convData = {
+  //         dateCreated: data.dateCreated.toDate().toLocaleString(),
+  //         queryCount: data.queryCount,
+  //         service: data.service,
+  //         taskRunning: data.taskRunning,
+  //         uid: data.uid,
+  //         taskId: data.taskId,
+  //         taskIdShort: data.taskIdShort,
+  //       };
+  //       console.log("convData", convData);
+  //       return convData;
+  //     });
+  //     setTasks(docs);
+  //     console.log(docs);
+  //     setLoading(false);
 
+  //     //take the docs and put it in localstorage
+
+  //     // docs.forEach((object) => {
+  //     //   localStorageTasks.taskId.push(object.taskId);
+  //     //   localStorageTasks.dateCreated.push(object.dateCreated);
+  //     //   localStorageTasks.queryCount.push(object.queryCount);
+  //     //   localStorageTasks.taskRunning.push(object.taskRunning);
+  //     //   localStorageTasks.uid.push(object.uid);
+  //     //   localStorageTasks.service.push(object.service);
+  //     // });
+  //     // console.log("localStorageTasks", localStorageTasks);
+  //     // docs.map((doc) => {
+  //     //   // localStorageTasks = Object.values(doc);
+  //     // });
+  //   }
+  // };
+  const loadMoreTasks = () => {};
   const setUserTasks = async () => {
     let adder = null;
     const dateId = Date.now();
@@ -143,9 +180,7 @@ export const UserDatabaseContextProvider = ({ children }) => {
       taskIdShort,
     };
     if (auth.currentUser) {
-      adder = await setDoc(doc(db, "tasks", taskId), data).then(() => {
-        setTasks(data);
-      });
+      adder = await setDoc(doc(db, "tasks", taskId), data);
     }
     return adder;
   };
@@ -155,9 +190,9 @@ export const UserDatabaseContextProvider = ({ children }) => {
       value={{
         getUserInfo,
         setUserInfo,
-        getUserTasks,
+        // getUserTasks,
         setUserTasks,
-        loading,
+        // loading,
         userDb,
         tasks,
       }}

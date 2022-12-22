@@ -1,58 +1,55 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useUserDb } from "../../../contexts/UserDatabaseContext";
 import styles from "./Home.module.css";
 import TaskElement from "./TaskElement";
-const Home = () => {
-  // const tasks = [
-  //   {
-  //     taskIdShort: "dsaw231d",
-  //     queryCount: 250,
-  //     service: "Google Maps Scraper",
-  //     dateCreated: "Nov 25, 2022 10:35am",
-  //     taskRunning: false,
-  //   },
-  //   {
-  //     taskIdShort: "saw2d31d",
-  //     queryCount: 250,
-  //     service: "WhatsApp Validator",
-  //     dateCreated: "Nov 25, 2022 10:35am",
-  //     taskRunning: false,
-  //   },
-  //   {
-  //     taskIdShort: "w231dsad",
-  //     queryCount: 250,
-  //     service: "Phone Number Validator",
-  //     dateCreated: "Nov 25, 2022 10:35am",
-  //     taskRunning: true,
-  //   },
-  //   {
-  //     taskIdShort: "1dsw23ad",
-  //     queryCount: 250,
-  //     service: "Phone Number Validator",
-  //     dateCreated: "Nov 25, 2022 10:35am",
-  //     taskRunning: false,
-  //   },
-  //   {
-  //     taskIdShort: "31dw2sad",
-  //     queryCount: 250,
-  //     service: "Phone Number Validator",
-  //     dateCreated: "Nov 25, 2022 10:35am",
-  //     taskRunning: false,
-  //   },
-  //   {
-  //     taskIdShort: "31ddw2sa",
-  //     queryCount: 250,
-  //     service: "Phone Number Validator",
-  //     dateCreated: "Nov 25, 2022 10:35am",
-  //     taskRunning: true,
-  //   },
-  // ];
-  const { getUserTasks, tasks } = useUserDb();
-  const [data, setData] = useState(tasks);
+import { useAuth } from "../../../contexts/AuthContext";
 
+import {
+  query,
+  collection,
+  where,
+  orderBy,
+  limit,
+  getDocs,
+} from "firebase/firestore";
+import { db } from "../../../firebase/config";
+const Home = () => {
+  const { user } = useAuth();
+  const [data, setData] = useState([]);
+  const [showLoadMore, setShowLoadMore] = useState();
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    getUserTasks();
-  }, [getUserTasks]);
+    (async () => {
+      //get tasks from firebase from here fuck my life aaaaaaa/a//
+      if (loading == true) {
+        const q = query(
+          collection(db, "tasks"),
+          where("uid", "==", user.uid),
+          orderBy("dateCreated", "desc"),
+          limit(5)
+        );
+        const querySnapshot = await getDocs(q);
+        const docs = querySnapshot.docs.map((doc) => {
+          const data = doc.data();
+          data.id = doc.id;
+          const convData = {
+            dateCreated: data.dateCreated.toDate().toLocaleString(),
+            queryCount: data.queryCount,
+            service: data.service,
+            taskRunning: data.taskRunning,
+            uid: data.uid,
+            taskId: data.taskId,
+            taskIdShort: data.taskIdShort,
+          };
+          console.log("convData", convData);
+          return convData;
+        });
+        setData(docs);
+        console.log("docs", docs);
+      }
+      setLoading(false);
+    })();
+  }, [loading, user]);
   return (
     <section id="homePage">
       <div className={styles.cards}>
@@ -62,13 +59,15 @@ const Home = () => {
         <div className={styles.content}>
           {data.length != 0 ? (
             data.map((task) => {
-              if (task.taskRunning == true)
+              if (task.taskRunning == true) {
+                setShowLoadMore(true);
                 return (
                   <TaskElement key={task.taskIdShort} task={task} type="card" />
                 );
+              }
             })
           ) : (
-            <p>No tasks</p>
+            <div className={styles.empty}>No ongoing tasks</div>
           )}
         </div>
       </div>
@@ -89,7 +88,7 @@ const Home = () => {
               );
             })
           ) : (
-            <p>No tasks</p>
+            <div className={styles.empty}>No tasks available</div>
           )}
         </div>
       </div>
