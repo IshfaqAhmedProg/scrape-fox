@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
-import ReCAPTCHA from "react-google-recaptcha";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 import { useAuth } from "../../contexts/AuthContext";
 import { GetRefinedFirebaseError } from "../../shared/Functions/errorHandler";
@@ -27,43 +27,68 @@ const Signup = () => {
     email: "",
     password: "",
   });
-
-  const handleReCaptcha = async (value) => {
-    const response = await fetch("/api/auth", {
-      method: "POST",
-      body: JSON.stringify({ value }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const responseData = await response.json();
-    if (responseData.errors) {
-      handleError(responseData.errors);
-    } else {
-      console.log("responseData", responseData);
-      setUserHuman(true);
-    }
-  };
-
+  const { executeRecaptcha } = useGoogleReCaptcha();
   function handleError(error) {
     setErrorMsg(error);
     console.log([error]);
   }
 
-  const handleSignup = async (e) => {
-    // if (!userHuman) {
-    //   return false;
-    // }
-    e.preventDefault();
-    setLoading(true);
-    signup(data.email, data.password)
-      .then(() => {
-        router.replace("/dashboard");
-        sendEV();
-      })
-      .catch((error) => handleError(GetRefinedFirebaseError(error)))
-      .finally(() => setLoading(false));
-  };
+  // const submitToFirebase = async (e) => {
+  //   // if (!userHuman) {
+  //   //   return false;
+  //   // }
+  //   e.preventDefault();
+  //   setLoading(true);
+  //   signup(data.email, data.password)
+  //     .then(() => {
+  //       router.replace("/dashboard");
+  //       sendEV();
+  //     })
+  //     .catch((error) => handleError(GetRefinedFirebaseError(error)))
+  //     .finally(() => setLoading(false));
+  // };
+  const handleSignup = useCallback(
+    (e) => {
+      e.preventDefault();
+      const submitEnquiryForm = (gReCaptchaToken) => {
+        fetch("/api/enquiry", {
+          method: "POST",
+          headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            gRecaptchaToken: gReCaptchaToken,
+          }),
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            console.log(res, "response from backend");
+            if (res?.status === "success") {
+              setLoading(true);
+              signup(data.email, data.password)
+                .then(() => {
+                  router.replace("/dashboard");
+                  sendEV();
+                })
+                .catch((error) => handleError(GetRefinedFirebaseError(error)))
+                .finally(() => setLoading(false));
+            } else {
+              setErrorMsg(res?.message);
+            }
+          });
+      };
+      if (!executeRecaptcha) {
+        console.log("Execute recaptcha not yet available");
+        return;
+      }
+      executeRecaptcha("enquiryFormSubmit").then((gReCaptchaToken) => {
+        console.log(gReCaptchaToken, "response Google reCaptcha server");
+        submitEnquiryForm(gReCaptchaToken);
+      });
+    },
+    [executeRecaptcha, data, signup, router, sendEV]
+  );
 
   const handleGoogleSignup = (e) => {
     e.preventDefault();
@@ -155,12 +180,6 @@ const Signup = () => {
                   <b>Privacy Policy</b>
                 </Link>
               </span>
-            </fieldset>
-            <fieldset>
-              <ReCAPTCHA
-                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-                onChange={handleReCaptcha}
-              />
             </fieldset>
             <fieldset>
               <Button

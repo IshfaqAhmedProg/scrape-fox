@@ -13,6 +13,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { PublicRoute } from "../shared/Hooks/publicRoute";
 import { UserDatabaseContextProvider } from "../contexts/UserDatabaseContext";
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
 const noAuthRequired = [
   "/",
@@ -37,7 +38,17 @@ function MyApp({ Component, pageProps }) {
       <Navbar></Navbar>
       {noAuthRequired.includes(router.pathname) ? (
         <PublicRoute>
-          <Component {...pageProps} />
+          <GoogleReCaptchaProvider
+            reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+            scriptProps={{
+              async: false,
+              defer: false,
+              appendTo: "head",
+              nonce: undefined,
+            }}
+          >
+            <Component {...pageProps} />
+          </GoogleReCaptchaProvider>
         </PublicRoute>
       ) : (
         <ProtectedRoute>

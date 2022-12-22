@@ -12,7 +12,7 @@
   align-items: center;
   gap: 5vh;
   background: var(--white);
-  overflow-y:auto;
+  overflow-y: auto;
 }
 .content > h2 {
   font-weight: 700;
@@ -26,8 +26,8 @@
   align-items: flex-end;
 }
 .background img {
-  width: 70%;
-  height: auto;
+  width: auto;
+  height: 58%;
   object-fit: contain;
 }
 .formcontainer {
@@ -58,10 +58,10 @@
   gap: 1rem;
   border: none;
 }
-.error{
+.error {
   border-radius: var(--border-radius-small);
-  background: #F98181;
-  font-size: .875rem;
+  background: #f98181;
+  font-size: 0.875rem;
   text-align: center;
   padding: 1rem 0.5rem;
   color: var(--white);
