@@ -93,7 +93,7 @@ const Dashboard = () => {
               );
             }
           })}
-          {data.length == 0 && (
+          {data.length == 0 && !loading && (
             <div className={styles.empty}>No ongoing tasks</div>
           )}
           {lastData != "nomoredata" && (
@@ -127,7 +127,7 @@ const Dashboard = () => {
               <TaskElement key={task.taskIdShort} task={task} type="list" />
             );
           })}
-          {data.length == 0 && (
+          {data.length == 0 && !loading && (
             <div className={styles.empty}>No tasks</div>
           )}
         </div>
