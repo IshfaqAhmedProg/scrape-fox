@@ -51,8 +51,6 @@ const Signup = () => {
     (e) => {
       e.preventDefault();
       const submitEnquiryForm = (gReCaptchaToken) => {
-        setLoading(true);
-
         fetch("/api/enquiry", {
           method: "POST",
           headers: {
@@ -85,6 +83,7 @@ const Signup = () => {
       }
       executeRecaptcha("enquiryFormSubmit").then((gReCaptchaToken) => {
         console.log(gReCaptchaToken, "response Google reCaptcha server");
+        setLoading(true);
         submitEnquiryForm(gReCaptchaToken);
       });
     },
