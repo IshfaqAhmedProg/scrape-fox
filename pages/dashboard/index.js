@@ -15,14 +15,13 @@ import LoaderIcon from "../../public/Icons/Loader.svg";
 import LoadMoreIcon from "../../public/Icons/LoadMore.svg";
 import Image from "next/image";
 const Dashboard = () => {
+  //try to move firestore code to userdbcontext
   const [data, setData] = useState([]);
   const [lastData, setLastData] = useState(null);
   const [queryCall, setQueryCall] = useState(null);
-  const [dataReq, setDataReq] = useState(true);
   const [docs, loading, error] = useCollectionDataOnce(queryCall);
   const loadMoreTasks = () => {
-    console.log("lastDataloadmore", lastData);
-
+    if (lastData == "nomoredata") return;
     const q = query(
       collection(db, "tasks"),
       where("uid", "==", localStorage.getItem("uid")),
@@ -33,8 +32,9 @@ const Dashboard = () => {
     setQueryCall(q);
   };
   useEffect(() => {
+    //useeffect to sync querycall
     console.log("lastData", lastData);
-    if (!lastData) {
+    if (!lastData && lastData != "nomoredata") {
       const q = query(
         collection(db, "tasks"),
         where("uid", "==", localStorage.getItem("uid")),
@@ -44,8 +44,18 @@ const Dashboard = () => {
       setQueryCall(q);
     }
   }, [lastData]);
+  function arrayUnique(array) {
+    var a = array.concat();
+    for (var i = 0; i < a.length; ++i) {
+      for (var j = i + 1; j < a.length; ++j) {
+        if (a[i] === a[j]) a.splice(j--, 1);
+      }
+    }
 
+    return a;
+  }
   useEffect(() => {
+    //useeffect to sync data
     if (docs) {
       const convDocs = docs.map((doc) => {
         const data = doc;
@@ -60,13 +70,12 @@ const Dashboard = () => {
         };
         return convData;
       });
-      setLastData(docs[docs.length - 1]);
-      setData((prev) => [...prev, ...convDocs]);
+      setLastData(docs[docs.length - 1] ? docs[docs.length - 1] : "nomoredata");
+      setData((prev) => arrayUnique(prev.concat(convDocs)));
     }
   }, [docs]);
   return (
-    <section id="homePage">
-      {console.log("data", data, "=>docs", docs)}
+    <>
       <div className={styles.cards}>
         <h2 data-aos="fade" data-aos-easing="ease-in-out">
           Ongoing Tasks
@@ -84,14 +93,16 @@ const Dashboard = () => {
               );
             }
           })}
-          {error && <div>{error}</div>}
-          <div
-            className={styles.loadmore}
-            data-shadow="outer"
-            onClick={loadMoreTasks}
-          >
-            <Image src={LoadMoreIcon} alt="" />
-          </div>
+          {error && <div className={styles.empty}>No ongoing tasks</div>}
+          {lastData != "nomoredata" && (
+            <div
+              className={styles.loadmore}
+              data-shadow="outer"
+              onClick={loadMoreTasks}
+            >
+              <Image src={LoadMoreIcon} alt="" />
+            </div>
+          )}
         </div>
       </div>
       <div className={styles.list}>
@@ -114,9 +125,10 @@ const Dashboard = () => {
               <TaskElement key={task.taskIdShort} task={task} type="list" />
             );
           })}
+          {error && <div className={styles.empty}>No ongoing tasks</div>}
         </div>
       </div>
-    </section>
+    </>
   );
 };
 
