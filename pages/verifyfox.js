@@ -69,11 +69,13 @@ const VerifyFox = () => {
               }}
             >
               <Image src={validator.Icon} alt={validator.Name} />
-              <div className={styles.title}>
-                <h2>{validator.Name}</h2>
-                <p>{validator.Desc}</p>
+              <div className={styles.main}>
+                <div className={styles.title}>
+                  <h2>{validator.Name}</h2>
+                  <p>{validator.Desc}</p>
+                </div>
+                <Button variant="rightarrow" />
               </div>
-              <Button variant="rightarrow" />
             </div>
           );
         })}
