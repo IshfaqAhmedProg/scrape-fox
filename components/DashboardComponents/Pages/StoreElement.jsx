@@ -21,12 +21,10 @@ export const StoreElement = ({ offer }) => {
         </h2>
       </div>
       <p>{offer.offerDesc}</p>
+      {offer.offerBestDeal && (
+        <div className={styles.highlighter}>Best Deal!</div>
+      )}
       <div data-shadow="inner" className={styles.result}>
-        {offer.offerBestDeal && (
-          <div className={styles.highlighter} data-aos="fade-right">
-            Best Deal!
-          </div>
-        )}
         <h3>
           ${offer.offerPrice} <i>USD</i>
         </h3>

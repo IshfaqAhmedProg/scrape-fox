@@ -1,5 +1,7 @@
+import EmailValidator from "../../../components/VerifyFoxComponents/EmailValidator";
+
 const emailvalidator = () => {
-  return <div>emailvalidator</div>;
+  return <EmailValidator />;
 };
 
 export default emailvalidator;

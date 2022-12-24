@@ -16,7 +16,6 @@ const StorePage = () => {
         className={styles.rowcard + " " + styles.outside}
         data-shadow="outer"
         data-clickable="true"
-        data-aos="fade-right"
       >
         <p>
           Click here to contact our public relations team directly, for{" "}
@@ -39,7 +38,7 @@ const StorePage = () => {
       <div
         className={styles.content}
         data-shadow="inner"
-        data-aos="zoom-in"
+        data-aos="zoom-out"
         data-aos-delay="300"
       >
         {StoreData.map((offer) => {
