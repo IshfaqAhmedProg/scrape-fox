@@ -28,6 +28,7 @@ const dashboardLayout = [
   "/dashboard/profile",
   "/dashboard/store",
   "/dashboard/validators/emailvalidator",
+  "/dashboard/validators/phonenumbervalidator",
 ];
 function MyApp({ Component, pageProps }) {
   const router = useRouter();

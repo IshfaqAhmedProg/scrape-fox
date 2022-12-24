@@ -75,7 +75,7 @@ const EmailValidator = () => {
       <form className={styles.form}>
         <fieldset className={styles.upload}>
           <label className={styles.label}>
-            Upload a CSV/XLSX file with at least one column and without a header
+            Upload a CSV/XLSX file with one column and without a header
           </label>
           <label htmlFor="uploadfile" className={styles.uploadbutton}>
             Upload File

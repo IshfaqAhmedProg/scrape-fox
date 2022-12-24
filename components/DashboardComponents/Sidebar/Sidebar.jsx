@@ -49,9 +49,15 @@ const Sidebar = () => {
               </div>
               <ul className={styles.items}>
                 <li>
-                  <Link href="/dashboard/validators/emailvalidator">Email Validator</Link>
+                  <Link href="/dashboard/validators/emailvalidator">
+                    Email Validator
+                  </Link>
                 </li>
-                <li>Phone Number Validator</li>
+                <li>
+                  <Link href="/dashboard/validators/phonenumbervalidator">
+                    Phone Number Validator
+                  </Link>
+                </li>
                 <li>WhatsApp Validator</li>
               </ul>
             </div>
