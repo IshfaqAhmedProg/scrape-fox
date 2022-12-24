@@ -24,8 +24,7 @@ const VerifyFox = () => {
       border: "none",
       isolation: "isolate",
       boxShadow: "0px 0px 20px -5px rgba(34, 22, 43, 0.25)",
-      width: "max(60vw,300px)",
-      height: "fit-content",
+      width: "max(80vw,300px)",
       overflow: "hidden",
     },
   };

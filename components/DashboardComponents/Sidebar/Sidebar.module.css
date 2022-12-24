@@ -101,6 +101,7 @@
   gap: 1.0625rem;
   text-align: center;
   border-radius: var(--border-radius);
+  font-size: .75rem;
 }
 .contact > button {
   font-weight: 700;

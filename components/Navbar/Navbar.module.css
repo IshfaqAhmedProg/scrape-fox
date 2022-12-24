@@ -76,8 +76,7 @@
     padding-inline: 2rem;
   }
   .menu {
-    background-color: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(20px);
+    background: var(--white);
     position: absolute;
     height: 100vh;
     width: 30vw;
