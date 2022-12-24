@@ -18,7 +18,7 @@
   inset: 0;
   background-color: var(--white);
   border-radius: var(--border-radius);
-  scale: 1 1.15;
+  scale: 1 1.23;
   transform-origin: top;
   transition: scale 0.3s ease;
 }
