@@ -170,8 +170,19 @@ const AccountPage = () => {
               logout().then(router.push("/"));
             }}
           >
-            Logout 
+            Logout
           </Button>
+          <div
+            onClick={() => {
+              logout();
+            }}
+          >
+            <strong>
+              Reset
+              <br />
+              Password
+            </strong>
+          </div>
         </div>
       </form>
     </section>

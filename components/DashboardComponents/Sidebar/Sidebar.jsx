@@ -49,7 +49,7 @@ const Sidebar = () => {
               </div>
               <ul className={styles.items}>
                 <li>
-                  <Link href="#emailValidator">Email Validator</Link>
+                  <Link href="/dashboard/validators/emailvalidator">Email Validator</Link>
                 </li>
                 <li>Phone Number Validator</li>
                 <li>WhatsApp Validator</li>
@@ -73,7 +73,7 @@ const Sidebar = () => {
               </Link>
             </div>
             <div className={styles.menu}>
-              <Link href="/dashboard/shop">
+              <Link href="/dashboard/store">
                 <div className={styles.menutitle}>
                   <Image src={ShopIcon} alt="Shop icon" />
                   Buy More Points

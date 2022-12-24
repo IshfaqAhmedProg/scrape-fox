@@ -25,7 +25,8 @@ const Hero = () => {
           <p data-aos="fade-in" data-aos-delay="900">
             Are you here to validate <span>Phone Numbers </span>
             or
-            <span> Email ID</span>? Then visit:
+            <span> Email ID</span>? Then get started today for{" "}
+            <strong>Free</strong> by clicking on the VerifyFox button below:
           </p>
           <Link href="/verifyfox" data-aos="zoom-in" data-aos-delay="1200">
             <Button variant="plain">

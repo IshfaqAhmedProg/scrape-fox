@@ -22,7 +22,6 @@ const Signup = () => {
   const [loading, setLoading] = useState(false);
   const { sendEV, googleSignup, signup } = useAuth();
   const [errorMsg, setErrorMsg] = useState("");
-  const [userHuman, setUserHuman] = useState(false);
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -32,21 +31,6 @@ const Signup = () => {
     setErrorMsg(error);
     console.log([error]);
   }
-
-  // const submitToFirebase = async (e) => {
-  //   // if (!userHuman) {
-  //   //   return false;
-  //   // }
-  //   e.preventDefault();
-  //   setLoading(true);
-  //   signup(data.email, data.password)
-  //     .then(() => {
-  //       router.replace("/dashboard");
-  //       sendEV();
-  //     })
-  //     .catch((error) => handleError(GetRefinedFirebaseError(error)))
-  //     .finally(() => setLoading(false));
-  // };
   const handleSignup = useCallback(
     (e) => {
       e.preventDefault();

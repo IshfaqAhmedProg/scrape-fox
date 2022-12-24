@@ -15,6 +15,7 @@ const VerifyFox = () => {
   const customStyles = {
     content: {
       marginTop: "10vh",
+      marginInline: "auto",
       paddingBlock: "1.5rem",
       display: "flex",
       flexDirection: "column",
@@ -23,6 +24,9 @@ const VerifyFox = () => {
       border: "none",
       isolation: "isolate",
       boxShadow: "0px 0px 20px -5px rgba(34, 22, 43, 0.25)",
+      width: "max(60vw,300px)",
+      height: "fit-content",
+      overflow: "hidden",
     },
   };
   const [isOpen, setIsOpen] = useState(false);

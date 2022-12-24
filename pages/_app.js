@@ -19,10 +19,16 @@ const noAuthRequired = [
   "/",
   "/auth/login",
   "/auth/signup",
-  "/auth/resetPass",
+  "/auth/resetpass",
   "/verifyfox",
 ];
-const dashboardLayout = ["/dashboard", "/dashboard/profile", "/dashboard/shop"];
+const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+const dashboardLayout = [
+  "/dashboard",
+  "/dashboard/profile",
+  "/dashboard/store",
+  "/dashboard/validators/emailvalidator",
+];
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   useEffect(() => {
@@ -37,19 +43,17 @@ function MyApp({ Component, pageProps }) {
     <AuthContextProvider>
       <Navbar></Navbar>
       {noAuthRequired.includes(router.pathname) ? (
-        <PublicRoute>
-          <GoogleReCaptchaProvider
-            reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-            scriptProps={{
-              async: false,
-              defer: false,
-              appendTo: "head",
-              nonce: undefined,
-            }}
-          >
-            <Component {...pageProps} />
-          </GoogleReCaptchaProvider>
-        </PublicRoute>
+        <GoogleReCaptchaProvider
+          reCaptchaKey={siteKey}
+          scriptProps={{
+            async: false,
+            defer: false,
+            appendTo: "head",
+            nonce: undefined,
+          }}
+        >
+          <Component {...pageProps} />
+        </GoogleReCaptchaProvider>
       ) : (
         <ProtectedRoute>
           {dashboardLayout.includes(router.pathname) ? (

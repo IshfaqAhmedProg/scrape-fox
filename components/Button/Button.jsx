@@ -33,7 +33,7 @@ export default function Button({ children, variant, alternate, ...others }) {
           >
             <path
               d="M27 42.9998L8 23.9998L27 4.99976"
-              stroke="#828282"
+              stroke="var(--primary)"
               strokeWidth="6"
               strokeLinecap="round"
             />

@@ -1,0 +1,47 @@
+[
+  {
+    "offerId": "OFF01",
+    "offer": "XS",
+    "offerPoints": 50,
+    "offerPrice": 3.0,
+    "offerDesc": "Perfect for users with small set of queries (from 30-50 queries) or for users just testing out our service.",
+    "offerIcon": "XSPoints.svg",
+    "offerBestDeal": false
+  },
+  {
+    "offerId": "OFF02",
+    "offer": "S",
+    "offerPoints": 100,
+    "offerPrice": 5.0,
+    "offerDesc": "Perfect for students looking to scrape for their project or users with  sets of queries ( ranging from 50-100 queries).",
+    "offerIcon": "SPoints.svg",
+    "offerBestDeal": false
+  },
+  {
+    "offerId": "OFF03",
+    "offer": "M",
+    "offerPoints": 500,
+    "offerPrice": 25.0,
+    "offerDesc": "Perfect for students looking to scrape for their project or users with  sets of queries ( ranging from 50-100 queries).",
+    "offerIcon": "MPoints.svg",
+    "offerBestDeal": false
+  },
+  {
+    "offerId": "OFF04",
+    "offer": "L",
+    "offerPoints": 1000,
+    "offerPrice": 48.0,
+    "offerDesc": "Perfect for students looking to scrape for their project or users with  sets of queries ( ranging from 50-100 queries).",
+    "offerIcon": "LPoints.svg",
+    "offerBestDeal": true
+  },
+  {
+    "offerId": "OFF05",
+    "offer": "XL",
+    "offerPoints": 5000,
+    "offerPrice": 245.0,
+    "offerDesc": "Perfect for companies or individuals with large data set of queries (4000+ queries) to validate or scrape ",
+    "offerIcon": "XLPoints.svg",
+    "offerBestDeal": false
+  }
+]

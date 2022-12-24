@@ -18,7 +18,11 @@
   font-weight: 700;
   padding-left: 1vw;
 }
-
+.main h2 > span {
+  font-weight: 400;
+  font-size: 0.8em;
+  color: var(--graydark);
+}
 /* Tasks Card type style */
 
 @media screen and (max-width: 1158px) {

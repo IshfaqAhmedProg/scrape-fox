@@ -49,6 +49,7 @@
 .display h3 {
   color: var(--primary);
 }
+
 .display fieldset {
   display: flex;
   flex-direction: column;

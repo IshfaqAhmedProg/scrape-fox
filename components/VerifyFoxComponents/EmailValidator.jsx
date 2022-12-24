@@ -1,21 +1,78 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../styles/Forms.module.css";
 import Button from "../Button/Button";
 import Divider from "../Divider/Divider";
 const EmailValidator = () => {
+  const [textData, setTextData] = useState({ email: "" });
+  const [isEmail, setIsEmail] = useState(false);
+  const [isValidated, setIsValidated] = useState(false);
+  const handleTextSubmit = (e) => {
+    e.preventDefault();
+    // convert textData to only domain
+    const part = textData.email.split("@");
+    const domain = part[1];
+    console.log("domain", domain);
+    //fetch
+    fetch("/api/emailValidator", {
+      method: "POST",
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        domain: domain,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res, "response from backend");
+      });
+  };
+  useEffect(() => {
+    if (textData.email) {
+      const check = textData.email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g);
+      if (check) {
+        console.log(check);
+        setIsEmail(true);
+      } else {
+        setIsEmail(false);
+      }
+    }
+  }, [textData]);
   return (
     <section className={styles.formcontainer} id="emailValidator">
       <h2>Email Address Validator</h2>
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={handleTextSubmit}>
+        {console.log(isEmail)}
         <fieldset>
           <label className={styles.label}>Enter Email Address</label>
-          <textarea />
+          <input
+            type="email"
+            value={textData.email}
+            onChange={(e) => {
+              setTextData({ ...textData, email: e.target.value });
+            }}
+          />
         </fieldset>
-        <fieldset className={styles.divider}>
-          <Divider direction="horizontal" colorMode="light">
-            or
-          </Divider>
-        </fieldset>
+        {textData.email && !isEmail ? (
+          <Button variant="primary" disabled>
+            Not an email
+          </Button>
+        ) : (
+          ""
+        )}
+        {isEmail && (
+          <Button variant="primary" type="submit">
+            Validate
+          </Button>
+        )}
+      </form>
+      <div className={styles.divider}>
+        <Divider direction="horizontal" colorMode="light">
+          or
+        </Divider>
+      </div>
+      <form className={styles.form}>
         <fieldset className={styles.upload}>
           <label className={styles.label}>
             Upload a CSV/XLSX file with at least one column and without a header
@@ -39,7 +96,7 @@ const EmailValidator = () => {
         </fieldset>
         <fieldset className={styles.submit}>
           <Button type="submit" variant="primary" alternate>
-            Verify
+            Validate
           </Button>
         </fieldset>
       </form>

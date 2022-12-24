@@ -38,11 +38,11 @@ body {
 }
 a {
   cursor: pointer;
-  color: var(--primary);
+  color: var(--accentlight);
   text-decoration: none;
 }
 a:hover {
-  color: var(--accent);
+  color: var(--primary);
 }
 h1,
 h2,
@@ -83,6 +83,7 @@ h2 {
 p {
   color: var(--primarydark);
   font-size: var(--p);
+  line-height: 170%;
 }
 p > span {
   color: var(--primary);
@@ -92,6 +93,14 @@ div[data-shadow="outer"] {
 }
 div[data-shadow="inner"] {
   box-shadow: inset 0px 0px 20px -5px rgba(34, 22, 43, 0.25);
+}
+div[data-clickable="true"] {
+  scale: 1;
+  transition: scale 0.15s ease;
+  cursor: pointer;
+}
+div[data-clickable="true"]:hover {
+  scale: 0.98;
 }
 /* Scroll Bar Styles(not mozilla) */
 ::-webkit-scrollbar {
@@ -142,7 +151,7 @@ fieldset {
 select,
 fieldset input:not(input[type="file"], input[type="checkbox"]),
 fieldset textarea {
-  box-shadow: inset 0px 0px 20px -5px rgba(34, 22, 43, 0.25);
+  box-shadow: inset 0px 0px 12px -5px rgba(34, 22, 43, 0.25);
   min-height: 2.5rem;
   width: 100%;
   border: none;
@@ -152,7 +161,7 @@ fieldset textarea {
   padding: 1rem;
   font-family: "Montserrat";
   font-size: var(--p);
-  color: var(--primary);
+  color: var(--accentlight);
   background-color: var(--white);
 }
 .mainBody {
