@@ -86,10 +86,15 @@ const Dashboard = () => {
               <Image src={LoaderIcon} alt="" />
             </div>
           )}
-          {data?.map((task) => {
+          {data?.map((task, index) => {
             if (task.taskRunning == true) {
               return (
-                <TaskElement key={task.taskIdShort} task={task} type="card" />
+                <TaskElement
+                  key={task.taskIdShort}
+                  index={index}
+                  task={task}
+                  type="card"
+                />
               );
             }
           })}

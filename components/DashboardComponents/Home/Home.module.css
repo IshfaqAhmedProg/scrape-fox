@@ -204,6 +204,7 @@
 .item {
   border-radius: var(--border-radius);
   transition: scale 0.15s ease;
+  cursor: pointer;
 }
 .item:hover {
   scale: 0.98;

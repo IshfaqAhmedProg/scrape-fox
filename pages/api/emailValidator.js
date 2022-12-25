@@ -15,10 +15,7 @@ const handler = (req, res) => {
         .then((mailCheckRes) => mailCheckRes.json())
         .then((mailCheckRes) => {
           console.log(mailCheckRes, "response from mailcheck");
-          res.status(200).json({
-            status: "success",
-            message: "Enquiry submitted successfully",
-          });
+          res.status(200).json(mailCheckRes);
         });
     } catch (err) {
       res.status(405).json({
