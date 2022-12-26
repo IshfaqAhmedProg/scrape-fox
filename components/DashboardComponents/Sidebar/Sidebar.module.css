@@ -82,7 +82,7 @@
   list-style-type: none;
   display: flex;
   flex-direction: column;
-  gap: 0.5625em;
+  gap: 1.5em;
   cursor: pointer;
   font-size: 0.875rem;
 }

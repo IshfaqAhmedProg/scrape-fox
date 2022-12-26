@@ -160,7 +160,7 @@ export const UserDatabaseContextProvider = ({ children }) => {
   //   }
   // };
   const loadMoreTasks = () => {};
-  const setUserTasks = async () => {
+  const setUserTasks = async (task, service, queryCount) => {
     let adder = null;
     const dateId = Date.now();
     const MY_NAMESPACE = process.env.NEXT_PUBLIC_UUID_NAMESPACE;
@@ -171,12 +171,13 @@ export const UserDatabaseContextProvider = ({ children }) => {
 
     const data = {
       dateCreated: Timestamp.fromDate(new Date(dateId)),
-      queryCount: 700,
-      service: "Google Maps Scraper",
+      queryCount: queryCount,
+      service: service,
       taskRunning: true,
       uid: user.uid,
       taskId,
       taskIdShort,
+      request: task,
     };
     if (auth.currentUser) {
       adder = await setDoc(doc(db, "tasks", taskId), data);

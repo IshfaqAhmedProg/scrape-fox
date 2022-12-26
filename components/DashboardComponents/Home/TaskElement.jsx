@@ -3,10 +3,7 @@ import styles from "./Home.module.css";
 
 const TaskElement = ({ task, type, index }) => {
   return (
-    <div
-      data-aos={type == "card" ? "zoom-in" : ""}
-      data-aos-delay={index * 10 + 100}
-    >
+    <div data-aos={type == "card" ? "zoom-in" : ""}>
       <div className={styles.item} data-shadow="outer">
         <div className={styles.id}>{task.taskIdShort}</div>
         <div className={styles.date}>{task.dateCreated}</div>

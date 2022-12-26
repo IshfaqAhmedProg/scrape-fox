@@ -92,6 +92,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 1.875em;
+  height: fit-content;
 }
 .form {
   width: 100%;
