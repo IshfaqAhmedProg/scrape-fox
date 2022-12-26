@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -14,16 +14,23 @@ import HomeIcon from "../../../public/Icons/Home.svg";
 import AccountIcon from "../../../public/Icons/Account.svg";
 import ShopIcon from "../../../public/Icons/Shop.svg";
 import { useUserDb } from "../../../contexts/UserDatabaseContext";
+import { useRouter } from "next/router";
 const Sidebar = () => {
   const [sbToggle, setSbToggle] = useState(false);
   const { getUserTasks, setUserTasks } = useUserDb();
+  const router = useRouter();
+  useEffect(() => {});
   return (
     <>
       <div
         className={styles.overlay + " " + (sbToggle ? styles["open"] : "")}
+        onClick={() => setSbToggle(false)}
       ></div>
 
-      <div className={styles.sidebar + " " + (sbToggle ? styles["open"] : "")}>
+      <div
+        onClick={() => setSbToggle(!sbToggle)}
+        className={styles.sidebar + " " + (sbToggle ? styles["open"] : "")}
+      >
         <div data-aos="slide-right" className={styles.content}>
           <div className={styles.mainmenu}>
             <div className={styles.points}>

@@ -84,7 +84,7 @@
   translate: -100% 0;
   scale: 0.99 0.95;
   transform-origin: top left;
-  transition: translate 0.3s ease;
+  transition: translate 0.15s ease;
   background-color: var(--bg-color-after);
 }
 .primary:hover::before {
@@ -107,14 +107,14 @@
   background: none;
   line-height: 113.7%;
   color: var(--accent);
-  transition: all 0.3s ease-in-out;
+  transition: all 0.15s ease-in-out;
 }
 .secondary:hover,
 .secondary:focus {
   scale: 0.98;
   color: var(--white);
   border-color: var(--white);
-  background: var(--primarylight);
+  background: var(--accentdark);
 }
 
 /* arrow styles */

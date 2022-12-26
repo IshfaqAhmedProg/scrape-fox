@@ -161,7 +161,7 @@ textarea {
   padding: 1rem;
   font-family: "Montserrat";
   font-size: var(--p);
-  color: var(--accentlight);
+  color: var(--accent);
   background-color: var(--white);
 }
 .mainBody {

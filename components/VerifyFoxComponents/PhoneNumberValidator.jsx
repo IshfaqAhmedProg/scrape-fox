@@ -28,7 +28,6 @@ const PhoneNumberValidator = () => {
     // convert textData to only domain
     const part = textData.pNumber.split("@");
     const domain = part[1];
-    console.log("domain", domain);
     setLoading(true);
     //fetch
     fetch("/api/emailValidator", {
@@ -103,7 +102,6 @@ const PhoneNumberValidator = () => {
     setUserTasks(extract, "Phone Number Validator", extract.length)
       .then(setLoading(false))
       .then(router.replace("/dashboard"));
-    console.log(extract);
   };
 
   useEffect(() => {
@@ -116,9 +114,7 @@ const PhoneNumberValidator = () => {
       }
     }
   }, [textData]);
-  useEffect(() => {
-    console.log(fileData);
-  }, [fileData]);
+  useEffect(() => {}, [fileData]);
   return (
     <div className={styles.formcontainer}>
       <h2>Phone Number Validator</h2>
@@ -144,7 +140,6 @@ const PhoneNumberValidator = () => {
           {/* form if text input */}
           {!fileData.fileName && (
             <form className={styles.form} onSubmit={handleTextSubmit}>
-              {console.log(isPNumber)}
               <fieldset>
                 <label className={styles.label}>Enter Phone Number</label>
                 <input
@@ -250,7 +245,6 @@ const PhoneNumberValidator = () => {
                       >
                         <optgroup label="Select header">
                           {columnHeaders.map((header) => {
-                            console.log(header);
                             return (
                               <option key={header} value={header}>
                                 {header}

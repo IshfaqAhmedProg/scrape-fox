@@ -33,7 +33,6 @@ const Dashboard = () => {
   };
   useEffect(() => {
     //useeffect to sync querycall
-    console.log("lastData", lastData);
     if (!lastData && lastData != "nomoredata") {
       const q = query(
         collection(db, "tasks"),
@@ -83,7 +82,7 @@ const Dashboard = () => {
         <div className={styles.content}>
           {loading && (
             <div className={styles.loader}>
-              <Image src={LoaderIcon} alt="" />
+              <Image src={LoaderIcon} alt="" width={100} height={100} />
             </div>
           )}
           {data?.map((task, index) => {
@@ -101,7 +100,7 @@ const Dashboard = () => {
           {data.length == 0 && !loading && (
             <div className={styles.empty}>No ongoing tasks</div>
           )}
-          {lastData != "nomoredata" && (
+          {lastData != "nomoredata" ? (
             <div
               className={styles.loadmore}
               data-shadow="outer"
@@ -109,6 +108,10 @@ const Dashboard = () => {
             >
               <Image src={LoadMoreIcon} alt="" />
             </div>
+          ) : (
+            <p className={styles.loadmore} style={{ pointerEvents: "none" }}>
+              No more tasks!
+            </p>
           )}
         </div>
       </div>
@@ -124,7 +127,7 @@ const Dashboard = () => {
         >
           {loading && (
             <div className={styles.loader}>
-              <Image src={LoaderIcon} alt="" />
+              <Image src={LoaderIcon} alt="" width={45} height={45} />
             </div>
           )}
           {data?.map((task) => {

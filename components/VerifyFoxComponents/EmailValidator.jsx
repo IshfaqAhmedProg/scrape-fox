@@ -28,7 +28,6 @@ const EmailValidator = () => {
     // convert textData to only domain
     const part = textData.email.split("@");
     const domain = part[1];
-    console.log("domain", domain);
     setLoading(true);
     //fetch
     fetch("/api/emailValidator", {
@@ -103,7 +102,6 @@ const EmailValidator = () => {
     setUserTasks(extract, "Email Validator", extract.length)
       .then(setLoading(false))
       .then(router.replace("/dashboard"));
-    console.log(extract);
   };
 
   useEffect(() => {
@@ -116,9 +114,7 @@ const EmailValidator = () => {
       }
     }
   }, [textData]);
-  useEffect(() => {
-    console.log(fileData);
-  }, [fileData]);
+
   return (
     <div className={styles.formcontainer}>
       <h2>Email Address Validator</h2>
@@ -144,7 +140,6 @@ const EmailValidator = () => {
           {/* form if text input */}
           {!fileData.fileName && (
             <form className={styles.form} onSubmit={handleTextSubmit}>
-              {console.log(isEmail)}
               <fieldset>
                 <label className={styles.label}>Enter Email Address</label>
                 <input
@@ -250,7 +245,6 @@ const EmailValidator = () => {
                       >
                         <optgroup label="Select header">
                           {columnHeaders.map((header) => {
-                            console.log(header);
                             return (
                               <option key={header} value={header}>
                                 {header}

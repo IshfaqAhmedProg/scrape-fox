@@ -24,9 +24,14 @@ export const UserDatabaseContextProvider = ({ children }) => {
     "email",
     "displayName",
     "photoURL",
+    "firstName",
+    "lastName",
+    "companyEmail",
     "phoneNumber",
-    "gender",
-    "dob",
+    "vatin",
+    "address",
+    "city",
+    "state",
     "countryOrigin",
   ];
   const TaskStruct = [
@@ -193,6 +198,7 @@ export const UserDatabaseContextProvider = ({ children }) => {
         // getUserTasks,
         setUserTasks,
         // loading,
+        user,
         userDb,
         tasks,
       }}
