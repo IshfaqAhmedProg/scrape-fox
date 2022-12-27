@@ -17,6 +17,7 @@ import Image from "next/image";
 const Dashboard = () => {
   //try to move firestore code to userdbcontext
   const [data, setData] = useState([]);
+  const [ongoingTasks, setOngoingTasks] = useState([]);
   const [lastData, setLastData] = useState(null);
   const [queryCall, setQueryCall] = useState(null);
   const [docs, loading, error] = useCollectionDataOnce(queryCall);
@@ -73,6 +74,7 @@ const Dashboard = () => {
       setData((prev) => arrayUnique(prev.concat(convDocs)));
     }
   }, [docs]);
+
   return (
     <>
       <div className={styles.cards}>

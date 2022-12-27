@@ -1,17 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { db, auth } from "../firebase/config";
-import {
-  doc,
-  setDoc,
-  getDoc,
-  getDocs,
-  collection,
-  query,
-  where,
-  limit,
-  orderBy,
-  Timestamp,
-} from "firebase/firestore";
+import { doc, setDoc, getDoc, Timestamp } from "firebase/firestore";
 import Sidebar from "../components/DashboardComponents/Sidebar/Sidebar";
 import styles from "../components/DashboardComponents/Dashboard.module.css";
 import { useAuth } from "./AuthContext";
@@ -21,9 +10,9 @@ const UserDatabaseContext = createContext({});
 export const useUserDb = () => useContext(UserDatabaseContext);
 export const UserDatabaseContextProvider = ({ children }) => {
   const UserStruct = [
-    "email",
+    "email", //from user
     "displayName",
-    "photoURL",
+    "photoURL", //from user
     "firstName",
     "lastName",
     "companyEmail",
@@ -32,6 +21,7 @@ export const UserDatabaseContextProvider = ({ children }) => {
     "address",
     "city",
     "state",
+    "zipCode",
     "countryOrigin",
   ];
   const TaskStruct = [

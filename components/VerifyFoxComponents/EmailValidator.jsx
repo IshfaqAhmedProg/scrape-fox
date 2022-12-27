@@ -42,6 +42,7 @@ const EmailValidator = () => {
     })
       .then((res) => res.json())
       .then((res) => {
+        console.log(res);
         setValidationMssg(
           `${
             res.text +
@@ -149,6 +150,7 @@ const EmailValidator = () => {
                   onChange={(e) => {
                     setTextData({ ...textData, email: e.target.value });
                   }}
+                  disabled={validationMssg == "" ? false : true}
                 />
               </fieldset>
               {textData.email && !isEmail ? (
@@ -176,8 +178,14 @@ const EmailValidator = () => {
                   </fieldset>
                 ) : (
                   <fieldset className={styles.submit}>
-                    <Button variant="primary" disabled>
-                      Results Below &darr;
+                    <Button
+                      variant="primary"
+                      onClick={() => {
+                        setValidationMssg("");
+                        setTextData({ email: "" });
+                      }}
+                    >
+                      Validate Again?
                     </Button>
                   </fieldset>
                 ))}

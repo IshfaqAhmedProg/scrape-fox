@@ -11,24 +11,12 @@ const AccountPage = () => {
   const { logout } = useAuth();
   const { setUserInfo, userDb, getUserInfo } = useUserDb();
   const [data, setData] = useState(userDb);
-  const [defaults, setDefaults] = useState({});
-  const router = useRouter();
   const changeUserInfo = (e) => {
     e.preventDefault();
+    console.log(data);
     setUserInfo(data);
   };
-  const setDOBMinMax = () => {
-    let maxdate = new Date();
-    maxdate = addDate(maxdate, -18, "years");
-    let mindate = new Date();
-    mindate = addDate(mindate, -98, "years");
-    setDefaults({
-      dobMax: convertToYMD(maxdate).toString(),
-      dobMin: convertToYMD(mindate).toString(),
-    });
-  };
   useEffect(() => {
-    setDOBMinMax();
     setData(userDb);
   }, [userDb]);
   return (
@@ -53,51 +41,118 @@ const AccountPage = () => {
             hidden
           />
           <span>
-            <h3>{data.displayName}</h3>
+            {userDb.displayName ? (
+              <h3>{data.displayName}</h3>
+            ) : (
+              <input
+                type="text"
+                name="displayName"
+                placeholder="Display Name"
+                onChange={(e) =>
+                  setData({ ...data, displayName: e.target.value })
+                }
+              />
+            )}
             <p>{data.email}</p>
           </span>
         </div>
         <div className={styles.detailform}>
           <h4>Your account details </h4>
-          <form className={styles.form}>
+          <form className={styles.form} onSubmit={changeUserInfo}>
             <fieldset>
-              <input type="text" name="firstname" placeholder="First Name" />
-              <input type="text" name="lastname" placeholder="Last Name" />
+              <input
+                type="text"
+                name="firstname"
+                placeholder="First Name"
+                onChange={(e) =>
+                  setData({ ...data, firstName: e.target.value })
+                }
+              />
+              <input
+                type="text"
+                name="lastname"
+                placeholder="Last Name"
+                onChange={(e) => setData({ ...data, lastName: e.target.value })}
+              />
             </fieldset>
             <fieldset>
               <input
                 type="email"
                 name="companyemail"
                 placeholder="Company Email"
+                onChange={(e) =>
+                  setData({ ...data, companyEmail: e.target.value })
+                }
               />
             </fieldset>
             <fieldset>
-              <input type="tel" name="contactno" placeholder="Contact no." />
+              <input
+                type="tel"
+                name="phoneNumber"
+                placeholder="Contact no."
+                onChange={(e) =>
+                  setData({ ...data, phoneNumber: e.target.value })
+                }
+              />
               <input
                 type="text"
                 name="vatin"
                 placeholder="VAT(IN) or similar"
+                onChange={(e) => setData({ ...data, vatin: e.target.value })}
               />
             </fieldset>
             <fieldset>
-              <input type="text" name="address" placeholder="Address" />
+              <input
+                type="text"
+                name="address"
+                placeholder="Address"
+                onChange={(e) => setData({ ...data, address: e.target.value })}
+              />
             </fieldset>
             <fieldset>
-              <input type="text" name="city" placeholder="City" />
-              <input type="text" name="state" placeholder="State" />
+              <input
+                type="text"
+                name="city"
+                placeholder="City"
+                onChange={(e) => setData({ ...data, city: e.target.value })}
+              />
+              <input
+                type="text"
+                name="state"
+                placeholder="State"
+                onChange={(e) => setData({ ...data, state: e.target.value })}
+              />
             </fieldset>
             <fieldset>
-              <input type="text" name="zipcode" placeholder="Zip-code" />
-              <input type="text" name="country" placeholder="Country" />
+              <input
+                type="text"
+                name="zipcode"
+                placeholder="Zip-code"
+                onChange={(e) => setData({ ...data, zipCode: e.target.value })}
+              />
+              <input
+                type="text"
+                name="country"
+                placeholder="Country"
+                onChange={(e) =>
+                  setData({ ...data, countryOrigin: e.target.value })
+                }
+              />
+            </fieldset>
+            <fieldset>
+              {data !== userDb ? (
+                <Button variant="primary" type="submit" alternate>
+                  Save
+                </Button>
+              ) : (
+                ""
+              )}
             </fieldset>
           </form>
         </div>
       </div>
       <div className={styles.content}>
-        <Button variant="primary" alternate>
-          Save
-        </Button>
-        <Button variant="primary" alternate>
+        <Button variant="primary" alternate onClick={logout}>
           Logout&nbsp;
           <svg
             width="15"
