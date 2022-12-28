@@ -35,13 +35,13 @@
   text-align: center;
   content: "load more";
   position: absolute;
-  right: 0;
+  bottom: 0;
   opacity: 0;
   transition: all 0.3s ease;
   z-index: -1;
 }
 .loadmore:hover::before {
-  right: 120%;
+  bottom: -120%;
   opacity: 1;
 }
 .empty {
@@ -62,6 +62,7 @@
   overflow-x: auto;
   border-radius: var(--border-radius);
   position: relative;
+  flex-grow: 1;
 }
 .cards .item {
   min-height: 14.4rem;
@@ -191,17 +192,11 @@
 .list .status[data-taskstatus="Complete"] {
   color: var(--primary);
 }
-.list .status[data-taskstatus="Complete"]::before {
-  content: url("/Icons/SmallTick.svg");
-  margin-right: 0.2em;
-}
+
 .list .status[data-taskstatus="Running"] {
   color: var(--accent);
 }
-.list .status[data-taskstatus="Running"]::before {
-  content: url("/Icons/RunningCog.svg");
-  margin-right: 0.2em;
-}
+
 .item {
   border-radius: var(--border-radius);
   transition: scale 0.15s ease;

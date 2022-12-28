@@ -1,0 +1,83 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--border-radius);
+  align-items: center;
+  gap: 2.3125rem;
+  padding: 1.5rem;
+}
+.title {
+  display: flex;
+  width: 100%;
+}
+
+.title h2 {
+  color: var(--primarydark);
+  font-weight: 700;
+  padding-left: 1vw;
+}
+.title h2 > span {
+  font-weight: 400;
+  font-size: 0.8em;
+  color: var(--graydark);
+}
+.title h2 > span:nth-child(2) {
+  color: var(--accent);
+}
+.progressbar {
+  background: linear-gradient(90deg, #9d19ff 0%, #7d9eff 100%);
+  width: 90%;
+  height: 1.6875rem;
+  border-radius: 0.75rem;
+  color: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+}
+.result {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 2.0625rem;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+.label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
+  color: var(--accent);
+}
+
+.label > span[data-taskstatus="Complete"] {
+  color: var(--primary);
+}
+.label > span[data-taskstatus="Running"],
+.label > span[data-taskstatus="Complete"] {
+  font-size: 1.25rem;
+}
+.label:nth-child(2) > span {
+  font-size: 0.8em;
+}
+.download {
+  width: 13.3125rem;
+  height: 9.75rem;
+  border-radius: var(--border-radius);
+  font-size: 0.8em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  color: var(--accent);
+}
+.download[data-clickable="false"]{
+  pointer-events: none;
+
+}

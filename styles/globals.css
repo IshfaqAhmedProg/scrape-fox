@@ -168,6 +168,14 @@ textarea {
   background: linear-gradient(180deg, #9d19ff 0%, #7d9eff 100%);
   background-repeat: no-repeat;
 }
+*[data-taskstatus="Running"]::before {
+  content: url("/Icons/RunningCog.svg");
+  margin-right: 0.2em;
+}
+*[data-taskstatus="Complete"]::before {
+  content: url("/Icons/SmallTick.svg");
+  margin-right: 0.2em;
+}
 /* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

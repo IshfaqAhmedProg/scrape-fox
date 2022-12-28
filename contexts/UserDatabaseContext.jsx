@@ -5,6 +5,7 @@ import Sidebar from "../components/DashboardComponents/Sidebar/Sidebar";
 import styles from "../components/DashboardComponents/Dashboard.module.css";
 import { useAuth } from "./AuthContext";
 import { v5 as uuidv5 } from "uuid";
+import { estimatedTTC } from "../shared/Functions/estimatedTTC";
 
 const UserDatabaseContext = createContext({});
 export const useUserDb = () => useContext(UserDatabaseContext);
@@ -93,67 +94,6 @@ export const UserDatabaseContextProvider = ({ children }) => {
     return adder;
   };
 
-  // const localStorageTasks = {
-  //   taskId: [],
-  //   dateCreated: [],
-  //   queryCount: [],
-  //   taskRunning: [],
-  //   uid: [],
-  //   service: [],
-  // };
-  // TaskStruct.forEach((element) => {
-  //   localStorage.getItem(element) != null
-  //     ? (localStorageTasks[element] = localStorage.getItem(element))
-  //     : null;
-  // });
-  // console.log("localStorageTasks 1", localStorageTasks);
-  //add new task created flag to run if a new task has been created
-  // const getUserTasks = async () => {
-  //   if (tasks.length == 0 && auth.currentUser) {
-  //     setLoading(true);
-  //     const q = query(
-  //       collection(db, "tasks"),
-  //       where("uid", "==", user.uid),
-  //       orderBy("dateCreated", "desc"),
-  //       limit(5)
-  //     );
-
-  //     const querySnapshot = await getDocs(q);
-  //     const docs = querySnapshot.docs.map((doc) => {
-  //       const data = doc.data();
-  //       data.id = doc.id;
-  //       const convData = {
-  //         dateCreated: data.dateCreated.toDate().toLocaleString(),
-  //         queryCount: data.queryCount,
-  //         service: data.service,
-  //         taskRunning: data.taskRunning,
-  //         uid: data.uid,
-  //         taskId: data.taskId,
-  //         taskIdShort: data.taskIdShort,
-  //       };
-  //       console.log("convData", convData);
-  //       return convData;
-  //     });
-  //     setTasks(docs);
-  //     console.log(docs);
-  //     setLoading(false);
-
-  //     //take the docs and put it in localstorage
-
-  //     // docs.forEach((object) => {
-  //     //   localStorageTasks.taskId.push(object.taskId);
-  //     //   localStorageTasks.dateCreated.push(object.dateCreated);
-  //     //   localStorageTasks.queryCount.push(object.queryCount);
-  //     //   localStorageTasks.taskRunning.push(object.taskRunning);
-  //     //   localStorageTasks.uid.push(object.uid);
-  //     //   localStorageTasks.service.push(object.service);
-  //     // });
-  //     // console.log("localStorageTasks", localStorageTasks);
-  //     // docs.map((doc) => {
-  //     //   // localStorageTasks = Object.values(doc);
-  //     // });
-  //   }
-  // };
   const loadMoreTasks = () => {};
   const setUserTasks = async (task, service, queryCount) => {
     let adder = null;
@@ -163,7 +103,7 @@ export const UserDatabaseContextProvider = ({ children }) => {
       .replace(/[-]/g, "")
       .slice(0, 20);
     const taskIdShort = taskId.slice(0, 8);
-
+    const estTTC = estimatedTTC(queryCount, service);
     const data = {
       dateCreated: Timestamp.fromDate(new Date(dateId)),
       queryCount: queryCount,
@@ -173,6 +113,7 @@ export const UserDatabaseContextProvider = ({ children }) => {
       taskId,
       taskIdShort,
       request: task,
+      estimatedTTC: estTTC,
     };
     if (auth.currentUser) {
       adder = await setDoc(doc(db, "tasks", taskId), data);

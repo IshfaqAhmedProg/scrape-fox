@@ -17,9 +17,9 @@ import Image from "next/image";
 const Dashboard = () => {
   //try to move firestore code to userdbcontext
   const [data, setData] = useState([]);
-  const [ongoingTasks, setOngoingTasks] = useState([]);
   const [lastData, setLastData] = useState(null);
   const [queryCall, setQueryCall] = useState(null);
+  const [ongoing, setOngoing] = useState(false);
   const [docs, loading, error] = useCollectionDataOnce(queryCall);
   const loadMoreTasks = () => {
     if (lastData == "nomoredata") return;
@@ -55,6 +55,7 @@ const Dashboard = () => {
     return a;
   }
   useEffect(() => {
+    console.log(docs);
     //useeffect to sync data
     if (docs) {
       const convDocs = docs.map((doc) => {
@@ -71,6 +72,7 @@ const Dashboard = () => {
         return convData;
       });
       setLastData(docs[docs.length - 1] ? docs[docs.length - 1] : "nomoredata");
+
       setData((prev) => arrayUnique(prev.concat(convDocs)));
     }
   }, [docs]);
@@ -87,19 +89,15 @@ const Dashboard = () => {
               <Image src={LoaderIcon} alt="" width={100} height={100} />
             </div>
           )}
-          {data?.map((task, index) => {
+          {data?.map((task) => {
             if (task.taskRunning == true) {
               return (
-                <TaskElement
-                  key={task.taskIdShort}
-                  index={index}
-                  task={task}
-                  type="card"
-                />
+                <TaskElement key={task.taskIdShort} task={task} type="card" />
               );
             }
           })}
-          {data.length == 0 && !loading && (
+          {/* TODO fix ongoing task */}
+          {ongoing == false && !loading && (
             <div className={styles.empty}>No ongoing tasks</div>
           )}
           {lastData != "nomoredata" ? (
@@ -132,6 +130,7 @@ const Dashboard = () => {
               <Image src={LoaderIcon} alt="" width={45} height={45} />
             </div>
           )}
+          {console.log(data)}
           {data?.map((task) => {
             return (
               <TaskElement key={task.taskIdShort} task={task} type="list" />

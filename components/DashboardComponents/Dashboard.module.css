@@ -9,6 +9,8 @@
 
 .main {
   padding-right: 3vw;
+  padding-left: 0.5rem;
+  padding-top: 0.5rem;
   width: 70%;
   overflow-y: auto;
   border-radius: var(--border-radius);

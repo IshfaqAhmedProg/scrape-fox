@@ -11,10 +11,11 @@ admin.initializeApp();
 exports.executeTask = functions.firestore
   .document("tasks/{taskId}")
   .onCreate(async (doc, ctx) => {
-    const { service, request } = doc.data();
+    const { service, uid, request } = doc.data();
     if (service == "Email Validator") {
       const firestoreVals = await validateAllEmails(request);
       return admin.firestore().collection("taskResults").doc(doc.id).set({
+        uid: uid,
         results: firestoreVals,
       });
     }
@@ -22,19 +23,21 @@ exports.executeTask = functions.firestore
 exports.updateTaskStatus = functions.firestore
   .document("taskResults/{taskResultId}")
   .onCreate(async (doc, ctx) => {
-    return admin
-      .firestore()
-      .collection("tasks")
-      .doc(doc.id)
-      .update({ taskRunning: false });
+    return admin.firestore().collection("tasks").doc(doc.id).set(
+      {
+        taskRunning: false,
+        dateCompleted: admin.firestore.Timestamp.now(),
+      },
+      { merge: true }
+    );
   });
 const validateAllEmails = async (emails) => {
   const allAsyncResults = [];
   const options = {
     method: "GET",
     headers: {
-      "X-RapidAPI-Key": "bb619020c8msh0e24b40e791c34dp1b6430jsnb4541194a915",
-      "X-RapidAPI-Host": "mailcheck.p.rapidapi.com",
+      "X-RapidAPI-Key": `${process.env.XRAPIDAPIKEYEMAIL}`,
+      "X-RapidAPI-Host": `${process.env.XRAPIDAPIHOSTEMAIL}`,
     },
   };
   for (const item of emails) {
