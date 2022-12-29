@@ -3,19 +3,20 @@ const handler = (req, res) => {
     method: "GET",
     headers: {
       "X-RapidAPI-Key": process.env.RAPID_API_KEY,
-      "X-RapidAPI-Host": "mailcheck.p.rapidapi.com",
+      "X-RapidAPI-Host": "veriphone.p.rapidapi.com",
     },
   };
   if (req.method === "POST") {
+    console.log(req.body.number);
     try {
       fetch(
-        `https://mailcheck.p.rapidapi.com/?domain=${req.body.domain}`,
+        `https://veriphone.p.rapidapi.com/verify?phone=%2B${req.body.number}`,
         options
       )
-        .then((mailCheckRes) => mailCheckRes.json())
-        .then((mailCheckRes) => {
-          console.log(mailCheckRes, "response from mailcheck");
-          res.status(200).json(mailCheckRes);
+        .then((response) => response.json())
+        .then((response) => {
+          console.log(response, "response from phone veriphone");
+          res.status(200).json(response);
         });
     } catch (err) {
       res.status(405).json({

@@ -25,38 +25,37 @@ const PhoneNumberValidator = () => {
   const router = useRouter();
   const handleTextSubmit = (e) => {
     e.preventDefault();
-    // convert textData to only domain
-    const part = textData.pNumber.split("@");
-    const domain = part[1];
+    // convert textData to only number
+    const cleanNum = textData.pNumber.match(/\d+/g).join("");
     setLoading(true);
     //fetch
-    fetch("/api/emailValidator", {
+    fetch("/api/phoneValidator", {
       method: "POST",
       headers: {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        domain: domain,
+        number: cleanNum,
       }),
     })
       .then((res) => res.json())
       .then((res) => {
         setValidationMssg(
           `${
-            res.text +
-            `\nReason: ` +
-            res.reason +
-            `\nRisk: ` +
-            res.risk +
-            `\nDisposable: ` +
-            res.disposable +
-            `\nPossible Typo: ` +
-            res.possible_typo +
-            `\nmx_IP: ` +
-            res.mx_ip +
-            `\nmx_Info: ` +
-            res.mx_info
+            res.phone +
+            `\nValid: ` +
+            res.phone_valid +
+            `\nPhone Type: ` +
+            res.phone_type +
+            `\nRegion: ` +
+            res.phone_region +
+            `\nCountry: ` +
+            res.country +
+            `\nCountry Code: ` +
+            res.country_code +
+            `\nCarrier: ` +
+            res.carrier
           }`
         );
         setLoading(false);
@@ -106,7 +105,9 @@ const PhoneNumberValidator = () => {
 
   useEffect(() => {
     if (textData.pNumber) {
-      const check = textData.pNumber.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g);
+      const check = textData.pNumber.match(
+        /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,7}$/g
+      );
       if (check) {
         setIsPNumber(true);
       } else {
@@ -114,7 +115,6 @@ const PhoneNumberValidator = () => {
       }
     }
   }, [textData]);
-  useEffect(() => {}, [fileData]);
   return (
     <div className={styles.formcontainer}>
       <h2>Phone Number Validator</h2>
@@ -141,9 +141,11 @@ const PhoneNumberValidator = () => {
           {!fileData.fileName && (
             <form className={styles.form} onSubmit={handleTextSubmit}>
               <fieldset>
-                <label className={styles.label}>Enter Phone Number</label>
+                <label className={styles.label}>
+                  Enter Phone Number with Country Code
+                </label>
                 <input
-                  type="email"
+                  type="tel"
                   value={textData.pNumber}
                   placeholder="Enter your Phone Number"
                   onChange={(e) => {
@@ -175,12 +177,23 @@ const PhoneNumberValidator = () => {
                     </Button>
                   </fieldset>
                 ) : (
-                  <fieldset className={styles.submit}>
-                    <Button variant="primary" disabled>
-                      Results Below &darr;
-                    </Button>
-                  </fieldset>
+                  ""
                 ))}
+              {validationMssg == "" ? (
+                ""
+              ) : (
+                <fieldset className={styles.submit}>
+                  <Button
+                    variant="primary"
+                    onClick={() => {
+                      setValidationMssg("");
+                      setTextData({ pNumber: "" });
+                    }}
+                  >
+                    Validate Again?
+                  </Button>
+                </fieldset>
+              )}
             </form>
           )}
           {!fileData.fileName && !textData.pNumber ? (

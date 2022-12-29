@@ -142,6 +142,9 @@
 .result {
   min-height: 17rem;
   width: 100%;
+  border-radius: var(--border-radius);
+  padding: 0.5em;
+  color: var(--accentlight);
 }
 .submit {
   align-items: center;

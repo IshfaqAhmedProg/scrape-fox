@@ -1,22 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { doc } from "firebase/firestore";
 import { useDocumentData } from "react-firebase-hooks/firestore";
+import { writeFile, utils } from "xlsx";
 import { db } from "../../../firebase/config";
-import styles from "./TaskPage.module.css";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import Button from "../../Button/Button";
 import LoaderIcon from "../../../public/Icons/Loader.svg";
 import xlsxIcon from "../../../public/Icons/xlsx.svg";
 import csvIcon from "../../../public/Icons/csv.svg";
-import { useRouter } from "next/router";
+import styles from "./TaskPage.module.css";
 
 const TaskPage = ({ task }) => {
   const tasksRef = doc(db, "tasks", `${task}`);
-  const taskResultsRef = doc(db, "taskResults", `${task}`);
+  const [taskResultsRef, setTaskResultsRef] = useState(null);
+  const router = useRouter();
+
   const [taskvalue, loading, error, snapshot] = useDocumentData(tasksRef);
+  useEffect(() => {
+    if (taskvalue?.taskRunning == false) {
+      const ref = doc(db, "taskResults", `${task}`);
+      setTaskResultsRef(ref);
+    }
+  }, [taskvalue?.taskRunning, task]);
   const [taskResultsvalue, resultsloading, resultserror, resultssnapshot] =
     useDocumentData(taskResultsRef);
-  const router = useRouter();
+  const downloadFile = (filetype) => {
+    if (taskResultsvalue != undefined) {
+      console.log(taskResultsvalue);
+      const worksheet = utils.json_to_sheet(taskResultsvalue.results);
+      const workbook = utils.book_new();
+      utils.book_append_sheet(workbook, worksheet);
+      writeFile(workbook, `Task no. ${task}.${filetype}`);
+    }
+  };
   return (
     <div data-shadow="outer" className={styles.container}>
       {loading ? (
@@ -27,7 +44,7 @@ const TaskPage = ({ task }) => {
           <div className={styles.title}>
             <h2>
               Task #{taskvalue.taskIdShort}{" "}
-              <span>- {taskvalue.service} - </span>
+              <span> - {taskvalue.service} - </span>
               <span>
                 <strong>{taskvalue.queryCount}</strong>{" "}
                 {taskvalue.queryCount ? "queries" : ""}
@@ -71,6 +88,7 @@ const TaskPage = ({ task }) => {
               className={styles.download}
               data-shadow={taskvalue.taskRunning ? "inner" : "outer"}
               data-clickable={taskvalue.taskRunning ? "false" : "true"}
+              onClick={() => downloadFile("xlsx")}
             >
               <Image src={xlsxIcon} alt="download excel file" />
               Download .xlsx file
@@ -79,6 +97,7 @@ const TaskPage = ({ task }) => {
               className={styles.download}
               data-shadow={taskvalue.taskRunning ? "inner" : "outer"}
               data-clickable={taskvalue.taskRunning ? "false" : "true"}
+              onClick={() => downloadFile("csv")}
             >
               <Image src={csvIcon} alt="download csv file" />
               Download .csv file

@@ -65,7 +65,11 @@ const Sidebar = () => {
                     Phone Number Validator
                   </Link>
                 </li>
-                <li>WhatsApp Validator</li>
+                <li>
+                  <Link href="/dashboard/validators/whatsappvalidator">
+                    WhatsApp Validator
+                  </Link>
+                </li>
               </ul>
             </div>
             <Divider direction="horizontal" colorMode="dark" />
