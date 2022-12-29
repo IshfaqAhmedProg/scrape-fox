@@ -139,6 +139,20 @@ const Dashboard = () => {
           {data.length == 0 && !loading && (
             <div className={styles.empty}>No tasks</div>
           )}
+          {lastData != "nomoredata" ? (
+            <div
+              className={styles.loadmore}
+              data-shadow="outer"
+              onClick={loadMoreTasks}
+              style={{ marginTop: "2.5rem" }}
+            >
+              <Image src={LoadMoreIcon} alt="" style={{ rotate: "90deg" }} />
+            </div>
+          ) : (
+            <p className={styles.loadmore} style={{ pointerEvents: "none" }}>
+              No more tasks!
+            </p>
+          )}
         </div>
       </div>
     </>
