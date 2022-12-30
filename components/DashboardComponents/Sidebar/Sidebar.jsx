@@ -43,7 +43,11 @@ const Sidebar = () => {
                 Google Services
               </div>
               <ul className={styles.items}>
-                <li>Google Maps Scraper</li>
+                <li>
+                  <Link href="/dashboard/scrapers/googlemaps">
+                    Google Maps Scraper
+                  </Link>
+                </li>
               </ul>
             </div>
             <div className={styles.menu}>

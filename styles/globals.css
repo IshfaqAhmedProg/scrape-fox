@@ -21,7 +21,7 @@
 
   /* Utitlity variables */
   --border-radius-small: 0.75em;
-  --border-radius: 0.75em;
+  --border-radius: 0.5em;
   --border-radius-large: 1.0875em;
 }
 html,
@@ -152,7 +152,7 @@ select,
 fieldset input:not(input[type="file"], input[type="checkbox"]),
 textarea {
   box-shadow: inset 0px 0px 12px -5px rgba(34, 22, 43, 0.25);
-  min-height: 2.5rem;
+  min-height: 1.5em;
   width: 100%;
   border: none;
   border-radius: var(--border-radius);

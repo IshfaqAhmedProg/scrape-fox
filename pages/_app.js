@@ -31,6 +31,7 @@ const dashboardLayout = [
   "/dashboard/validators/phonenumbervalidator",
   "/dashboard/validators/whatsappvalidator",
   "/dashboard/tasks/[task]",
+  "/dashboard/scrapers/googlemaps",
 ];
 function MyApp({ Component, pageProps }) {
   const router = useRouter();

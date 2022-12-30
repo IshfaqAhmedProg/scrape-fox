@@ -99,7 +99,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4vh;
+  gap: 2.5vh;
 }
 .form fieldset {
   width: 375px;
@@ -108,6 +108,14 @@
   align-items: center;
   gap: 1rem;
   border: none;
+}
+.form .halfnhalf {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.halfnhalf input {
+  max-width: 6.25rem;
 }
 .error {
   border-radius: var(--border-radius-small);
@@ -125,8 +133,8 @@
 }
 /* take this to button component */
 .uploadbutton {
-  padding: 1.25em 1.625em;
-  gap: 0.5rem;
+  padding: 1em 1em;
+  gap: 0.5em;
   display: flex;
   flex-direction: row;
   align-items: center;
