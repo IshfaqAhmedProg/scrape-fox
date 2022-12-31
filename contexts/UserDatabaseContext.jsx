@@ -25,14 +25,7 @@ export const UserDatabaseContextProvider = ({ children }) => {
     "zipCode",
     "countryOrigin",
   ];
-  const TaskStruct = [
-    "taskId",
-    "dateCreated",
-    "queryCount",
-    "taskRunning",
-    "uid",
-    "service",
-  ];
+
   const [userDb, setUserDb] = useState({});
   const [loading, setLoading] = useState();
   const { user } = useAuth();

@@ -47,7 +47,6 @@ const Signup = () => {
         })
           .then((res) => res.json())
           .then((res) => {
-            console.log(res, "response from backend");
             if (res?.status === "success") {
               signup(data.email, data.password)
                 .then(() => {

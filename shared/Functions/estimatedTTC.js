@@ -15,6 +15,11 @@ export function estimatedTTC(query, service) {
         return calculateTTC("00:00:03", query);
       }
       break;
+    case "Google Maps Scraper":
+      {
+        return calculateTTC("00:00:03", query);
+      }
+      break;
     default:
       break;
   }

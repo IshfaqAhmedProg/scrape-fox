@@ -46,7 +46,6 @@ const WhatsAppValidator = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log("response", res);
         setValidationMssg({
           status: res[0].status,
           number: res[0].number,

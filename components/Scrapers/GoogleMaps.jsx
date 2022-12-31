@@ -1,8 +1,26 @@
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
+import { useUserDb } from "../../contexts/UserDatabaseContext";
 import styles from "../../styles/Forms.module.css";
 import Button from "../Button/Button";
 
 const GoogleMaps = () => {
+  const router = useRouter();
+  const [data, setData] = useState({
+    categories: "",
+    country: "",
+    state: "",
+    totalResults: 0,
+    placesPerQuery: 0,
+    dropDuplicates: false,
+  });
+  const { setUserTasks } = useUserDb();
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    setUserTasks(data, "Google Maps Scraper", data.totalResults).then(
+      router.replace("/dashboard")
+    );
+  };
   return (
     <div className={styles.formcontainer}>
       <h2>Google Maps Scraper</h2>
@@ -25,34 +43,93 @@ const GoogleMaps = () => {
           </p>
         </div>
         <div className={styles.formcard} data-shadow="outer">
-          <form className={styles.form}>
+          <form className={styles.form} onSubmit={handleFormSubmit}>
             <fieldset>
               <label className={styles.label}>Select Categories</label>
-              <input type="tel" placeholder="Enter Categories" />
+              <input
+                type="tel"
+                placeholder="Enter Categories"
+                value={data.categories}
+                onChange={(e) => {
+                  setData({
+                    ...data,
+                    categories: e.target.value,
+                  });
+                }}
+              />
             </fieldset>
             <fieldset>
               <label className={styles.label}>Select Location</label>
-              <input type="text" placeholder="Country" />
-              <input type="text" placeholder="State" />
+              <input
+                type="text"
+                placeholder="Country"
+                value={data.country}
+                onChange={(e) => {
+                  setData({
+                    ...data,
+                    country: e.target.value,
+                  });
+                }}
+              />
+              <input
+                type="text"
+                placeholder="State"
+                value={data.state}
+                onChange={(e) => {
+                  setData({
+                    ...data,
+                    state: e.target.value,
+                  });
+                }}
+              />
             </fieldset>
             <fieldset className={styles.halfnhalf}>
               <label className={styles.label}>
                 Total Results Limit{"("}0 - infinite{")"}
               </label>
-              <input type="number" />
+              <input
+                type="number"
+                value={data.totalResults}
+                onChange={(e) => {
+                  setData({
+                    ...data,
+                    totalResults: e.target.valueAsNumber,
+                  });
+                }}
+              />
             </fieldset>
             <fieldset className={styles.halfnhalf}>
               <label className={styles.label}>Places per query</label>
-              <input type="number" />
+              <input
+                type="number"
+                value={data.placesPerQuery}
+                onChange={(e) => {
+                  setData({
+                    ...data,
+                    placesPerQuery: e.target.valueAsNumber,
+                  });
+                }}
+              />
             </fieldset>
             <fieldset>
               <div className={styles.label}>
-                <input type="checkbox" />
+                <input
+                  type="checkbox"
+                  value={data.dropDuplicates}
+                  onChange={(e) => {
+                    setData({
+                      ...data,
+                      dropDuplicates: e.target.checked,
+                    });
+                  }}
+                />
                 Drop Duplicates
               </div>
             </fieldset>
             <fieldset>
-              <Button variant="primary">Scrape Data</Button>
+              <Button variant="primary" type="submit">
+                Scrape Data
+              </Button>
             </fieldset>
           </form>
         </div>

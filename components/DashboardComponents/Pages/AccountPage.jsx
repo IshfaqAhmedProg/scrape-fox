@@ -13,7 +13,6 @@ const AccountPage = () => {
   const [data, setData] = useState(userDb);
   const changeUserInfo = (e) => {
     e.preventDefault();
-    console.log(data);
     setUserInfo(data);
   };
   useEffect(() => {

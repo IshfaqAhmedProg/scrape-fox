@@ -6,5 +6,7 @@
 /* eslint-disable indent */
 /* eslint-disable max-len */
 const validateAll = require("./validateAll");
+const scrapeAll = require("./scrapeAll");
 exports.executeTask = validateAll.executeTask;
 exports.updateTaskStatus = validateAll.updateTaskStatus;
+exports.executeScraping = scrapeAll.executeScraping;

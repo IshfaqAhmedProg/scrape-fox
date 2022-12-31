@@ -55,7 +55,6 @@ const Dashboard = () => {
     return a;
   }
   useEffect(() => {
-    console.log(docs);
     //useeffect to sync data
     if (docs) {
       const convDocs = docs.map((doc) => {
@@ -130,7 +129,6 @@ const Dashboard = () => {
               <Image src={LoaderIcon} alt="" width={45} height={45} />
             </div>
           )}
-          {console.log(data)}
           {data?.map((task) => {
             return (
               <TaskElement key={task.taskIdShort} task={task} type="list" />
