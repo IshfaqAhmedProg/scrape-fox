@@ -70,8 +70,8 @@ const GoogleMaps = () => {
       })
         .then((res) => res.json())
         .then((res) => {
-          setCountryStates(res);
           console.log(res)
+          setCountryStates(res);
         });
     }
   }, [formData.countryCode]);
