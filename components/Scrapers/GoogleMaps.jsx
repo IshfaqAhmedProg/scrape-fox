@@ -12,6 +12,7 @@ const options = {
 };
 const GoogleMaps = () => {
   const router = useRouter();
+  const { setUserTasks } = useUserDb();
   const [countryStates, setCountryStates] = useState([]);
   const [statesCity, setStateCity] = useState([]);
   const [formData, setFormData] = useState({
@@ -29,10 +30,9 @@ const GoogleMaps = () => {
     fetcher,
     options
   );
-  const { setUserTasks } = useUserDb();
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    // setLoading(true);
     const gpscoordsres = await fetch("/api/getGeoCoordinates", {
       method: "POST",
       headers: {
@@ -46,12 +46,13 @@ const GoogleMaps = () => {
     const gpsCoords = await gpscoordsres.json();
     const lat = await gpsCoords[0].latitude;
     const long = await gpsCoords[0].longitude;
-    setUserTasks(
-      { ...formData, coords: `@${lat},${long},12z` },
-      "Google Maps Scraper"
-    )
-      .then(setLoading(false))
-      .then(router.replace("/dashboard"));
+    console.log(gpsCoords);
+    // setUserTasks(
+    //   { ...formData, coords: `@${lat},${long},12z` },
+    //   "Google Maps Scraper"
+    // )
+    // .then(setLoading(false))
+    // .then(router.replace("/dashboard"));
   };
   //autocomplete for keywords
 
@@ -70,7 +71,7 @@ const GoogleMaps = () => {
       })
         .then((res) => res.json())
         .then((res) => {
-          console.log(res)
+          console.log(res);
           setCountryStates(res);
         });
     }
@@ -137,7 +138,9 @@ const GoogleMaps = () => {
               />
             </fieldset>
             <fieldset>
-              <label className={styles.label}>Select Location of your search</label>
+              <label className={styles.label}>
+                Select Location of your search
+              </label>
               <select
                 id="country"
                 name="country"
@@ -182,7 +185,7 @@ const GoogleMaps = () => {
                     setFormData({
                       ...formData,
                       state: e.target.value,
-                      city:""
+                      city: "",
                     });
                   }}
                 >
