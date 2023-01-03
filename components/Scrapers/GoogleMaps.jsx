@@ -32,7 +32,7 @@ const GoogleMaps = () => {
   );
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    // setLoading(true);
+    setLoading(true);
     const gpscoordsres = await fetch("/api/getGeoCoordinates", {
       method: "POST",
       headers: {
@@ -43,16 +43,19 @@ const GoogleMaps = () => {
         loc: `${formData.country} ${formData.state} ${formData.city}`,
       }),
     });
-    const gpsCoords = await gpscoordsres.json();
-    const lat = await gpsCoords[0].latitude;
-    const long = await gpsCoords[0].longitude;
-    console.log(gpsCoords);
-    // setUserTasks(
-    //   { ...formData, coords: `@${lat},${long},12z` },
-    //   "Google Maps Scraper"
-    // )
-    // .then(setLoading(false))
-    // .then(router.replace("/dashboard"));
+    await gpscoordsres
+      .json()
+      .then((res) => {
+        setUserTasks(
+          {
+            ...formData,
+            coords: `@${res[0].latitude},${res[0].longitude},12z`,
+          },
+          "Google Maps Scraper"
+        );
+      })
+      .then(setLoading(false))
+      .then(router.replace("/dashboard"));
   };
   //autocomplete for keywords
 
@@ -71,7 +74,6 @@ const GoogleMaps = () => {
       })
         .then((res) => res.json())
         .then((res) => {
-          console.log(res);
           setCountryStates(res);
         });
     }
@@ -92,7 +94,6 @@ const GoogleMaps = () => {
       })
         .then((res) => res.json())
         .then((res) => {
-          console.log(res);
           setStateCity(res);
         });
     }
