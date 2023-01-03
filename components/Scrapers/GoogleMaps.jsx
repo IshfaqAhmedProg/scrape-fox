@@ -44,7 +44,6 @@ const GoogleMaps = () => {
       }),
     });
     const gpsCoords = await gpscoordsres.json();
-    console.log(gpsCoords);
     const lat = await gpsCoords[0].latitude;
     const long = await gpsCoords[0].longitude;
     setUserTasks(
@@ -72,6 +71,7 @@ const GoogleMaps = () => {
         .then((res) => res.json())
         .then((res) => {
           setCountryStates(res);
+          console.log(res)
         });
     }
   }, [formData.countryCode]);
