@@ -19,7 +19,7 @@ const Dashboard = () => {
   const [data, setData] = useState([]);
   const [lastData, setLastData] = useState(null);
   const [queryCall, setQueryCall] = useState(null);
-  const [ongoing, setOngoing] = useState(false);
+  const [ongoing, setOngoing] = useState([]);
   const [docs, loading, error] = useCollectionDataOnce(queryCall);
   const loadMoreTasks = () => {
     if (lastData == "nomoredata") return;
@@ -73,6 +73,11 @@ const Dashboard = () => {
       setLastData(docs[docs.length - 1] ? docs[docs.length - 1] : "nomoredata");
 
       setData((prev) => arrayUnique(prev.concat(convDocs)));
+      convDocs.forEach(element => {
+        if (element.taskRunning == true) {
+          setOngoing((prev) => arrayUnique(prev.concat(element)))
+        }
+      });
     }
   }, [docs]);
 
@@ -96,8 +101,8 @@ const Dashboard = () => {
             }
           })}
           {/* TODO fix ongoing task */}
-          {ongoing == false && !loading && (
-            <div className={styles.empty}>No ongoing tasks</div>
+          {ongoing.length == 0 && !loading && (
+            <div className={styles.empty}>Create a new task!</div>
           )}
           {lastData != "nomoredata" ? (
             <div
@@ -108,9 +113,7 @@ const Dashboard = () => {
               <Image src={LoadMoreIcon} alt="" />
             </div>
           ) : (
-            <p className={styles.loadmore} style={{ pointerEvents: "none" }}>
-              No more tasks!
-            </p>
+            ""
           )}
         </div>
       </div>
@@ -147,9 +150,7 @@ const Dashboard = () => {
               <Image src={LoadMoreIcon} alt="" style={{ rotate: "90deg" }} />
             </div>
           ) : (
-            <p className={styles.loadmore} style={{ pointerEvents: "none" }}>
-              No more tasks!
-            </p>
+            ""
           )}
         </div>
       </div>

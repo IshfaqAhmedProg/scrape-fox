@@ -1,8 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { AuthContextProvider } from "../contexts/AuthContext";
 import { ProtectedRoute } from "../shared/Hooks/protectedRoute";
-
 import "../styles/globals.css";
 import "@fontsource/montserrat/400.css";
 import "@fontsource/montserrat/700.css";
@@ -11,7 +9,7 @@ import Navbar from "../components/Navbar/Navbar";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { PublicRoute } from "../shared/Hooks/publicRoute";
+import { AuthContextProvider } from "../contexts/AuthContext";
 import { UserDatabaseContextProvider } from "../contexts/UserDatabaseContext";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
@@ -22,7 +20,6 @@ const noAuthRequired = [
   "/auth/resetpass",
   "/verifyfox",
 ];
-const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 const dashboardLayout = [
   "/dashboard",
   "/dashboard/profile",
@@ -33,6 +30,13 @@ const dashboardLayout = [
   "/dashboard/tasks/[task]",
   "/dashboard/scrapers/googlemaps",
 ];
+const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+
+// const theme=createTheme({
+//   theme:{
+//     fonts: {}
+//   }
+// })
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   useEffect(() => {

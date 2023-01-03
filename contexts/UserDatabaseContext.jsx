@@ -88,7 +88,7 @@ export const UserDatabaseContextProvider = ({ children }) => {
   };
 
   const loadMoreTasks = () => {};
-  const setUserTasks = async (task, service, queryCount) => {
+  const setUserTasks = async (task, service, queryCount = 0) => {
     let adder = null;
     const dateId = Date.now();
     const MY_NAMESPACE = process.env.NEXT_PUBLIC_UUID_NAMESPACE;

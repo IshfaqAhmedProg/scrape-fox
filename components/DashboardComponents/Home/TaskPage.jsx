@@ -27,6 +27,7 @@ const TaskPage = ({ task }) => {
     useDocumentData(taskResultsRef);
   const downloadFile = (filetype) => {
     if (taskResultsvalue != undefined) {
+      console.log(taskResultsvalue.results);
       const worksheet = utils.json_to_sheet(taskResultsvalue.results);
       const workbook = utils.book_new();
       utils.book_append_sheet(workbook, worksheet);
@@ -62,6 +63,7 @@ const TaskPage = ({ task }) => {
               <div className={styles.label}>
                 Status:
                 <span
+                  style={{ fontWeight: "bold" }}
                   data-taskstatus={
                     taskvalue.taskRunning == true ? "Running" : "Complete"
                   }

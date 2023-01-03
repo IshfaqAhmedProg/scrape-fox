@@ -46,7 +46,7 @@
   --bg-color-before: var(--primary);
   --bg-color-after: var(--primarylighter);
   --hover-bg-before: var(--primarylight);
-  --active-bg-before: var(--primary);
+  --active-bg-before: var(--primarydark);
   position: relative;
   padding: 0.875rem;
   background: none;
