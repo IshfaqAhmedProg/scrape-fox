@@ -21,7 +21,7 @@ exports.executeScraping = functions
     console.log(request);
     if (service == "Google Maps Scraper") {
       try {
-        const firestoreVals = await withPuppeteer.getLocalPlacesInfo(request.keywords, request.coords, request.language);
+        const firestoreVals = await withPuppeteer.getLocalPlacesInfo(`${request.keywords} in ${request.city} ${request.state} ${request.country}`, request.coords, request.language);
         // var businesses = await firestoreVals.reduce((obj, item) => (obj[item.title] = item, obj), {});
         return admin.firestore().collection("taskResults").doc(doc.id).set({
           results: firestoreVals,

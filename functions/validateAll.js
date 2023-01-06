@@ -6,6 +6,8 @@
 /* eslint-disable object-curly-spacing */
 /* eslint-disable indent */
 /* eslint-disable max-len */
+/* eslint-disable semi */
+/* eslint-disable no-extra-semi */
 const functions = require("firebase-functions");
 const fetch = require("node-fetch");
 const admin = require("firebase-admin");
@@ -126,11 +128,23 @@ const validateAllWhatsapp = async (numbers) => {
 exports.updateTaskStatus = functions.firestore
   .document("taskResults/{taskResultId}")
   .onCreate(async (doc, ctx) => {
-    return admin.firestore().collection("tasks").doc(doc.id).set(
-      {
-        taskRunning: false,
-        dateCompleted: admin.firestore.Timestamp.now(),
-      },
-      { merge: true }
-    );
+    const { resultsCount } = doc.data()
+    if (resultsCount) {
+      return admin.firestore().collection("tasks").doc(doc.id).set(
+        {
+          taskRunning: false,
+          dateCompleted: admin.firestore.Timestamp.now(),
+          queryCount: resultsCount,
+        },
+        { merge: true }
+      )
+    } else {
+      return admin.firestore().collection("tasks").doc(doc.id).set(
+        {
+          taskRunning: false,
+          dateCompleted: admin.firestore.Timestamp.now(),
+        },
+        { merge: true }
+      )
+    }
   });
