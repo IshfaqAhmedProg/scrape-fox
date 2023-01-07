@@ -3,7 +3,7 @@ const handler = (req, res) => {
     method: "GET",
     headers: {
       "X-RapidAPI-Key": process.env.RAPID_API_KEY,
-      "X-RapidAPI-Host": "mailcheck.p.rapidapi.com",
+      "X-RapidAPI-Host": "mailcheck.p.rapidapi.com"
     },
   };
   if (req.method === "POST") {
